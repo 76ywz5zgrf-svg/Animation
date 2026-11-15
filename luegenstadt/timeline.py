@@ -3,12 +3,11 @@ import json, subprocess, numpy as np
 
 SR = 44100
 SCRIPT = [  # id, speaker, text, pause after
-    ("n0", "N", "Er sagt, er lügt nie. Aber er versteckt etwas.", .5),
-    ("n1", "N", "In dieser Stadt wächst jeder, wenn er lügt. Jede Lüge: plus eins. Und jeder sieht deine Zahl.", .2),
+    ("n0", "N", "Er sagt, er lügt nie. Aber er versteckt etwas.", .35),
+    ("n1", "N", "In dieser Stadt wächst jeder, der lügt. Und jeder sieht deine Zahl.", .2),
     ("n2", "N", "Leo hat noch nie gelogen. Zahl: Null.", .2),
     ("t1", "tim", "Ich hab meine Hausaufgaben gemacht! Ups.", .45),
-    ("n3", "N", "Schrumpfen? Geht nur mit der Wahrheit. Und mit Aufgaben.", .15),
-    ("t2", "tim", "Okay, okay... ich trag ja schon die Kisten!", .8),
+    ("n3", "N", "Schrumpfen? Geht nur mit der Wahrheit. Und mit Aufgaben.", .55),
     ("n4", "N", "Nur einer ist anders: der Bürgermeister. Klein. Beliebt. Zahl: Null.", .15),
     ("m1", "mayor", "Liebe Bürger! Ich lüge niemals! Hahaha!", .2),
     ("n5", "N", "Aber Leo fiel was auf. Warum trägt er immer diesen Hut? Und warum machen alle anderen seine Aufgaben?", .15),
@@ -16,7 +15,7 @@ SCRIPT = [  # id, speaker, text, pause after
     ("m2", "mayor", "Was? Das... das stimmt doch gar nicht!", .1),
     ("n6", "N", "Und mit dieser Lüge... fiel der Hut.", 1.3),
     ("l2", "leo", "Neunundneunzig?! Du hast uns alle verarscht!", .25),
-    ("n7", "N", "Jetzt macht er seine Aufgaben selbst. Und der neue Bürgermeister? Der Kleinste der Stadt.", 1.8),
+    ("n7", "N", "Jetzt macht er seine Aufgaben selbst. Und der neue Bürgermeister? Der Kleinste der Stadt.", 1.5),
 ]
 
 def load(p):
@@ -49,9 +48,9 @@ TOTAL = round(t, 2)
 L = {l["id"]: l for l in lines}
 W = lambda lid, i: L[lid]["words"][i]["s"]
 ev = {
-    "bobTick": W("n1", 11),
+    "bobTick": -100.0,
     "timGrow": W("t1", 5),
-    "timShrink": L["t2"]["end"] + 0.25,
+    "timShrink": L["n3"]["end"] + 0.1,
     "hatFall": W("n6", 4),
     "mayorReveal": W("n6", 4) + 0.55,
     "mayorGrow": max(L["n6"]["end"] + 0.2, W("n6", 4) + 1.4),
@@ -84,7 +83,6 @@ shrink = env(tone(900, 250, 0.6), r=4)
 whoosh = env(np.convolve(rng.standard_normal(int(.5 * SR)), np.ones(40) / 40, "same").astype(np.float32) * np.hanning(int(.5 * SR)).astype(np.float32), a=0.05) * 2.5
 rumble = (np.convolve(rng.standard_normal(int(2 * SR)), np.ones(300) / 300, "same") * 12).astype(np.float32) * np.hanning(int(2 * SR)).astype(np.float32)
 grow = env(tone(90, 420, 2.0), a=0.1) * np.linspace(0.3, 1, int(2 * SR)).astype(np.float32)
-put(ev["bobTick"], pop, .5); put(ev["bobTick"] + .05, boing, .3)
 put(ev["timGrow"], pop, .5); put(ev["timGrow"] + .05, boing, .4)
 put(ev["timShrink"], pop, .4); put(ev["timShrink"] + .05, shrink, .3)
 put(ev["hatFall"], whoosh, .6)

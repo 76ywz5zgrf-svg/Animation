@@ -366,15 +366,8 @@ shot(B('n1'), (t, k, d) => {
   pose(leo, { pos: [1.5, 8.5], rot: 0.2, num: 0, exp: 'happy', look: 0.2 }, t);
   camMove([-2, 6, 24], [2, 4.8, 20], [0, 3, 2], [1, 3, 3], k / d);
 });
-// 2) "Jede Lüge: plus eins" - bob's number ticks
-shot(WS('n1', 8) - 0.1, (t, k) => {
-  const g = clamp((t - EV.bobTick) / 0.45); const n = t >= EV.bobTick ? 6 : 5;
-  const sz = lerp(sizeOf(5), sizeOf(6), springPop(g) * (g > 0 ? 1 : 0));
-  pose(bob, { pos: [0, 0], rot: 0, size: g > 0 ? sz : sizeOf(5), num: n, exp: g > 0 ? 'shock' : 'smug', talkSpk: null, badgePop: g > 0 && g < 1 ? 1 + Math.sin(g * Math.PI) * 0.5 : 1, look: -0.1 }, t);
-  cam([0.6, 2.3, 4.4], [0, 2.4, 0], 50);
-});
 // 3) "Und alle sehen deine Zahl" crowd sizes
-shot(WS('n1', 12) - 0.1, (t, k, d) => {
+shot(WS('n1', 7) - 0.1, (t, k, d) => {
   crowdLayout(t, { cx: 0, cz: 6, rot: 0, exp: 'neutral' });
   camMove([0, 3, 20], [0, 6, 18], [0, 3, 6], [0, 4.5, 6], k / d);
 });
@@ -396,20 +389,13 @@ shot(B('t1'), (t, k) => {
   pose(leo, { pos: [26.8, -2.6], rot: -0.9, num: 0, exp: g > 0 ? 'shock' : 'neutral', look: 0.2 }, t);
   cam([24.3, 2.3, 1.2], [24.8, 2.2, -3.6], 52);
 });
-// 6) "Wer wieder schrumpfen will ..." Tim looks at oma's boxes
-shot(B('n3'), (t, k, d) => {
-  pose(tim, { pos: [-24, 6], rot: 0.6, num: 8, exp: 'sad', walk: k < 1.5, }, t);
-  pose(oma, { pos: [-21, 6.5], rot: -1.0, num: 1, exp: 'happy' }, t);
-  boxesPile.visible = true; boxesPile.position.set(-22.5, 0, 4.6);
-  camMove([-19, 3.5, 14], [-20.5, 3, 12.5], [-22.5, 1.5, 5.5], [-22.5, 1.8, 5.5], k / d);
-});
 // 7) Tim carries the boxes, then shrinks
-shot(B('t2'), (t, k) => {
+shot(B('n3'), (t, k) => {
   const g = clamp((t - EV.timShrink) / 0.6);
   const sz = g > 0 ? lerp(sizeOf(8), sizeOf(7), springPop(g)) : sizeOf(8);
   const carrying = t < EV.timShrink - 0.1;
-  const x = lerp(-24, -21.5, clamp(k / 1.5));
-  pose(tim, { pos: [x, 6], rot: g > 0 ? 0.2 : Math.PI / 2 - 0.4, size: sz, num: g > 0 ? 7 : 8, exp: g > 0 ? 'happy' : 'sad', talkSpk: 'tim', carry: carrying, walk: carrying && k < 1.5, badgePop: g > 0 && g < 1 ? 1 + Math.sin(g * Math.PI) * 0.6 : 1, cheer: g > 0.4 }, t);
+  const x = lerp(-24.5, -21.5, clamp(k / 3.5));
+  pose(tim, { pos: [x, 6], rot: g > 0 ? 0.2 : Math.PI / 2 - 0.4, size: sz, num: g > 0 ? 7 : 8, exp: g > 0 ? 'happy' : 'sad', carry: carrying, walk: carrying && k < 3.5, badgePop: g > 0 && g < 1 ? 1 + Math.sin(g * Math.PI) * 0.6 : 1, cheer: g > 0.4 }, t);
   pose(oma, { pos: [-19.5, 7], rot: -1.3, num: 1, exp: 'happy', wave: g > 0 }, t);
   boxesPile.visible = carrying; if (carrying) { boxesPile.position.set(0, 0, 0); tim.root.updateMatrixWorld(true); const hp = new THREE.Vector3(-0.45, 1.25, 0.75); tim.root.localToWorld(hp); boxesPile.position.copy(hp); boxesPile.rotation.y = tim.root.rotation.y; boxesPile.scale.setScalar(0.6 * sz); }
   else boxesPile.scale.setScalar(1);
@@ -457,7 +443,7 @@ shot(WS('n5', 11) - 0.1, (t, k, d) => {
 // 11) Leo calls him out
 shot(B('l1'), (t, k) => {
   crowdLayout(t, { cx: 0, cz: 0.5, rot: Math.PI, exp: 'shock' });
-  pose(leo, { pos: [1.2, -4.3], rot: Math.PI - 0.15, num: 0, exp: 'angry', talkSpk: 'leo', point: t > LN.l1.words[2].s, }, t);
+  pose(leo, { pos: [1.2, -4.3], rot: Math.PI - 0.15, num: 0, exp: 'angry', talkSpk: 'leo', point: t > LN.l1.words[2].s, jump: t < LN.l1.words[2].s || (t > LN.l1.words[10].s && t < LN.l1.words[13].s) }, t);
   pose(mayor, { pos: [0, -6.9], y: 1.0, rot: 0.15, size: sizeOf(0), num: 0, hideBadge: true, exp: t > LN.l1.words[10].s ? 'shock' : 'happy' }, t);
   const first = t < LN.l1.words[8].s;
   if (first) cam([2.0, 2.0, 0.2], [0.8, 2.2, -4.3], 46);
@@ -489,7 +475,7 @@ shot(B('n6'), (t, k) => {
 shot(B('l2'), (t, k) => {
   pose(mayor, { pos: [0, -7.2], y: 1.0, rot: 0.25, size: sizeOf(100), num: 100, exp: 'panic', shrug: true, badgeScale: 1.3 }, t);
   mayor.hat.visible = false;
-  pose(leo, { pos: [1.6, -0.5], rot: Math.PI + 0.3, num: 0, exp: 'angry', talkSpk: 'leo', point: true, lookUp: -0.5 }, t);
+  pose(leo, { pos: [1.6, -0.5], rot: Math.PI + 0.3, num: 0, exp: 'shock', talkSpk: 'leo', point: t > LN.l2.words[1].s, jump: t < LN.l2.words[1].s, lookUp: -0.5 }, t);
   crowdLayout(t, { cx: -9, cz: 0.5, rot: Math.PI, exp: 'shock', lookUp: -0.5 });
   cam([6.5, 1.4, 9.5], [0.5, 9.6, -6], 74);
 });
