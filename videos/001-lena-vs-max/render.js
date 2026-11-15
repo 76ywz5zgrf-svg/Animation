@@ -20,7 +20,7 @@ const fs = require('fs'), path = require('path');
   }
   const fps = 30, n = Math.ceil(total * fps);
   const args = ['-y', '-f', 'image2pipe', '-framerate', String(fps), '-c:v', 'mjpeg', '-i', '-'];
-  if (audio) args.push('-i', audio, '-c:a', 'aac', '-b:a', '192k', '-shortest');
+  if (audio) args.push('-i', audio, '-af', 'apad', '-c:a', 'aac', '-b:a', '192k', '-shortest');
   args.push('-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-preset', 'medium', '-movflags', '+faststart', out);
   const ff = spawn('ffmpeg', args, { stdio: ['pipe', 'ignore', 'inherit'] });
   for (let i = 0; i < n; i++) {
