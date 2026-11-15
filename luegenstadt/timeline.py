@@ -3,19 +3,20 @@ import json, subprocess, numpy as np
 
 SR = 44100
 SCRIPT = [  # id, speaker, text, pause after
-    ("n1", "N", "In dieser Stadt wächst jeder Mensch so groß, wie oft er lügt. Jede Lüge: plus eins. Und alle sehen deine Zahl.", .35),
-    ("n2", "N", "Das ist Leo. Leo hat noch nie gelogen. Seine Zahl: Null.", .35),
-    ("t1", "tim", "Ich hab meine Hausaufgaben gemacht! Ups.", .6),
-    ("n3", "N", "Wer wieder schrumpfen will, muss die Wahrheit sagen. Und Aufgaben erfüllen.", .3),
-    ("t2", "tim", "Okay, okay... ich trag ja schon die Kisten!", 1.0),
-    ("n4", "N", "Aber einer ist ganz anders: der Bürgermeister. Klein, freundlich, und seine Zahl: Null.", .3),
-    ("m1", "mayor", "Liebe Bürger! Ich lüge niemals! Hihihi!", .35),
-    ("n5", "N", "Doch Leo merkte was Komisches. Warum trägt der Bürgermeister immer diesen riesigen Hut? Und warum müssen alle jeden Tag seine Aufgaben machen?", .3),
-    ("l1", "leo", "Moment mal! Die Aufgaben sind gar nicht für die Stadt. Die sind für dich! Damit du klein bleibst!", .3),
-    ("m2", "mayor", "Was? Das... das stimmt doch gar nicht!", .3),
-    ("n6", "N", "Und bei dieser Lüge... fiel der Hut runter.", 1.3),
-    ("l2", "leo", "Neunundneunzig?! Du hast uns alle verarscht!", .4),
-    ("n7", "N", "Seitdem macht der Bürgermeister seine Aufgaben selbst. Ganz schön viele. Und der neue Bürgermeister? Der Kleinste der ganzen Stadt.", 2.2),
+    ("n0", "N", "Er sagt, er lügt nie. Aber er versteckt etwas.", .5),
+    ("n1", "N", "In dieser Stadt wächst jeder, wenn er lügt. Jede Lüge: plus eins. Und jeder sieht deine Zahl.", .2),
+    ("n2", "N", "Leo hat noch nie gelogen. Zahl: Null.", .2),
+    ("t1", "tim", "Ich hab meine Hausaufgaben gemacht! Ups.", .45),
+    ("n3", "N", "Schrumpfen? Geht nur mit der Wahrheit. Und mit Aufgaben.", .15),
+    ("t2", "tim", "Okay, okay... ich trag ja schon die Kisten!", .8),
+    ("n4", "N", "Nur einer ist anders: der Bürgermeister. Klein. Beliebt. Zahl: Null.", .15),
+    ("m1", "mayor", "Liebe Bürger! Ich lüge niemals! Hahaha!", .2),
+    ("n5", "N", "Aber Leo fiel was auf. Warum trägt er immer diesen Hut? Und warum machen alle anderen seine Aufgaben?", .15),
+    ("l1", "leo", "Moment mal! Die Aufgaben sind gar nicht für die Stadt. Die sind für dich! Damit du klein bleibst!", .15),
+    ("m2", "mayor", "Was? Das... das stimmt doch gar nicht!", .1),
+    ("n6", "N", "Und mit dieser Lüge... fiel der Hut.", 1.3),
+    ("l2", "leo", "Neunundneunzig?! Du hast uns alle verarscht!", .25),
+    ("n7", "N", "Jetzt macht er seine Aufgaben selbst. Und der neue Bürgermeister? Der Kleinste der Stadt.", 1.8),
 ]
 
 def load(p):
@@ -23,7 +24,7 @@ def load(p):
     return np.frombuffer(b, np.float32).copy()
 
 wj = json.load(open("words.json"))
-t = 0.5
+t = 0.3
 lines, voice = [], []
 for lid, spk, text, gap in SCRIPT:
     a = load(f"voice/{lid}.wav"); dur = len(a) / SR
@@ -48,12 +49,12 @@ TOTAL = round(t, 2)
 L = {l["id"]: l for l in lines}
 W = lambda lid, i: L[lid]["words"][i]["s"]
 ev = {
-    "bobTick": W("n1", 15),
+    "bobTick": W("n1", 11),
     "timGrow": W("t1", 5),
     "timShrink": L["t2"]["end"] + 0.25,
     "hatFall": W("n6", 4),
     "mayorReveal": W("n6", 4) + 0.55,
-    "mayorGrow": L["n6"]["end"] + 0.2,
+    "mayorGrow": max(L["n6"]["end"] + 0.2, W("n6", 4) + 1.4),
 }
 json.dump({"total": TOTAL, "lines": lines, "ev": ev}, open("render/timeline.json", "w"), ensure_ascii=False, indent=1)
 
@@ -90,40 +91,44 @@ put(ev["hatFall"], whoosh, .6)
 put(ev["mayorReveal"], pop, .6)
 put(ev["mayorGrow"], grow, .35); put(ev["mayorGrow"], rumble, .6)
 for k in ("n2",):  # little pop when Leo's 0 is shown
-    put(W("n2", 10), pop, .35)
+    put(W("n2", 6), pop, .35)
 
-# cheerful plucked background loop (Karplus-Strong), quiet
-def pluck(freq, d=0.6):
-    n = int(d * SR); p = int(SR / freq); buf = rng.uniform(-1, 1, p).astype(np.float32); out = np.zeros(n, np.float32)
-    for i in range(n):
-        out[i] = buf[i % p]; buf[i % p] = 0.996 * 0.5 * (buf[i % p] + buf[(i + 1) % p])
-    return out
-cache = {}
-def P(f):
-    if f not in cache: cache[f] = pluck(f)
-    return cache[f]
+# tense pulsing score: kick, offbeat hats, saw bass; drops out before the reveal, then hits
 mus = np.zeros(N, np.float32)
-bpm = 112; beat = 60 / bpm
-chords = [[261.6, 329.6, 392.0], [196.0, 246.9, 293.7], [220.0, 261.6, 329.6], [174.6, 220.0, 261.6]]
-bass = [130.8, 98.0, 110.0, 87.3]
+bpm = 128; beat = 60 / bpm
+def saw(f, d):
+    tt = np.arange(int(d * SR)) / SR; x = 2 * ((tt * f) % 1) - 1
+    x = np.convolve(x, np.ones(18) / 18, "same")
+    return (x * np.exp(-tt * 6)).astype(np.float32)
+kick = env(tone(140, 42, 0.32), r=9)
+hat = np.diff(rng.standard_normal(int(.05 * SR) + 1)).astype(np.float32) * np.exp(-np.arange(int(.05 * SR)) / SR * 80).astype(np.float32) * .25
+roots = [110.0, 87.3, 130.8, 98.0]
+def addm(at, sig, g):
+    i = int(at * SR); n = min(len(sig), N - i)
+    if n > 0 and i >= 0: mus[i:i + n] += g * sig[:n]
+silence = (ev["hatFall"] - 1.6, ev["hatFall"])
 b = 0; tt = 0.0
-while tt < TOTAL + 0.5:
-    ci = (b // 4) % 4; ch = chords[ci]
-    i = int(tt * SR)
-    def add(sig, g):
-        n = min(len(sig), N - i)
-        if n > 0: mus[i:i + n] += g * sig[:n]
-    if b % 4 in (0, 2): add(P(bass[ci]), .5)
-    add(P(ch[b % 3]), .35);
-    j = int((tt + beat / 2) * SR)
-    if j < N:
-        s = P(ch[(b + 1) % 3] * 2); n = min(len(s), N - j); mus[j:j + n] += .18 * s[:n]
+while tt < TOTAL:
+    inten = 0.55 if tt < L["n4"]["start"] else (0.8 if tt < L["l1"]["start"] else 1.0)
+    if not (silence[0] <= tt < silence[1]):
+        r = roots[(b // 8) % 4]
+        if tt > 0.3: addm(tt, kick, 0.9 * inten)
+        addm(tt + beat / 2, hat, 0.6 * inten)
+        addm(tt, saw(r, beat * .45), .35 * inten); addm(tt + beat / 2, saw(r * (2 if b % 2 else 1), beat * .45), .3 * inten)
+        if tt > L["l1"]["start"]: addm(tt + beat / 4, hat, .35)
     b += 1; tt += beat
+# riser into the hat fall + big impacts
+rl = 1.6; rn = int(rl * SR); tt_ = np.arange(rn) / SR
+riser = (np.diff(rng.standard_normal(rn + 1)) * (tt_ / rl) ** 2 * .5 + np.sin(2 * np.pi * np.cumsum(200 * 4 ** (tt_ / rl)) / SR) * (tt_ / rl) * .3).astype(np.float32)
+addm(ev["hatFall"] - rl, riser, .8)
+boom = (env(tone(90, 28, 1.6), r=2.2) + np.convolve(rng.standard_normal(int(1.6 * SR)), np.ones(200) / 200, "same").astype(np.float32) * np.exp(-np.arange(int(1.6 * SR)) / SR * 3).astype(np.float32) * 6)
+for e in ("hatFall", "mayorReveal", "mayorGrow"): addm(ev[e], boom, 1.0)
+addm(0.0, boom, .7)
 # duck music under voice
 vabs = np.abs(vo); win = int(.15 * SR)
 envv = np.convolve(vabs, np.ones(win) / win, "same")
 duck = 1 - 0.55 * np.clip(envv / 0.05, 0, 1)
-mix = vo * 1.0 + fx * 0.8 + mus * 0.09 * duck
+mix = vo * 1.0 + fx * 0.8 + mus * 0.22 * duck
 mix /= max(1e-6, np.abs(mix).max()) / 0.95
 fade = int(1.2 * SR); mix[-fade:] *= np.linspace(1, 0, fade)
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", "-", "render/audio.wav"], input=mix.astype(np.float32).tobytes())

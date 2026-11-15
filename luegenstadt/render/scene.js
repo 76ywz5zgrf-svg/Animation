@@ -350,8 +350,14 @@ const S = [];
 const shot = (start, fn) => S.push({ start, fn });
 const B = id => LN[id].start - 0.12;
 
-// 1) town wide: people of different sizes walking
+// 0) hook: the hat with the fake 0, slow menacing push-in
 shot(0, (t, k, d) => {
+  pose(mayor, { pos: [0, -6.9], y: 1.0, rot: 0, size: sizeOf(0), num: 0, hideBadge: true, exp: t > WS('n0', 5) ? 'smug' : 'happy', tilt: Math.sin(t * 1.5) * 0.05 }, t);
+  const e = ease(k / d);
+  cam([lerp(1.5, 0.2, e), lerp(2.6, 3.3, e), lerp(-1.0, -4.3, e)], [0, lerp(3.2, 3.9, e), -7], 46);
+});
+// 1) town wide: people of different sizes walking
+shot(B('n1'), (t, k, d) => {
   crowd.forEach((c, i) => {
     const dir = i % 2 ? 1 : -1; const lane = -2 + (i % 4) * 1.8;
     const x = ((c.rx * 40 + dir * t * 1.6 * (1.2 - c.num * 0.01)) % 40 + 40) % 40 - 20;
@@ -361,25 +367,25 @@ shot(0, (t, k, d) => {
   camMove([-2, 6, 24], [2, 4.8, 20], [0, 3, 2], [1, 3, 3], k / d);
 });
 // 2) "Jede Lüge: plus eins" - bob's number ticks
-shot(WS('n1', 12) - 0.1, (t, k) => {
+shot(WS('n1', 8) - 0.1, (t, k) => {
   const g = clamp((t - EV.bobTick) / 0.45); const n = t >= EV.bobTick ? 6 : 5;
   const sz = lerp(sizeOf(5), sizeOf(6), springPop(g) * (g > 0 ? 1 : 0));
   pose(bob, { pos: [0, 0], rot: 0, size: g > 0 ? sz : sizeOf(5), num: n, exp: g > 0 ? 'shock' : 'smug', talkSpk: null, badgePop: g > 0 && g < 1 ? 1 + Math.sin(g * Math.PI) * 0.5 : 1, look: -0.1 }, t);
   cam([0.6, 2.3, 4.4], [0, 2.4, 0], 50);
 });
 // 3) "Und alle sehen deine Zahl" crowd sizes
-shot(WS('n1', 16) - 0.1, (t, k, d) => {
+shot(WS('n1', 12) - 0.1, (t, k, d) => {
   crowdLayout(t, { cx: 0, cz: 6, rot: 0, exp: 'neutral' });
   camMove([0, 3, 20], [0, 6, 18], [0, 3, 6], [0, 4.5, 6], k / d);
 });
 // 4) Leo intro
 shot(B('n2'), (t, k, d) => {
-  const walkEnd = 2.2;
+  const walkEnd = 1.0;
   const z = lerp(4, 7.5, clamp(k / walkEnd));
-  pose(leo, { pos: [0, z], rot: 0, num: 0, walk: k < walkEnd, exp: 'happy', wave: k > walkEnd + 0.3 && t < WS('n2', 8), badgePop: t > WS('n2', 10) ? 1 + Math.sin(clamp((t - WS('n2', 10)) / 0.4) * Math.PI) * 0.6 : 1 }, t);
+  pose(leo, { pos: [0, z], rot: 0, num: 0, walk: k < walkEnd, exp: 'happy', wave: k > walkEnd + 0.2 && t < WS('n2', 5), badgePop: t > WS('n2', 6) ? 1 + Math.sin(clamp((t - WS('n2', 6)) / 0.4) * Math.PI) * 0.6 : 1 }, t);
   crowd.slice(0, 4).forEach((c, i) => pose(c, { pos: [-4 + i * 2.6 + (i > 1 ? 2.6 : 0), 0.5 - (i % 2)], rot: 0.3 * (i - 1.5), num: c.num }, t));
-  const zoom = clamp((t - WS('n2', 8)) / 0.8);
-  camMove([0.5, 1.9, z + 4.6], [0.2, 2.6, z + 2.4], [0, 1.4, z], [0, 2.6, z], zoom, 50);
+  const zoom = clamp((t - WS('n2', 5)) / 0.6);
+  camMove([0.5, 1.9, z + 4.6], [0.3, 2.5, z + 3.3], [0, 1.4, z], [0, 2.4, z], zoom, 50);
 });
 // 5) Tim lies to the teacher, in front of the school
 shot(B('t1'), (t, k) => {
@@ -402,8 +408,8 @@ shot(B('t2'), (t, k) => {
   const g = clamp((t - EV.timShrink) / 0.6);
   const sz = g > 0 ? lerp(sizeOf(8), sizeOf(7), springPop(g)) : sizeOf(8);
   const carrying = t < EV.timShrink - 0.1;
-  const x = lerp(-24, -21.5, clamp(k / 2.5));
-  pose(tim, { pos: [x, 6], rot: g > 0 ? 0.2 : Math.PI / 2 - 0.4, size: sz, num: g > 0 ? 7 : 8, exp: g > 0 ? 'happy' : 'sad', talkSpk: 'tim', carry: carrying, walk: carrying && k < 2.5, badgePop: g > 0 && g < 1 ? 1 + Math.sin(g * Math.PI) * 0.6 : 1, cheer: g > 0.4 }, t);
+  const x = lerp(-24, -21.5, clamp(k / 1.5));
+  pose(tim, { pos: [x, 6], rot: g > 0 ? 0.2 : Math.PI / 2 - 0.4, size: sz, num: g > 0 ? 7 : 8, exp: g > 0 ? 'happy' : 'sad', talkSpk: 'tim', carry: carrying, walk: carrying && k < 1.5, badgePop: g > 0 && g < 1 ? 1 + Math.sin(g * Math.PI) * 0.6 : 1, cheer: g > 0.4 }, t);
   pose(oma, { pos: [-19.5, 7], rot: -1.3, num: 1, exp: 'happy', wave: g > 0 }, t);
   boxesPile.visible = carrying; if (carrying) { boxesPile.position.set(0, 0, 0); tim.root.updateMatrixWorld(true); const hp = new THREE.Vector3(-0.45, 1.25, 0.75); tim.root.localToWorld(hp); boxesPile.position.copy(hp); boxesPile.rotation.y = tim.root.rotation.y; boxesPile.scale.setScalar(0.6 * sz); }
   else boxesPile.scale.setScalar(1);
@@ -414,9 +420,9 @@ shot(B('n4'), (t, k, d) => {
   boxesPile.scale.setScalar(1); boxesPile.rotation.y = 0;
   crowdLayout(t, { cx: 0, cz: -1, rot: Math.PI, cheer: true, allCheer: false, jump: true });
   pose(mayor, { pos: [0, -6.9], y: 1.0, rot: 0, size: sizeOf(0), num: 0, hideBadge: true, exp: 'happy', wave: true }, t);
-  const close = t > WS('n4', 7) - 0.1;
-  if (!close) camMove([0, 9, 15], [0, 6, 9], [0, 3, -8], [0, 2.4, -7], k / (WS('n4', 7) - B('n4')), 50);
-  else camMove([0.4, 3.3, -2.4], [0.2, 3.6, -3.5], [0, 2.9, -7], [0, 3.6, -7], (t - WS('n4', 7)) / 2.5, 50);
+  const close = t > WS('n4', 6) - 0.1;
+  if (!close) camMove([0, 9, 15], [0, 6, 9], [0, 3, -8], [0, 2.4, -7], k / (WS('n4', 6) - B('n4')), 50);
+  else camMove([0.4, 3.3, -2.4], [0.2, 3.6, -3.5], [0, 2.9, -7], [0, 3.6, -7], (t - WS('n4', 6)) / 2.5, 50);
 });
 // 9) mayor speech
 shot(B('m1'), (t, k) => {
@@ -437,7 +443,7 @@ shot(WS('n5', 5) - 0.1, (t, k) => {
   cam([0, 4.0, z], [0, 4.0, -7], 46);
 });
 // 10c) everybody doing the mayor's tasks, the mayor relaxing
-shot(WS('n5', 13) - 0.1, (t, k, d) => {
+shot(WS('n5', 11) - 0.1, (t, k, d) => {
   crowd.forEach((c, i) => {
     if (i > 7) return;
     const x = -9 + i * 2.5, z = -1 + (i % 2) * 1.6;
@@ -496,8 +502,8 @@ shot(B('n7'), (t, k, d) => {
   camMove([14, 6, 22], [16, 7, 21], [26, 7, 0], [25, 8, 0], k / d, 55);
 });
 // 16) Leo is the new mayor
-shot(WS('n7', 10) - 0.1, (t, k, d) => {
-  pose(leoCopy, { pos: [0, -6.9], y: 1.0, rot: 0, num: 0, exp: 'happy', wave: t < WS('n7', 14), cheer: t >= WS('n7', 14), jump: t > LN.n7.end }, t);
+shot(WS('n7', 6) - 0.1, (t, k, d) => {
+  pose(leoCopy, { pos: [0, -6.9], y: 1.0, rot: 0, num: 0, exp: 'happy', wave: t < WS('n7', 10), cheer: t >= WS('n7', 10), jump: t > LN.n7.end }, t);
   crowdLayout(t, { cx: 0, cz: -1, rot: Math.PI, cheer: true, allCheer: true, jump: true });
   confettiAt(0, -4, t);
   const kk = clamp(k / 3.5);
@@ -524,12 +530,14 @@ function captionAt(t) {
 }
 function drawCaption(t) {
   const c = captionAt(t); if (!c) return;
-  const sc = 1 + 0.25 * Math.exp(-c.k * 18) * (c.k > 0 ? 1 : 0);
+  const sc = 1 + 0.35 * Math.exp(-c.k * 20) * (c.k > 0 ? 1 : 0);
   octx.save(); octx.translate(W / 2, H * 0.64); octx.scale(sc, sc);
   let fs = 74; octx.font = `900 ${fs}px Inter, sans-serif`;
   while (octx.measureText(c.w).width > W * 0.86 && fs > 30) { fs -= 4; octx.font = `900 ${fs}px Inter, sans-serif`; }
   octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.lineJoin = 'round';
   octx.lineWidth = 14; octx.strokeStyle = '#111'; octx.strokeText(c.w, 0, 0);
+  const KEY = /^(lügt|Lüge|lüge|Null|Hut|versteckt|Geheimnis|Neunundneunzig|verarscht|Ups|niemals|eins|Zahl|Aufgaben|Wahrheit|Kleinste)/i;
+  if (KEY.test(c.w)) { octx.lineWidth = 16; octx.strokeText(c.w, 0, 0); octx.fillStyle = '#ffd54a'; octx.fillText(c.w, 0, 0); octx.restore(); return; }
   octx.fillStyle = c.spk === 'N' ? '#ffffff' : c.spk === 'leo' ? '#ffe14d' : c.spk === 'mayor' ? '#ff8a80' : '#ffcc80';
   octx.fillText(c.w, 0, 0);
   octx.restore();
@@ -538,9 +546,23 @@ function drawCaption(t) {
 window.TOTAL = TL.total;
 window.renderAt = (t) => {
   layout(t);
+  // camera shake + zoom punches on story beats
+  const hits = [[EV.bobTick, .05, .10], [EV.timGrow, .06, .12], [EV.timShrink, .03, .06], [EV.hatFall, .10, .10], [EV.mayorReveal, .12, .16], [EV.mayorGrow, .35, .10], [WS('n2', 6), .02, .08], [WS('n4', 9), .02, .08], [LN.l1.words[8].s, .05, .10]];
+  let sh = 0, punch = 0;
+  for (const [e, a, p] of hits) if (t >= e) { const x = t - e; sh += a * Math.exp(-x * 4) * (e === EV.mayorGrow ? (x < 1.8 ? 1 : 0) * 3 : 1); punch += p * Math.exp(-x * 7); }
+  if (sh > 0.001) { camera.position.x += Math.sin(t * 71) * sh; camera.position.y += Math.cos(t * 53) * sh; }
+  if (punch > 0.001) { camera.fov *= 1 - punch; camera.updateProjectionMatrix(); }
   renderer.render(scene, camera);
   octx.drawImage(renderer.domElement, 0, 0);
+  // vignette (red pulse while the mayor panics)
+  const panicK = t > LN.m2.start && t < EV.mayorReveal + 1 ? 0.35 + 0.25 * Math.sin(t * 9) : 0;
+  const vg = octx.createRadialGradient(W / 2, H / 2, H * 0.28, W / 2, H / 2, H * 0.62);
+  vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, panicK ? `rgba(150,0,0,${panicK})` : 'rgba(0,0,0,0.45)');
+  octx.fillStyle = vg; octx.fillRect(0, 0, W, H);
   drawCaption(t);
+  // white flashes on the big reveals
+  let fl = 0; for (const e of [EV.hatFall, EV.mayorReveal, EV.timGrow, EV.bobTick]) if (t >= e) fl = Math.max(fl, (e === EV.mayorReveal ? 0.9 : 0.45) * Math.exp(-(t - e) * 9));
+  if (fl > 0.01) { octx.fillStyle = `rgba(255,255,255,${fl})`; octx.fillRect(0, 0, W, H); }
   // fade in / out
   const fo = Math.max(clamp(1 - t / 0.4), clamp((t - (TL.total - 0.8)) / 0.8));
   if (fo > 0) { octx.fillStyle = `rgba(0,0,0,${fo})`; octx.fillRect(0, 0, W, H); }

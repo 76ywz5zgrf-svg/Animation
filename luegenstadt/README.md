@@ -4,8 +4,8 @@ In dieser Stadt wächst jeder so groß, wie oft er lügt. Leo (Zahl 0) entlarvt 
 „kleinen, ehrlichen“ Bürgermeister, der seine echte Zahl (99) unter einem Hut mit
 falschem „0“-Schild versteckt und alle anderen seine Schrumpf-Aufgaben machen lässt.
 
-- `luegenstadt.mp4` – fertiges Video (720×1280, 30 fps, ~82 s, mit Ton)
-- `voice/` – Sprachclips (kindlich hochgepitcht). Leo: ElevenLabs („Knurps“), Erzähler/Tim/Bürgermeister: Microsoft Edge TTS
+- `luegenstadt.mp4` – fertiges Video (720×1280, 30 fps, ~65 s, mit Ton)
+- `voice/` – Sprachclips (normale Tonhöhe, Tim leicht höher). Leo: ElevenLabs („Knurps“, leicht beschleunigt), Erzähler/Tim/Bürgermeister: Microsoft Edge TTS (schnelleres Tempo)
 - `timeline.py` – baut `render/timeline.json` (Wort-Timings, Story-Events) und den Audio-Mix (Stimmen, Effekte, Musik)
 - `render/scene.js` – die komplette 3D-Szene (three.js): Stadt, Figuren, Kamera-Shots, Untertitel
 - `render/render.js` – rendert headless mit Playwright und kodiert mit ffmpeg
