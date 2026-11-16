@@ -16,3 +16,11 @@ Benötigt `pip install piper-tts numpy`, Playwright mit Chromium und die Piper-S
 
 Eigene Sprechzeilen (z. B. von ElevenLabs) als `voice_override/<id>.mp3` ablegen
 (IDs stehen in `make_audio.py`, z. B. `hook1`, `s3q`); das Video passt sich deren Länge an.
+
+## Stimmen (Version 2)
+
+Die Sprechzeilen in `voice_override/` stammen aus `gen_voices.py` (Chatterbox, mehrsprachig) und
+werden automatisch mit Whisper gegengeprüft. Klangvorlagen in `stimm_referenzen/`:
+Erzähler/Wachmann/Direktor aus dem Thorsten-Voice-Datensatz (CC0, Tonhöhe angepasst),
+Putzfrau aus CSS10 Deutsch (gemeinfreie LibriVox-Aufnahme).
+Stil pro Stimme (`STYLE` in `gen_voices.py`): höherer Wert = aufgeregter, niedriger = sanfter.

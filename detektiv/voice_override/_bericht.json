@@ -1,0 +1,144 @@
+{
+ "hook": {
+  "score": 1.0,
+  "dauer": 4.44,
+  "erkannt": "ein diebstahl drei verdächtige und nur einer lügt",
+  "schnitte": [
+   0.0,
+   1.2,
+   2.56,
+   4.44
+  ]
+ },
+ "crimeA": {
+  "score": 1.0,
+  "dauer": 3.28,
+  "erkannt": "mitternacht in der ganzen stadt fällt der strom aus",
+  "schnitte": [
+   0.0,
+   0.94,
+   3.28
+  ]
+ },
+ "crimeB": {
+  "score": 1.0,
+  "dauer": 4.2,
+  "erkannt": "am morgen ist der goldene pokal aus dem museum verschwunden",
+  "schnitte": [
+   0.0,
+   4.2
+  ]
+ },
+ "det": {
+  "score": 1.0,
+  "dauer": 3.72,
+  "erkannt": "detektiv fuchs befragt drei verdächtige",
+  "schnitte": [
+   0.0,
+   3.72
+  ]
+ },
+ "s1n": {
+  "score": 1.0,
+  "dauer": 1.48,
+  "erkannt": "der wachmann sagt",
+  "schnitte": [
+   0.0,
+   1.48
+  ]
+ },
+ "s1q": {
+  "score": 1.0,
+  "dauer": 2.68,
+  "erkannt": "ich steckte die ganze nacht im aufzug fest",
+  "schnitte": [
+   0.0,
+   2.68
+  ]
+ },
+ "s2n": {
+  "score": 1.0,
+  "dauer": 1.72,
+  "erkannt": "die putzfrau sagt",
+  "schnitte": [
+   0.0,
+   1.72
+  ]
+ },
+ "s2q": {
+  "score": 1.0,
+  "dauer": 2.96,
+  "erkannt": "ich habe bei kerzenlicht den boden gewischt",
+  "schnitte": [
+   0.0,
+   2.96
+  ]
+ },
+ "s3n": {
+  "score": 1.0,
+  "dauer": 2.36,
+  "erkannt": "der direktor sagt",
+  "schnitte": [
+   0.0,
+   2.36
+  ]
+ },
+ "s3q": {
+  "score": 0.84,
+  "dauer": 3.8,
+  "erkannt": "ich habe die ganze nacht in meinem büro fern gesehen",
+  "schnitte": [
+   0.0,
+   3.8
+  ]
+ },
+ "q": {
+  "score": 1.0,
+  "dauer": 1.88,
+  "erkannt": "wer ist der dieb",
+  "schnitte": [
+   0.0,
+   1.88
+  ]
+ },
+ "cd": {
+  "score": 1.0,
+  "dauer": 3.68,
+  "erkannt": "du hast fünf sekunden schreib deine antwort in die kommentare",
+  "schnitte": [
+   0.0,
+   1.55,
+   3.68
+  ]
+ },
+ "rev": {
+  "score": 1.0,
+  "dauer": 3.44,
+  "erkannt": "und die auflösung es war der direktor",
+  "schnitte": [
+   0.0,
+   1.42,
+   3.44
+  ]
+ },
+ "exp": {
+  "score": 1.0,
+  "dauer": 3.56,
+  "erkannt": "ohne strom läuft kein fernseher er hat gelogen",
+  "schnitte": [
+   0.0,
+   2.46,
+   3.56
+  ]
+ },
+ "cta": {
+  "score": 1.0,
+  "dauer": 3.44,
+  "erkannt": "richtig gelöst dann folge mir für mehr rätsel",
+  "schnitte": [
+   0.0,
+   1.2,
+   3.44
+  ]
+ }
+}

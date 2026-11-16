@@ -60,7 +60,11 @@ def synth(uid, voice, text):
     for ext in (".mp3", ".wav"):
         p = os.path.join(OVR, uid + ext)
         if os.path.exists(p):
-            src, filt = p, "silenceremove=start_periods=1:start_threshold=-45dB"
+            # Eingesprochene Zeilen: lange Pausen kuerzen, etwas mehr Tempo, Stimme praesenter
+            src, filt = p, ("silenceremove=start_periods=1:start_threshold=-40dB:"
+                            "stop_periods=-1:stop_duration=0.18:stop_threshold=-40dB,"
+                            f"atempo={1.12 if 'q' not in uid else 1.06},"
+                            "highpass=f=80,acompressor=threshold=-18dB:ratio=2.5:makeup=1.5")
     if src is None:
         model, spk, ls, pitch = VOICES[voice]
         src = os.path.join(VO, uid + "_raw.wav")
@@ -88,7 +92,7 @@ for sid, lines in SCRIPT:
     start = t
     for uid, voice, text, gap in lines:
         a = synth(uid, voice, text)
-        t += gap
+        t += gap * 0.72  # knapper Schnitt = mehr Spannung
         utt[uid] = {"start": round(t, 3), "end": round(t + len(a) / SR, 3), "voice": voice, "text": text}
         clips.append((t, a))
         t += len(a) / SR
