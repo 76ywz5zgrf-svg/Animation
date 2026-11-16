@@ -521,6 +521,11 @@ function drawCaption(t) {
   let fs = 74; octx.font = `900 ${fs}px Inter, sans-serif`;
   while (octx.measureText(c.w).width > W * 0.86 && fs > 30) { fs -= 4; octx.font = `900 ${fs}px Inter, sans-serif`; }
   octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.lineJoin = 'round';
+  if (c.spk === 'T') {
+    const tw = octx.measureText(c.w).width + 40, th = fs * 1.25;
+    octx.fillStyle = '#e53935'; octx.beginPath(); octx.roundRect(-tw / 2, -th / 2, tw, th, 16); octx.fill();
+    octx.fillStyle = '#ffffff'; octx.fillText(c.w, 0, 4); octx.restore(); return;
+  }
   octx.lineWidth = 14; octx.strokeStyle = '#111'; octx.strokeText(c.w, 0, 0);
   const KEY = /^(lügt|Lüge|lüge|Null|Hut|versteckt|Geheimnis|Neunundneunzig|verarscht|Ups|niemals|eins|Zahl|Aufgaben|Wahrheit|Kleinste)/i;
   if (KEY.test(c.w)) { octx.lineWidth = 16; octx.strokeText(c.w, 0, 0); octx.fillStyle = '#ffd54a'; octx.fillText(c.w, 0, 0); octx.restore(); return; }

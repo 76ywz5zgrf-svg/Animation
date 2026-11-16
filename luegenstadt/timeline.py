@@ -2,20 +2,21 @@
 import json, subprocess, numpy as np
 
 SR = 44100
-SCRIPT = [  # id, speaker, text, pause after
-    ("n0", "N", "Er sagt, er lügt nie. Aber er versteckt etwas.", .35),
-    ("n1", "N", "In dieser Stadt wächst jeder, der lügt. Und jeder sieht deine Zahl.", .2),
-    ("n2", "N", "Leo hat noch nie gelogen. Zahl: Null.", .2),
+SCRIPT = [  # id, speaker ("T" = on-screen text only, no voice), text, pause after
+    ("n0", "N", "Er sagt, er lügt nie. Aber er versteckt etwas.", .3),
+    ("n1", "T", "In dieser Stadt wächst jeder, der lügt. Und jeder sieht deine Zahl.", .1),
+    ("n2", "N", "Leo hat noch nie gelogen. Zahl: Null.", .15),
     ("t1", "tim", "Ich hab meine Hausaufgaben gemacht! Ups.", .45),
     ("n3", "N", "Schrumpfen? Geht nur mit der Wahrheit. Und mit Aufgaben.", .55),
-    ("n4", "N", "Nur einer ist anders: der Bürgermeister. Klein. Beliebt. Zahl: Null.", .15),
-    ("m1", "mayor", "Liebe Bürger! Ich lüge niemals! Hahaha!", .2),
-    ("n5", "N", "Aber Leo fiel was auf. Warum trägt er immer diesen Hut? Und warum machen alle anderen seine Aufgaben?", .15),
-    ("l1", "leo", "Moment mal! Die Aufgaben sind gar nicht für die Stadt. Die sind für dich! Damit du klein bleibst!", .15),
-    ("m2", "mayor", "Was? Das... das stimmt doch gar nicht!", .1),
-    ("n6", "N", "Und mit dieser Lüge... fiel der Hut.", 1.3),
-    ("l2", "leo", "Neunundneunzig?! Du hast uns alle verarscht!", .25),
-    ("n7", "N", "Jetzt macht er seine Aufgaben selbst. Und der neue Bürgermeister? Der Kleinste der Stadt.", 1.5),
+    ("n4", "T", "Nur einer ist anders: der Bürgermeister. Klein. Beliebt. Zahl: Null.", .1),
+    ("m1", "mayor", "Liebe Bürger! Ich lüge niemals! Hahaha!", .15),
+    ("n5", "N", "Aber Leo fiel was auf. Warum trägt er immer diesen Hut? Und warum machen alle anderen seine Aufgaben?", .1),
+    ("l1", "leo", "Moment mal! Die Aufgaben sind gar nicht für die Stadt. Die sind für dich! Damit du klein bleibst!", .1),
+    ("m2", "mayor", "Was? Das... das stimmt doch gar nicht!", .05),
+    ("n6", "T", "Und mit dieser Lüge... fiel der Hut.", 1.0),
+    ("l2", "leo", "Neunundneunzig?! Du hast uns alle verarscht!", .2),
+    ("n7", "T", "Jetzt macht er seine Aufgaben selbst. Und der neue Bürgermeister? Der Kleinste der Stadt.", .1),
+    ("n8", "T", "Und du? Wie groß wärst du? Schreib's in die Kommentare!", 1.2),
 ]
 
 def load(p):
@@ -24,12 +25,18 @@ def load(p):
 
 wj = json.load(open("words.json"))
 t = 0.3
-lines, voice = [], []
+lines, voice, ticks = [], [], []
 for lid, spk, text, gap in SCRIPT:
-    a = load(f"voice/{lid}.wav"); dur = len(a) / SR
     toks = text.replace("...", " ").split()
-    wh = wj[lid]
-    if len(wh) == len(toks):
+    if spk == "T":  # text card: fast TikTok reading pace, no voice
+        tim, c = [], 0.0
+        for x in toks:
+            d = 0.2 + 0.035 * len(x) + (0.25 if x[-1] in ".?!:" else 0); tim.append((c, c + d)); c += d
+        dur = c; a = None; wh = None
+    else:
+        a = load(f"voice/{lid}.wav"); dur = len(a) / SR; wh = wj[lid]
+    if wh is None: pass
+    elif len(wh) == len(toks):
         tim = [(s, e) for _, s, e in wh]
     elif len(wh) < len(toks):
         tim = [(s, e) for _, s, e in wh[:len(toks) - 1]]
@@ -42,7 +49,8 @@ for lid, spk, text, gap in SCRIPT:
             d = (a1 - a0) * (len(x) + 2) / L; tim.append((c, c + d)); c += d
     words = [{"w": w, "s": round(t + s, 3), "e": round(t + e, 3)} for w, (s, e) in zip(toks, tim)]
     lines.append({"id": lid, "spk": spk, "start": round(t, 3), "end": round(t + dur, 3), "words": words})
-    voice.append((t, a))
+    if a is not None: voice.append((t, a))
+    else: ticks.extend(w['s'] for w in words)
     t += dur + gap
 TOTAL = round(t, 2)
 L = {l["id"]: l for l in lines}
@@ -86,6 +94,7 @@ grow = env(tone(90, 420, 2.0), a=0.1) * np.linspace(0.3, 1, int(2 * SR)).astype(
 put(ev["timGrow"], pop, .5); put(ev["timGrow"] + .05, boing, .4)
 put(ev["timShrink"], pop, .4); put(ev["timShrink"] + .05, shrink, .3)
 put(ev["hatFall"], whoosh, .6)
+for tk in ticks: put(tk, env(tone(1800, 1200, 0.04), r=60), .25)
 put(ev["mayorReveal"], pop, .6)
 put(ev["mayorGrow"], grow, .35); put(ev["mayorGrow"], rumble, .6)
 for k in ("n2",):  # little pop when Leo's 0 is shown
