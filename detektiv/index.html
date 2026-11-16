@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Detektiv-Rätsel</title>
+<style>
+@font-face { font-family: "Poppins"; font-weight: 900; src: url("node_modules/@fontsource/poppins/files/poppins-latin-900-normal.woff2") format("woff2"); }
+@font-face { font-family: "Poppins"; font-weight: 800; src: url("node_modules/@fontsource/poppins/files/poppins-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Poppins"; font-weight: 700; src: url("node_modules/@fontsource/poppins/files/poppins-latin-700-normal.woff2") format("woff2"); }
+html, body { margin: 0; background: #000; overflow: hidden; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Poppins", sans-serif; }
+#gl { position: absolute; inset: 0; width: 1080px; height: 1920px; display: block; }
+#ui { position: absolute; inset: 0; }
+#flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+.cap { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 900; line-height: 1.05;
+  color: #fff; -webkit-text-stroke: 16px #101018; paint-order: stroke fill; letter-spacing: -1px;
+  text-shadow: 0 10px 0 rgba(0,0,0,.35); transform-origin: 50% 50%; opacity: 0; white-space: nowrap; }
+.cap.thin { font-weight: 800; -webkit-text-stroke: 11px #101018; text-shadow: 0 6px 0 rgba(0,0,0,.35); }
+.pill { display: inline-block; font-weight: 800; font-size: 38px; padding: 14px 34px; border-radius: 60px; color: #fff;
+  border: 5px solid #101018; margin: 0 10px; -webkit-text-stroke: 0; text-shadow: none; letter-spacing: 0; }
+.bar { position: absolute; left: 0; top: 0; width: 1080px; height: 190px; background: #14141f; opacity: 0; }
+#ring { position: absolute; left: 390px; top: 215px; width: 300px; height: 300px; opacity: 0; }
+#xmark { position: absolute; left: 290px; top: 640px; width: 500px; height: 500px; opacity: 0; transform-origin: 50% 50%; }
+</style>
+<script type="importmap">{ "imports": { "three": "./node_modules/three/build/three.module.js" } }</script>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl" width="1080" height="1920"></canvas>
+  <div id="ui"></div>
+  <svg id="ring" viewBox="0 0 300 300">
+    <circle cx="150" cy="150" r="118" fill="#1b1b28" stroke="#101018" stroke-width="10"/>
+    <circle id="ringArc" cx="150" cy="150" r="128" fill="none" stroke="#ffd21f" stroke-width="16" stroke-linecap="round"
+      stroke-dasharray="804.2" stroke-dashoffset="0" transform="rotate(-90 150 150)"/>
+    <text id="ringNum" x="150" y="207" text-anchor="middle" font-family="Poppins" font-weight="900" font-size="170" fill="#fff">5</text>
+  </svg>
+  <svg id="xmark" viewBox="0 0 100 100">
+    <path d="M16 16 L84 84 M84 16 L16 84" stroke="#101018" stroke-width="26" stroke-linecap="round"/>
+    <path d="M16 16 L84 84 M84 16 L16 84" stroke="#ff3b3b" stroke-width="15" stroke-linecap="round"/>
+  </svg>
+  <div id="flash"></div>
+</div>
+<script type="module" src="scene.js"></script>
+</body>
+</html>
