@@ -33,7 +33,7 @@ const ENV = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
 const fadeMat = new THREE.MeshBasicMaterial({ color: 0, transparent: true, opacity: 0, depthTest: false, depthWrite: false, fog: false, toneMapped: false });
 const fadeQ = new THREE.Mesh(new THREE.PlaneGeometry(4, 4), fadeMat); fadeQ.position.z = -0.1; fadeQ.renderOrder = 999; camera.add(fadeQ);
-const camFill = new THREE.PointLight(0xb8c6ff, 0.3, 4, 2); camFill.position.set(0, 0.6, 0.9); camera.add(camFill);
+const camFill = new THREE.PointLight(0xb8c6ff, 0.3, 4, 2); camFill.position.set(0, 0.2, 0.25); camera.add(camFill);
 
 const sky = skyDome(scene, '#03050c', '#0d1630', '#1c2240', 700);
 const STARS_NONE = null;
@@ -172,7 +172,7 @@ function searchlight(p, x, y, z) {
 }
 
 // ===== SET: Altstadt =====
-const street = makeSet('street', 0, 0, 0, { sky: true, fog: new THREE.FogExp2(0x0b1120, 0.022), fill: 0.35 });
+const street = makeSet('street', 0, 0, 0, { sky: true, fog: new THREE.FogExp2(0x0b1120, 0.022), fill: 0.25 });
 {
   const g = street;
   const cob = ctex(512, 512, (c, w, h) => {
@@ -211,7 +211,7 @@ const street = makeSet('street', 0, 0, 0, { sky: true, fog: new THREE.FogExp2(0x
 
 // ===== SET: Landesbank aussen =====
 const BO = V(0, 0, -400);
-const bank = makeSet('bank', BO.x, BO.y, BO.z, { sky: true, fog: new THREE.FogExp2(0x0b1120, 0.014), fill: 0.3 });
+const bank = makeSet('bank', BO.x, BO.y, BO.z, { sky: true, fog: new THREE.FogExp2(0x0b1120, 0.014), fill: 0.5 });
 const B = (x, y, z) => V(x + BO.x, y + BO.y, z + BO.z);
 let SL1, SL2;
 {
@@ -275,7 +275,7 @@ let SL1, SL2;
 
 // ===== SET: Gang =====
 const CO = V(300, 0, 0);
-const corr = makeSet('corr', CO.x, CO.y, CO.z, { sky: false, fog: new THREE.FogExp2(0x07090c, 0.035), fill: 0.45, bg: 0x000000 });
+const corr = makeSet('corr', CO.x, CO.y, CO.z, { sky: false, fog: new THREE.FogExp2(0x07090c, 0.035), fill: 0.5, bg: 0x000000 });
 const C = (x, y, z) => V(x + CO.x, y, z + CO.z);
 const corrLights = [];
 {
@@ -317,7 +317,7 @@ const corrLights = [];
 
 // ===== SET: Aufzug =====
 const EO = V(300, 0, 100);
-const elev = makeSet('elev', EO.x, EO.y, EO.z, { sky: false, fog: null, fill: 0.3, env: 0.35, exp: 0.95, bg: 0x000000 });
+const elev = makeSet('elev', EO.x, EO.y, EO.z, { sky: false, fog: null, fill: 0.04, env: 0.3, exp: 0.72, bg: 0x000000 });
 let elevBtn, elevDisp;
 {
   const g = elev; const steel = toon(0x8f959c, { metalness: 0.75, roughness: 0.32 });
@@ -353,7 +353,7 @@ function drawDisp(s, arrow) {
 
 // ===== SET: Tresor + Kommandozentrale =====
 const VO = V(300, 0, 250);
-const vault = makeSet('vault', VO.x, VO.y, VO.z, { sky: false, fog: new THREE.FogExp2(0x05070b, 0.02), fill: 0.4, env: 0.05, exp: 0.8, bg: 0x000000 });
+const vault = makeSet('vault', VO.x, VO.y, VO.z, { sky: false, fog: new THREE.FogExp2(0x05070b, 0.02), fill: 0.25, env: 0.05, exp: 0.8, bg: 0x000000 });
 const VV = (x, y, z) => V(x + VO.x, y, z + VO.z);
 let alarmFill; const hallLamps = []; let doorPiv, wheel, screenTex, folderCover, alarmLights = [], alarmBeacons = [], vaultLights = [];
 {
@@ -476,6 +476,18 @@ function show(name) {
   const s = SETS[name]; sky.visible = !!s.sky; scene.fog = s.fog; scene.background = s.sky ? null : new THREE.Color(s.bg || 0);
   renderer.toneMappingExposure = s.exp || 1.1; scene.environment = s.env ? ENV : null; scene.environmentIntensity = s.env || 0; camFill.intensity = s.fill;
 }
+// POV-Hände: locker im Bild / an Weltpunkt festhalten
+function idle(T, which = 'LR', o = {}) {
+  for (const k of which) {
+    const s = k === 'L' ? -1 : 1, sw = hand(T + s * 1.7, o.sway ?? 0.008, 1.2);
+    const hp = V(s * (o.x ?? 0.1), (o.y ?? -0.17) + (o.lift || 0), o.z ?? -0.36).add(sw);
+    R.setArm(k, V(s * 0.22, -0.6, 0.0), hp, V(-s * 0.3, 0.55, -1), V(-s * 0.55, -0.75, -0.2), o.curl ?? 0.6, null);
+  }
+}
+function gripW(k, w, fingerW = V(0, 0, -1), palmW = V(0, -1, 0), curl = 0.75) {
+  const s = k === 'L' ? -1 : 1;
+  R.setArm(k, V(s * 0.24, -0.6, 0.02), toCam(w), dirToCam(fingerW), dirToCam(palmW), curl, null);
+}
 const FWD_BEN = 0.27; // Ben schaut zu Malik
 const benStreet = () => place(ben, 0, 0, 0, FWD_BEN, {});
 
@@ -501,6 +513,7 @@ const SHOTS = {
     const pp = V(0.0, lerp(-0.075, -0.24, up), -0.3).add(vib).add(hand(T, 0.004, 2));
     R.phone.position.copy(pp); R.phone.rotation.set(lerp(0.12, -0.5, up), -0.06, 0.03);
     R.setArm('R', V(0.22, -0.5, 0.04), pp.clone().add(V(0.012, -0.075, -0.016)), V(0.05, 1, 0), V(0, 0, 1), 0.12, 1);
+    idle(T, 'L', { x: 0.085, y: lerp(-0.2, -0.17, up), z: -0.33 });
   },
   malik_talk(t, d, T) {
     show('street');
@@ -516,6 +529,14 @@ const SHOTS = {
       R.phone.position.copy(pp); R.phone.rotation.set(0.15, Math.PI - 0.15, 0);
       R.setArm('R', V(0.26, -0.55, -0.05), pp.clone().add(V(0.01, -0.075, -0.016)), V(0.05, 1, 0), V(0, 0, 1), 0.12, 1);
     }
+    if (hold <= 0.02) {
+      R.phone.visible = true; drawPhone(5);
+      const pp = V(0.1, -0.2, -0.34).add(hand(T, 0.006, 1.4));
+      R.phone.position.copy(pp); R.phone.rotation.set(-0.9, -0.25, 0.1);
+      R.setArm('R', V(0.24, -0.55, 0.02), pp.clone().add(V(0.012, -0.03, -0.06)), V(-0.05, 0.6, -0.8), V(0, 0.8, 0.6), 0.15, 1);
+    }
+    const gest = t > LS('malik_talk', 1) && t < LE('malik_talk', 1) ? 0.04 * Math.max(0, Math.sin(T * 5)) : 0;
+    idle(T, 'L', { lift: gest + (hold > 0.02 ? 0 : 0.01) });
     const crossed = 1 - ramp(t, buzz + 0.1, buzz + 0.5);
     const look = ramp(t, buzz + 0.3, buzz + 0.7) * (1 - ramp(t, l2 - 0.15, l2 + 0.2));
     const skeptic = t > LS('malik_talk', 1) && t < LE('malik_talk', 1) ? Math.sin(T * 4) * 0.12 : 0;
@@ -548,14 +569,16 @@ const SHOTS = {
   barrier(t, d, T) {
     show('bank'); patrol(T);
     const duck = ramp(t, d - 1.9, d - 1.5);
-    const pos = B(31.4, lerp(1.02, 0.66, duck), 12.8).add(hand(T, 0.01));
-    cam(pos, B(20.5, lerp(1.6, 1.2, duck), lerp(4.5, 6, t / d)).add(hand(T, 0.08)), 64);
-    const mpos = B(30.2, 0, 11.6);
-    place(malik, mpos.x, 0, mpos.z, faceTo(mpos.x, mpos.z, pos.x, pos.z) - 0.4, { crouch: lerp(0.75, 0.95, duck), lean: 0.2 + duck * 0.3, headX: duck * 0.5, talk: talk('MALIK', T), arms: { L: [-0.7, -0.1, -1.2], R: [-0.6, 0.1, -1.0] } });
+    const pos = B(30.72, lerp(1.05, 0.8, duck), 12.8).add(hand(T, 0.008));
+    const mpos = B(30.6, 0, 11.75);
+    const toM = ramp(t, 0.0, 0.35) * (1 - ramp(t, LE('barrier', 0) + 0.05, LE('barrier', 0) + 0.55));
+    cam(pos, vlerp(B(20.5, lerp(1.5, 1.15, duck), 6.0).add(hand(T, 0.06)), B(30.6, 0.95, 11.7), toM), 64);
+    gripW('L', B(30.12, 0.9 - duck * 0.1, 12.55), V(-1, -0.2, 0.15), V(0, -1, 0), 0.8);
+    gripW('R', B(30.12, 0.9 - duck * 0.1, 12.15), V(-1, -0.2, -0.15), V(0, -1, 0), 0.8);
+    place(malik, mpos.x, 0, mpos.z, faceTo(mpos.x, mpos.z, pos.x, pos.z) - 0.2, { crouch: lerp(0.75, 0.95, duck), lean: 0.2 + duck * 0.3, headX: duck * 0.5, talk: talk('MALIK', T), arms: { L: [-0.7, -0.1, -1.2], R: [-0.6, 0.1, -1.0] } });
     // Suchscheinwerfer streift über die Sperre
     const k = ramp(t, d - 2.6, d - 0.3);
     SL2.piv.rotation.set(0.17, lerp(-1.3, -0.15, k), 0); SL1.piv.rotation.set(0.12, Math.sin(T * 0.35) * 0.7, 0);
-    R.setArm('L', V(-0.25, -0.5, -0.1), V(-0.13, -0.3, -0.45), V(0.1, 0.1, -1), V(0, -1, 0), 0.5, null, duck < 0.5);
   },
   soldier_zoom(t, d, T) {
     show('bank'); patrol(T, true);
@@ -564,6 +587,7 @@ const SHOTS = {
     place(s, B(22.4, 0, 0).x, 0, B(0, 0, 4.4 - dist).z, rot, { walk: walk * 0.8, phase: dist * 2.7 });
     s.flash.rotation.y = Math.sin(T * 1.3) * 0.3;
     const z = ss(clamp(t / 1.7));
+    if (z < 0.25) { gripW('L', B(30.12, 0.9, 12.55), V(-1, -0.2, 0.15)); gripW('R', B(30.12, 0.9, 12.15), V(-1, -0.2, -0.15)); }
     cam(B(31.4, 1.05, 12.8).add(hand(T, 0.012 + z * 0.004)), B(22.4, 1.4, 4.4 - dist * 0.85).add(hand(T, 0.05 * z, 1.4)), lerp(64, 17, z));
     SL1.piv.rotation.set(0.12, Math.sin(T * 0.35) * 0.7, 0); SL2.piv.rotation.set(0.17, -0.15 + Math.sin(T * 0.4) * 0.3, 0);
   },
@@ -588,6 +612,7 @@ const SHOTS = {
     const pos = C(0.05, lerp(1.72 + Math.sin(ph) * 0.025, 1.05, stop), zc);
     cam(pos.add(hand(T, 0.01)), C(lerp(0.2, 0.5, stop), lerp(1.6, 1.3, stop), -24), lerp(66, 58, stop));
     const mz = zc - 1.7;
+    idle(T + ph * 0.1, 'LR', { x: 0.11, y: lerp(-0.18, -0.13, stop), z: -0.36, sway: 0.012, curl: lerp(0.4, 0.2, stop) });
     place(malik, C(-0.45, 0, 0).x, 0, C(0, 0, mz).z, lerp(Math.PI, 0.3, ramp(t, l1 - 0.25, l1 + 0.1)), { walk: (1 - stop) * 0.6, phase: ph, crouch: stop * 0.8, talk: talk('MALIK', T), wide: stop, arms: stop > 0.5 ? { L: [-0.4, -0.2, -0.6], R: [-1.3, 0.3, -0.4] } : undefined });
     const s = sol[0], sk = ramp(t, l1 - 0.7, d);
     place(s, C(lerp(4.5, 1.2, sk), 0, 0).x, 0, C(0, 0, -24.2).z, -Math.PI / 2 + sk * 0.6, { walk: 0.7, phase: T * 5 });
@@ -608,13 +633,15 @@ const SHOTS = {
   hide_pov(t, d, T) {
     show('corr'); flicker(T);
     const beat = Math.pow(Math.max(0, Math.sin(T * Math.PI * 2 / 0.82)), 8);
-    const pos = C(-2.35, 1.12, -9.4).add(hand(T, 0.006));
+    const pos = C(-2.35, 1.05, -9.4).add(hand(T, 0.006));
     cam(pos, C(0.2, 1.2, -15.3).add(hand(T, 0.05)), 50 - beat * 1.2);
     place(malik, C(-3.35, 0, 0).x, 0, C(0, 0, -9.9).z, 2.6, { crouch: 1.0, lean: 0.5, headX: 0.3, wide: 1, arms: { L: [-1.0, 0.4, -1.8], R: [-1.0, -0.4, -1.8] } });
     const s = sol[0], turn = ramp(t, 3.2, 3.8), away = Math.max(0, t - 3.6) * 1.3;
     const sp = C(0.4, 0, -15.6 - away);
     place(s, sp.x, 0, sp.z, lerp(-0.25, Math.PI, turn), { walk: t > 3.6 ? 0.7 : 0, phase: away * 2.6, talk: talk('SOLDAT', T), headY: lerp(-0.4, 0, turn) });
     s.flash.rotation.set(0.05, lerp(-0.7, 0.5, ramp(t, 0.3, 2.0)) * (1 - turn), 0);
+    const tense = 0.004 * Math.sin(T * 7);
+    idle(T, 'LR', { x: 0.075, y: -0.15 + tense, z: -0.42, curl: 0.85, sway: 0.003 });
   },
   elevator(t, d, T) {
     show('elev');
@@ -629,6 +656,8 @@ const SHOTS = {
     const rest = V(0.25, -0.45, -0.25), tip = toCam(btnW.add(V(-0.06 * (1 - ramp(t, 1.75, 1.9)), 0, 0)));
     const hp = vlerp(rest, tip.clone().add(dirToCam(V(-0.08, -0.01, 0.0))), ss(reach));
     if (reach > 0.01) R.setArm('R', V(0.3, -0.55, 0.05), hp, dirToCam(V(1, 0.05, 0)), dirToCam(V(0, -1, 0)), [0, 1, 1, 1], 1);
+    idle(T, 'L', { x: 0.09, y: -0.19, z: -0.34 });
+    if (reach <= 0.01) idle(T, 'R', { x: 0.1, y: -0.2, z: -0.34 });
     const fl = t < 2.2 ? '0' : t < 2.55 ? '−1' : t < 2.9 ? '−2' : '−3';
     drawDisp(fl, t > 2.0 && t < 3.0);
     fadeMat.opacity = ramp(t, d - 0.4, d);
@@ -649,6 +678,7 @@ const SHOTS = {
     const pos = VV(0.03, 1.72, -14.12 + back * 1.4).add(hand(T, 0.006 + (t > 2.6 && t < 3.0 ? 0.02 : 0)));
     cam(pos, VV(lerp(0, 0.4, back), lerp(2.25, 1.9, back), -15.5), lerp(80, 64, back));
     const hands = 1 - ramp(t, 2.9, 3.3);
+    if (hands <= 0.02) idle(T, 'LR', { y: -0.16 });
     if (hands > 0.02) {
       wheel.updateMatrixWorld(true);
       for (const [k, a0] of [['L', 2.0], ['R', 1.15]]) {
@@ -667,6 +697,7 @@ const SHOTS = {
     cam(pos.add(hand(T, 0.008)), VV(0, lerp(2.4, 4.0, u), -36), lerp(66, 50, ss(t / d)));
     place(malik, VV(1.1, 0, 0).x, 0, VV(0, 0, lerp(-14.6, -19.4, ss(clamp((t - 0.3) / 3.6)))).z, Math.PI, { walk: 0.5 * (1 - u), phase: ph, headX: -0.25 });
     folderCover.rotation.z = 0;
+    idle(T + ph * 0.1, 'LR', { y: lerp(-0.18, -0.15, u), sway: 0.01 * (1 - u) + 0.005 });
   },
   folder(t, d, T) {
     show('vault'); doorPiv.rotation.y = -1.45; drawScreen(T, false);
@@ -681,7 +712,10 @@ const SHOTS = {
       folderCover.updateMatrixWorld(true);
       const edge = folderCover.localToWorld(V(0.3, 0.01, 0.05));
       const hp = vlerp(V(0.22, -0.45, -0.2), toCam(edge), ramp(t, 0.0, 0.3) * (1 - ramp(t, 1.3, 1.8)));
-      R.setArm('R', V(0.3, -0.6, 0.0), hp, dirToCam(V(-0.4, -0.2, -1)), dirToCam(V(0, -1, 0)), 0.3, null);
+      const rest = ramp(t, 1.3, 1.8);
+      if (rest < 0.5) R.setArm('R', V(0.3, -0.6, 0.0), hp, dirToCam(V(-0.4, -0.2, -1)), dirToCam(V(0, -1, 0)), 0.3, null);
+      else gripW('R', VV(0.2, 0.93, -20.66), V(-0.3, 0, -1), V(0, -1, 0), 0.35);
+      gripW('L', VV(-0.2, 0.93, -20.62), V(0.3, 0, -1), V(0, -1, 0), 0.35);
     } else if (t < l2 - 0.1) {
       const u = (t - l1) / (l2 - l1);
       cam(vlerp(VV(0.75, 1.62, -20.7), VV(0.6, 1.64, -21.0), u).add(hand(T, 0.004)), VV(0.1, 1.64, -22.35), lerp(36, 28, u));
@@ -713,6 +747,7 @@ const SHOTS = {
       s.flash.rotation.set(0.05, Math.sin(T * 3 + i) * 0.05, 0); s.cone.visible = false;
     });
     const up = ramp(t, 2.6, 3.1);
+    if (up <= 0.01) idle(T, 'LR', { y: -0.17, sway: on ? 0.015 : 0.006 });
     if (up > 0.01) for (const k of ['L', 'R']) { const s = k === 'L' ? -1 : 1; R.setArm(k, V(s * 0.42, -0.4, -0.05), V(s * 0.24, lerp(-0.5, 0.06, up), -0.42), V(0, 1, -0.1), V(0, 0, -1), 0.08, null); }
     fadeMat.color.set(0x000000); fadeMat.opacity = ramp(t, d - 0.3, d);
   },
