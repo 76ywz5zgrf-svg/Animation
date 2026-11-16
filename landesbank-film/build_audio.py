@@ -12,6 +12,14 @@ os.makedirs(HERE + "/output", exist_ok=True)
 SR = 44100
 rng = np.random.default_rng(7)
 
+ENGINE = os.environ.get("VOICE_ENGINE", "edge")
+EDGE = {  # Microsoft Neural (de) – jede Rolle eigene Stimme
+    "BEN":    dict(voice="de-DE-ChristophNeural", rate="+6%", pitch="+0Hz", af=""),
+    "MALIK":  dict(voice="de-AT-JonasNeural", rate="+10%", pitch="+6Hz", af=""),
+    "SOLDAT": dict(voice="de-CH-JanNeural", rate="-6%", pitch="-20Hz", af="rubberband=pitch=0.8:formant=preserved,bass=g=5:f=110,acompressor=threshold=-20dB:ratio=4,"),
+    "FUNK":   dict(voice="en-US-BrianMultilingualNeural", rate="+0%", pitch="-4Hz",
+                   af="highpass=f=500,lowpass=f=2800,acrusher=bits=8:mix=0.35,"),
+}
 VOICES = {
     "BEN":    dict(model="de_DE-thorsten-high", speaker=None, length=0.92, af=""),
     "MALIK":  dict(model="de_DE-mls-medium", speaker=126, length=0.78, af=""),
@@ -23,7 +31,8 @@ VOICES = {
 _loaded = {}
 
 
-def tts(who, text, whisper, room):
+def tts(who, text, whisper, room, shout=False):
+    if ENGINE == "edge": return tts_edge(who, text, whisper, room, shout)
     v = VOICES[who]
     key = hashlib.md5(json.dumps([v, text, whisper, room], sort_keys=True).encode()).hexdigest()[:12]
     out = f"{B}/lines/{who}_{key}.wav"
@@ -45,20 +54,66 @@ def tts(who, text, whisper, room):
     return np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16) / 32768.0
 
 
+def tts_edge(who, text, whisper, room, shout):
+    v = EDGE[who]
+    key = hashlib.md5(json.dumps(["edge", v, text, whisper, room, shout], sort_keys=True).encode()).hexdigest()[:12]
+    out = f"{B}/lines/E_{who}_{key}.wav"
+    if not os.path.exists(out):
+        mp3 = out + ".mp3"
+        rate = v["rate"]
+        if whisper: rate = f"{int(rate.strip('%')) - 6:+d}%"
+        if shout: rate = f"{int(rate.strip('%')) + 8:+d}%"
+        for _ in range(3):
+            subprocess.run(["python3", f"{HERE}/tools/edge_tts_say.py", v["voice"], text, mp3, rate, v["pitch"]], capture_output=True)
+            if os.path.exists(mp3) and os.path.getsize(mp3) > 1000: break
+        trim = "silenceremove=start_periods=1:start_threshold=-50dB"
+        af = v["af"] + f"{trim},areverse,{trim},areverse,"
+        if whisper:  # gehaucht, nah am Mikro
+            af += "highpass=f=220,treble=g=5:f=5000,acompressor=threshold=-28dB:ratio=6,volume=0.55,"
+        if shout:
+            af += "acompressor=threshold=-24dB:ratio=5:makeup=6,alimiter=limit=0.9,"
+        af += "loudnorm=I=-17:TP=-1.5,"
+        if room: af += "aecho=0.8:0.55:38|85:0.2|0.1,"
+        af += "afade=t=in:d=0.01"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", mp3, "-af", af, "-ar", str(SR), "-ac", "1", out], check=True)
+        os.remove(mp3)
+    w = wave.open(out)
+    return np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16) / 32768.0
+
+
+def fit(x, maxdur):
+    """Zeile auf die Länge der bestehenden Bild-Timeline einpassen."""
+    d = len(x) / SR
+    if d <= maxdur: return x
+    f = min(d / maxdur, 1.35)
+    tmp_i, tmp_o = f"{B}/fit_in.wav", f"{B}/fit_out.wav"
+    w = wave.open(tmp_i, "wb"); w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
+    w.writeframes((np.clip(x, -1, 1) * 32767).astype(np.int16).tobytes()); w.close()
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp_i, "-af", f"rubberband=tempo={f:.4f}", tmp_o], check=True)
+    w = wave.open(tmp_o); return np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16) / 32768.0
+
+
+LOCK = json.load(open(f"{B}/timeline_locked.json")) if os.path.exists(f"{B}/timeline_locked.json") else None
+
 # ---------- Timeline ----------
 script = json.load(open(f"{HERE}/script.json"))
 T = 0.0; shots = []
-for s in script["shots"]:
+for si, s in enumerate(script["shots"]):
     cur = s.get("pad_start", 0.3); lines = []
-    for l in s["lines"]:
-        x = tts(l["who"], l["say"], l.get("whisper", False), s.get("room", False))
+    for li, l in enumerate(s["lines"]):
+        x = tts(l["who"], l.get("say_tts", l["say"]), l.get("whisper", False), s.get("room", False), l.get("shout", False))
+        if LOCK:
+            ls = LOCK["shots"][si]["lines"]; st = ls[li]["start"]
+            nxt = ls[li + 1]["start"] if li + 1 < len(ls) else LOCK["shots"][si]["dur"]
+            x = fit(x, max(ls[li]["dur"], nxt - st - 0.12))
         d = len(x) / SR
-        st = l["at"] if "at" in l else cur + l.get("gap", 0.0)
+        if not LOCK: st = l["at"] if "at" in l else cur + l.get("gap", 0.0)
         lines.append(dict(who=l["who"], text=l.get("sub", l["say"]), start=round(st, 3), dur=round(d, 3), _x=x,
                           whisper=l.get("whisper", False)))
         cur = st + d
     dur = max(s.get("min", 0), cur + s.get("pad_end", 0.3)) if lines else s["min"]
     dur = round(dur * 30) / 30
+    if LOCK: dur = LOCK["shots"][si]["dur"]
     shots.append(dict(id=s["id"], start=round(T, 4), dur=dur, lines=lines, amb=s.get("amb"), sfx=s.get("sfx", []),
                       title=s.get("title")))
     T += dur
@@ -360,12 +415,11 @@ ACTION = dict(
 md = ["# Stimmenskript – „Ebene −3“ (Teil 1)", "",
       f"Gesamtlänge: {TOTAL:.1f} s · Format 9:16 (1080×1920), 30 fps", "",
       "## Rollen", "",
-      "| Rolle | Wer | Stimme / Spielweise | Untertitelfarbe |", "|---|---|---|---|",
-      "| **BEN** | POV-Person (man sieht nur seine Hände) | jung, angespannt, entschlossen | weiß |",
-      "| **MALIK** | sein bester Freund | erst skeptisch, dann nervös; flüstert ab der Bank | gelb |",
-      "| **SOLDAT** | Bundeswehr-Posten | tief, hart; laut bei „Stehen bleiben!“ | hellblau |",
-      "| **FUNK** | Funkspruch | verrauscht, monoton | hellgrün |", "",
-      "Die Zeit vor jeder Zeile ist der Einsatz im Video (mm:ss.s). *(geflüstert)* = Flüsterton.", ""]
+      "| Rolle | Wer | Stimme im Video | Spielweise | Untertitelfarbe |", "|---|---|---|---|---|",
+      "| **BEN** | POV-Person (man sieht nur seine Hände) | Christoph (Neural, Deutsch) | jung, angespannt, entschlossen | weiß |",
+      "| **MALIK** | sein bester Freund | Jonas (Neural, höher, schneller) | erst skeptisch, dann nervös; flüstert ab der Bank | gelb |",
+      "| **SOLDAT** | Bundeswehr-Posten | Jan (Neural, tiefer gepitcht, hart komprimiert) | tief, kalt; brüllt „Stehen bleiben!“ | hellblau |",
+      "| **FUNK** | Funkspruch | Brian (Neural, Funkgerät-Filter) | verrauscht, monoton | hellgrün |", "",      "Die Zeit vor jeder Zeile ist der Einsatz im Video (mm:ss.s). *(geflüstert)* = Flüsterton.", ""]
 n = 0
 for s in shots:
     if s["id"] in SCENE: md += ["", f"## {SCENE[s['id']]}", ""]

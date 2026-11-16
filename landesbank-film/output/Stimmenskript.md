@@ -4,12 +4,12 @@ Gesamtlänge: 100.0 s · Format 9:16 (1080×1920), 30 fps
 
 ## Rollen
 
-| Rolle | Wer | Stimme / Spielweise | Untertitelfarbe |
-|---|---|---|---|
-| **BEN** | POV-Person (man sieht nur seine Hände) | jung, angespannt, entschlossen | weiß |
-| **MALIK** | sein bester Freund | erst skeptisch, dann nervös; flüstert ab der Bank | gelb |
-| **SOLDAT** | Bundeswehr-Posten | tief, hart; laut bei „Stehen bleiben!“ | hellblau |
-| **FUNK** | Funkspruch | verrauscht, monoton | hellgrün |
+| Rolle | Wer | Stimme im Video | Spielweise | Untertitelfarbe |
+|---|---|---|---|---|
+| **BEN** | POV-Person (man sieht nur seine Hände) | Christoph (Neural, Deutsch) | jung, angespannt, entschlossen | weiß |
+| **MALIK** | sein bester Freund | Jonas (Neural, höher, schneller) | erst skeptisch, dann nervös; flüstert ab der Bank | gelb |
+| **SOLDAT** | Bundeswehr-Posten | Jan (Neural, tiefer gepitcht, hart komprimiert) | tief, kalt; brüllt „Stehen bleiben!“ | hellblau |
+| **FUNK** | Funkspruch | Brian (Neural, Funkgerät-Filter) | verrauscht, monoton | hellgrün |
 
 Die Zeit vor jeder Zeile ist der Einsatz im Video (mm:ss.s). *(geflüstert)* = Flüsterton.
 
