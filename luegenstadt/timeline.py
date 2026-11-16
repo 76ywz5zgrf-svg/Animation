@@ -2,21 +2,21 @@
 import json, subprocess, numpy as np
 
 SR = 44100
-SCRIPT = [  # id, speaker ("T" = on-screen text only, no voice), text, pause after
+SCRIPT = [  # id, speaker ("T" = text card, "S" = silent beat), text, pause after
     ("n0", "N", "Er sagt, er lügt nie. Aber er versteckt etwas.", .3),
-    ("n1", "N", "In dieser Stadt wächst jeder, der lügt. Und jeder sieht deine Zahl.", .1),
+    ("n1", "T", "Hier wächst jeder, der lügt. Und jeder sieht deine Zahl.", .1),
     ("n2", "N", "Leo hat noch nie gelogen. Zahl: Null.", .15),
     ("t1", "tim", "Ich hab meine Hausaufgaben gemacht! Ups.", .45),
     ("n3", "N", "Schrumpfen? Geht nur mit der Wahrheit. Und mit Aufgaben.", .55),
-    ("n4", "N", "Nur einer ist anders: der Bürgermeister. Klein. Beliebt. Zahl: Null.", .1),
+    ("n4", "S", "Nur einer ist anders: der Bürgermeister. Klein. Beliebt. Zahl: Null.", 0),
     ("m1", "mayor", "Liebe Bürger! Ich lüge niemals! Hahaha!", .15),
     ("n5", "N", "Aber Leo fiel was auf. Warum trägt er immer diesen Hut? Und warum machen alle anderen seine Aufgaben?", .1),
     ("l1", "leo", "Moment mal! Die Aufgaben sind gar nicht für die Stadt. Die sind für dich! Damit du klein bleibst!", .1),
     ("m2", "mayor", "Was? Das... das stimmt doch gar nicht!", .05),
-    ("n6", "N", "Und mit dieser Lüge... fiel der Hut.", 1.0),
+    ("n6", "S", "Und mit dieser Lüge... fiel der Hut.", .6),
     ("l2", "leo", "Neunundneunzig?! Du hast uns alle verarscht!", .2),
-    ("n7", "N", "Jetzt macht er seine Aufgaben selbst. Und der neue Bürgermeister? Der Kleinste der Stadt.", .1),
-    ("n8", "N", "Und du? Wie groß wärst du? Schreib's in die Kommentare!", 1.2),
+    ("n7", "T", "Jetzt macht er seine Aufgaben selbst. Und der neue Bürgermeister? Der Kleinste der Stadt.", .1),
+    ("n8", "T", "Und du? Wie groß wärst du? Schreib's in die Kommentare!", 1.2),
 ]
 
 def load(p):
@@ -28,10 +28,10 @@ t = 0.3
 lines, voice, ticks = [], [], []
 for lid, spk, text, gap in SCRIPT:
     toks = text.replace("...", " ").split()
-    if spk == "T":  # text card: fast TikTok reading pace, no voice
+    if spk in ("T", "S"):  # text card / silent beat: fast TikTok reading pace, no voice
         tim, c = [], 0.0
         for x in toks:
-            d = 0.2 + 0.035 * len(x) + (0.25 if x[-1] in ".?!:" else 0); tim.append((c, c + d)); c += d
+            d = (0.2 + 0.035 * len(x) + (0.25 if x[-1] in ".?!:" else 0)) * (0.6 if spk == 'S' else 1); tim.append((c, c + d)); c += d
         dur = c; a = None; wh = None
     else:
         a = load(f"voice/{lid}.wav"); dur = len(a) / SR; wh = wj[lid]
@@ -50,7 +50,7 @@ for lid, spk, text, gap in SCRIPT:
     words = [{"w": w, "s": round(t + s, 3), "e": round(t + e, 3)} for w, (s, e) in zip(toks, tim)]
     lines.append({"id": lid, "spk": spk, "start": round(t, 3), "end": round(t + dur, 3), "words": words})
     if a is not None: voice.append((t, a))
-    else: ticks.extend(w['s'] for w in words)
+    elif spk == 'T': ticks.extend(w['s'] for w in words)
     t += dur + gap
 TOTAL = round(t, 2)
 L = {l["id"]: l for l in lines}

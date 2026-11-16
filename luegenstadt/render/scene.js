@@ -367,7 +367,7 @@ shot(B('n1'), (t, k, d) => {
   camMove([-2, 6, 24], [2, 4.8, 20], [0, 3, 2], [1, 3, 3], k / d);
 });
 // 3) "Und alle sehen deine Zahl" crowd sizes
-shot(WS('n1', 7) - 0.1, (t, k, d) => {
+shot(WS('n1', 5) - 0.1, (t, k, d) => {
   crowdLayout(t, { cx: 0, cz: 6, rot: 0, exp: 'neutral' });
   camMove([0, 3, 20], [0, 6, 18], [0, 3, 6], [0, 4.5, 6], k / d);
 });
@@ -507,7 +507,7 @@ function layout(t) {
 
 // ---------- captions ----------
 function captionAt(t) {
-  for (const l of TL.lines) for (let i = 0; i < l.words.length; i++) {
+  for (const l of TL.lines) if (l.spk !== 'S') for (let i = 0; i < l.words.length; i++) {
     const w = l.words[i], nx = l.words[i + 1];
     const end = nx ? nx.s : Math.min(l.end + 0.25, w.e + 0.4);
     if (t >= w.s - 0.03 && t < end) return { w: w.w.replace(/[.,:;]+$/, ''), k: t - w.s, spk: l.spk };
