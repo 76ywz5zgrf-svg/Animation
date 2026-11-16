@@ -15,22 +15,22 @@ os.makedirs(OUT, exist_ok=True)
 torch.set_num_threads(4)
 
 # Stimme: (uebertreibung, cfg) – mehr Uebertreibung = aufgeregter, weniger = sanfter
-STYLE = {"erz": (0.85, 0.35), "wach": (0.75, 0.4), "putz": (0.35, 0.5), "dir": (0.55, 0.45)}
+STYLE = {"erz": (1.3, 0.3), "wach": (0.95, 0.35), "putz": (0.35, 0.5), "dir": (0.55, 0.45)}
 # Gruppe -> (stimme, [(id, satz), ...]); Saetze einer Gruppe werden am Stueck gesprochen
 GROUPS = {
-    "hook": ("erz", [("hook1", "Ein Diebstahl!"), ("hook2", "Drei Verdächtige!"), ("hook3", "Und nur einer lügt.")]),
-    "crimeA": ("erz", [("crime1", "Mitternacht!"), ("crime2", "In der ganzen Stadt fällt der Strom aus!")]),
-    "crimeB": ("erz", [("crime3", "Am Morgen ist der goldene Pokal aus dem Museum verschwunden!")]),
-    "det": ("erz", [("det1", "Detektiv Fuchs befragt drei Verdächtige.")]),
+    "hook": ("erz", [("hook1", "Ein Diebstahl!"), ("hook2", "Drei Verdächtige!"), ("hook3", "Und nur einer ... lügt!")]),
+    "crimeA": ("erz", [("crime1", "Mitternacht!"), ("crime2", "Plötzlich fällt in der ganzen Stadt der Strom aus!")]),
+    "crimeB": ("erz", [("crime3", "Und am Morgen ... ist der goldene Pokal verschwunden!")]),
+    "det": ("erz", [("det1", "Detektiv Fuchs befragt drei Verdächtige!")]),
     "s1n": ("erz", [("s1n", "Der Wachmann sagt:")]),
     "s1q": ("wach", [("s1q", "Ich steckte die ganze Nacht im Aufzug fest!")]),
     "s2n": ("erz", [("s2n", "Die Putzfrau sagt:")]),
     "s2q": ("putz", [("s2q", "Ich habe bei Kerzenlicht den Boden gewischt.")]),
     "s3n": ("erz", [("s3n", "Der Direktor sagt:")]),
     "s3q": ("dir", [("s3q", "Ich habe die ganze Nacht in meinem Büro ferngesehen.")]),
-    "q": ("erz", [("q1", "Wer ist der Dieb?")]),
-    "cd": ("erz", [("cd1", "Du hast fünf Sekunden!"), ("cd2", "Schreib deine Antwort in die Kommentare!")]),
-    "rev": ("erz", [("rev1", "Und die Auflösung:"), ("rev2", "Es war der Direktor!")]),
+    "q": ("erz", [("q1", "Wer ... ist der Dieb?!")]),
+    "cd": ("erz", [("cd1", "Du hast nur fünf Sekunden!"), ("cd2", "Schreib deine Antwort in die Kommentare!")]),
+    "rev": ("erz", [("rev1", "Und die Auflösung ..."), ("rev2", "Es war der Direktor!")]),
     "exp": ("erz", [("exp1", "Ohne Strom läuft kein Fernseher!"), ("exp2", "Er hat gelogen!")]),
     "cta": ("erz", [("cta1", "Richtig gelöst?"), ("cta2", "Dann folge mir für mehr Rätsel!")]),
 }
@@ -45,7 +45,7 @@ for gid in (sys.argv[1:] or GROUPS):
     want = norm(text)
     ex, cfg = STYLE[voice]
     best = None
-    for seed in range(1, 6):
+    for seed in range(1, 9):
         torch.manual_seed(seed * 101 + len(text))
         wav = tts.generate(text, language_id="de", audio_prompt_path=os.path.join(REF, voice + ".wav"),
                            exaggeration=ex, cfg_weight=cfg)

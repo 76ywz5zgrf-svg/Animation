@@ -1,50 +1,50 @@
 {
  "hook": {
   "score": 1.0,
-  "dauer": 4.44,
+  "dauer": 4.04,
   "erkannt": "ein diebstahl drei verdächtige und nur einer lügt",
   "schnitte": [
    0.0,
-   1.2,
-   2.56,
-   4.44
+   1.07,
+   2.04,
+   4.04
   ]
  },
  "crimeA": {
   "score": 1.0,
-  "dauer": 3.28,
-  "erkannt": "mitternacht in der ganzen stadt fällt der strom aus",
+  "dauer": 3.32,
+  "erkannt": "mitternacht plötzlich fällt in der ganzen stadt der strom aus",
   "schnitte": [
    0.0,
-   0.94,
-   3.28
+   0.71,
+   3.32
   ]
  },
  "crimeB": {
   "score": 1.0,
-  "dauer": 4.2,
-  "erkannt": "am morgen ist der goldene pokal aus dem museum verschwunden",
+  "dauer": 3.44,
+  "erkannt": "und am morgen ist der goldene pokal verschwunden",
   "schnitte": [
    0.0,
-   4.2
+   3.44
   ]
  },
  "det": {
   "score": 1.0,
-  "dauer": 3.72,
+  "dauer": 3.88,
   "erkannt": "detektiv fuchs befragt drei verdächtige",
   "schnitte": [
    0.0,
-   3.72
+   3.88
   ]
  },
  "s1n": {
   "score": 1.0,
-  "dauer": 1.48,
+  "dauer": 2.24,
   "erkannt": "der wachmann sagt",
   "schnitte": [
    0.0,
-   1.48
+   2.24
   ]
  },
  "s1q": {
@@ -58,11 +58,11 @@
  },
  "s2n": {
   "score": 1.0,
-  "dauer": 1.72,
+  "dauer": 1.48,
   "erkannt": "die putzfrau sagt",
   "schnitte": [
    0.0,
-   1.72
+   1.48
   ]
  },
  "s2q": {
@@ -76,11 +76,11 @@
  },
  "s3n": {
   "score": 1.0,
-  "dauer": 2.36,
+  "dauer": 2.56,
   "erkannt": "der direktor sagt",
   "schnitte": [
    0.0,
-   2.36
+   2.56
   ]
  },
  "s3q": {
@@ -94,51 +94,51 @@
  },
  "q": {
   "score": 1.0,
-  "dauer": 1.88,
+  "dauer": 2.64,
   "erkannt": "wer ist der dieb",
   "schnitte": [
    0.0,
-   1.88
+   2.64
   ]
  },
  "cd": {
   "score": 1.0,
-  "dauer": 3.68,
-  "erkannt": "du hast fünf sekunden schreib deine antwort in die kommentare",
+  "dauer": 4.16,
+  "erkannt": "du hast nur fünf sekunden schreib deine antwort in die kommentare",
   "schnitte": [
    0.0,
-   1.55,
-   3.68
+   2.19,
+   4.16
   ]
  },
  "rev": {
   "score": 1.0,
-  "dauer": 3.44,
+  "dauer": 3.08,
   "erkannt": "und die auflösung es war der direktor",
   "schnitte": [
    0.0,
-   1.42,
-   3.44
+   1.18,
+   3.08
   ]
  },
  "exp": {
   "score": 1.0,
-  "dauer": 3.56,
+  "dauer": 3.64,
   "erkannt": "ohne strom läuft kein fernseher er hat gelogen",
   "schnitte": [
    0.0,
-   2.46,
-   3.56
+   2.52,
+   3.64
   ]
  },
  "cta": {
   "score": 1.0,
-  "dauer": 3.44,
+  "dauer": 3.96,
   "erkannt": "richtig gelöst dann folge mir für mehr rätsel",
   "schnitte": [
    0.0,
-   1.2,
-   3.44
+   1.21,
+   3.96
   ]
  }
 }

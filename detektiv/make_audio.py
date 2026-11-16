@@ -207,6 +207,23 @@ for i in range(int(COUNTDOWN_LEN)):
     add(sfx, timeline["countdownStart"] + i + 0.5, tick(900), 0.12)
 for j in range(4):
     add(sfx, timeline["countdownStart"] + 4 + j * 0.25, tick(1900), 0.18)
+# Herzschlag: leise ab der Frage, lauter und schneller im Countdown
+hb = 0.0
+x = S["q"]["start"]
+while x < S["rev"]["start"] - 0.3:
+    inc = x >= timeline["countdownStart"]
+    add(sfx, x, kick(0.25), 0.55 if inc else 0.3)
+    add(sfx, x + 0.17, kick(0.2), 0.38 if inc else 0.2)
+    x += 0.62 if inc else 0.8
+# Spannungs-Anstieg (Riser) bis zur Aufloesung, dann kurze Stille vor dem Knall
+r_end = utt["rev2"]["start"] - 0.08
+r_len = r_end - S["rev"]["start"] + 0.4
+n = np.arange(int(r_len * SR)) / SR
+riser = noise_burst(r_len, 0.08) * (n / r_len) ** 2.2 + 0.4 * np.sin(2 * np.pi * (180 * n + 260 * n * n / r_len)) * (n / r_len) ** 2
+add(sfx, r_end - r_len, riser / (np.abs(riser).max() + 1e-9), 0.22)
+# Ueberraschungs-Stinger beim Pokal-Verschwinden
+add(sfx, utt["crime3"]["end"] - 0.6, bell(277.18, 1.2), 0.12)
+add(sfx, utt["crime3"]["end"] - 0.6, kick(0.4), 0.35)
 # Aufloesung: Fanfare + heller Teppich
 r0 = utt["rev2"]["start"] - 0.05
 for j, f in enumerate((587.33, 739.99, 880.0, 1174.66)):
