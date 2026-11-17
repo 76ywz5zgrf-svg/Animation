@@ -12,11 +12,12 @@
   h1 { font-size:clamp(20px,5vw,30px); margin:4px 0 8px; }
   #stage { position:relative; width:min(640px,100%); aspect-ratio: 4 / 5; border-radius:16px; overflow:hidden; background:#24232e; touch-action:none; }
   #stage canvas { display:block; width:100%; height:100%; }
-  #sub { position:absolute; left:0; right:0; bottom:16px; text-align:center; font-size:clamp(18px,4.5vw,26px); font-style:italic;
+  #sub { position:absolute; left:50%; transform:translateX(-50%); width:max-content; max-width:92%; bottom:14px; background:rgba(20,18,30,.72); padding:6px 16px; border-radius:999px; text-align:center; font-size:clamp(18px,4.5vw,26px); font-style:italic;
          color:var(--accent); text-shadow:0 2px 8px #000; pointer-events:none; }
   #hint { position:absolute; top:10px; left:0; right:0; text-align:center; font-size:13px; opacity:.6; pointer-events:none; }
   #err { position:absolute; inset:0; display:none; align-items:center; justify-content:center; text-align:center; padding:20px; }
   button { margin-top:12px; background:var(--accent); color:#2b1f4a; border:0; border-radius:999px; padding:12px 26px; font-size:18px; font-weight:700; cursor:pointer; }
+  #sub:empty { display:none; }
 </style>
 </head>
 <body>
@@ -27,7 +28,7 @@
   <div id="err">WebGL wird von diesem Browser nicht unterstützt.</div>
 </div>
 <button id="play">▶ Abspielen</button>
-<audio id="voice" src="audio/good-boy.mp3" preload="auto"></audio>
+<audio id="voice" src="audio/good-boy-20s.mp3" preload="auto"></audio>
 
 <script src="vendor/three.min.js"></script>
 <script src="vendor/OrbitControls.js"></script>
@@ -311,7 +312,10 @@ const zs = [0, 1, 2].map(i => { const sp = new THREE.Sprite(new THREE.SpriteMate
 // ---------- Audio / Lippensync ----------
 const audio = document.getElementById('voice');
 const sub = document.getElementById('sub'), btn = document.getElementById('play');
-const lines = [[0.4,'Heeey… 🥱'],[2.5,'mmmh…'],[4.9,'mein kleiner…'],[7.8,'Good Boy… 😏'],[10.9,'mmmmh… 💕']];
+const lines = [[0.3,'Heeey… 🥱'],[1.5,'mmmh…'],[3.0,'Good Boy… 😏'],[4.7,'mein kleiner…'],[6.3,'guter Junge… 🥺'],[7.9,'ja… du bist mein Good Boy 💕'],[11.7,'mmmh…'],[13.2,'komm her… 🥱'],[14.8,'mein kleiner guter Junge… 😏'],[17.1,'Good Boy… 💕'],[18.7,'mmmmh… z z z']];
+const RENDER = new URLSearchParams(location.search).has('render');
+if (RENDER) document.getElementById('hint').style.display = 'none';
+window.__t = 0; window.__lvl = 0;
 let actx, analyser, data;
 function setupAudio() {
   if (actx) return;
@@ -346,9 +350,9 @@ new ResizeObserver(resize).observe(stage); resize();
 const green = new THREE.Color(0x5f9a86), purple = new THREE.Color(0x86699f), tmpC = new THREE.Color();
 let smooth = 0; const clock = new THREE.Clock();
 function tick() {
-  const t = clock.getElapsedTime();
-  smooth += (level() - smooth) * 0.35;
-  const talking = !audio.paused;
+  const t = RENDER ? window.__t : clock.getElapsedTime();
+  smooth += ((RENDER ? window.__lvl : level()) - smooth) * 0.35;
+  const talking = RENDER ? (window.__t > 0.2 && window.__t < 20.2) : !audio.paused;
 
   bird.rotation.z = Math.sin(t * 1.2) * .025;
   bird.rotation.x = Math.sin(t * .9) * .015;
@@ -373,11 +377,17 @@ function tick() {
     z.scale.setScalar(.18 + p * .22 + i * .03); z.material.opacity = talking ? 0 : Math.sin(p * Math.PI) * .85;
   });
 
-  if (talking) { let txt = ''; for (const [tm, l] of lines) if (audio.currentTime >= tm) txt = l; sub.textContent = txt; }
-  controls.update();
+  const now = RENDER ? t : audio.currentTime;
+  if (talking || RENDER) { let txt = ''; for (const [tm, l] of lines) if (now >= tm) txt = l; sub.textContent = txt; }
+  if (RENDER) {   // langsame Kamerafahrt fürs Video
+    const a = -0.95 + Math.sin(t * 0.18) * 0.55, dist = 9.4 - t * 0.05;
+    camera.position.set(-0.2 + Math.sin(a) * dist, 2.9 + Math.sin(t * 0.25) * 0.4, Math.cos(a) * dist);
+    camera.lookAt(-0.3, 1.55, 0);
+  } else controls.update();
   renderer.render(scene, camera);
-  requestAnimationFrame(tick);
+  if (!RENDER) requestAnimationFrame(tick);
 }
+window.__frame = (time, lvl) => { window.__t = time; window.__lvl = lvl; tick(); };
 tick();
 })();
 </script>
