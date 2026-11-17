@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Good Boy Wellensittich</title>
+<title>Good Boy Taube</title>
 <style>
-  :root { --bg1:#3a2f4f; --bg2:#120e1c; --text:#f4e9ff; --accent:#ff9ec7; }
+  :root { --bg1:#3a3a4f; --bg2:#121219; --text:#f1eef8; --accent:#ff9ec7; }
   * { box-sizing: border-box; }
   body { margin:0; min-height:100vh; background:radial-gradient(circle at 50% 35%, var(--bg1), var(--bg2)); color:var(--text);
          font-family: system-ui, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; overflow-x:hidden; }
@@ -15,9 +15,9 @@
   #sub { min-height:2.4em; font-size:clamp(18px,4.5vw,26px); font-style:italic; color:var(--accent); text-align:center; }
   button { margin-top:8px; background:var(--accent); color:#2b1f4a; border:0; border-radius:999px; padding:12px 26px; font-size:18px; font-weight:700; cursor:pointer; }
   #bird { transform-origin: 260px 600px; animation: sway 5s ease-in-out infinite; }
-  @keyframes sway { 0%,100%{ transform:rotate(-1.8deg);} 50%{ transform:rotate(1.8deg);} }
-  #head { transform-origin: 255px 240px; animation: nod 6s ease-in-out infinite; }
-  @keyframes nod { 0%,100%{ transform:rotate(0);} 40%{ transform:rotate(-4deg) translateY(2px);} 70%{ transform:rotate(3deg);} }
+  @keyframes sway { 0%,100%{ transform:rotate(-1.5deg);} 50%{ transform:rotate(1.5deg);} }
+  #head { transform-origin: 235px 230px; animation: nod 6s ease-in-out infinite; }
+  @keyframes nod { 0%,100%{ transform:rotate(0);} 40%{ transform:rotate(-5deg) translateY(3px);} 70%{ transform:rotate(3deg);} }
   .toe { transform-box: fill-box; transform-origin: 50% 0; animation: toes 2.2s ease-in-out infinite; }
   @keyframes toes { 0%,100%{ transform:scaleY(1);} 50%{ transform:scaleY(.86);} }
   .z { font: 600 26px Georgia, serif; fill:#d8ccff; opacity:0; animation: zz 4s linear infinite; }
@@ -27,43 +27,51 @@
 </style>
 </head>
 <body>
-<h1>🦜 Der Good-Boy-Wellensittich</h1>
+<h1>🕊️ Die Good-Boy-Taube</h1>
 <div id="stage" title="Klick mich">
-<svg viewBox="0 0 520 700" aria-label="Verschlafener Wellensittich mit Menschenfüßen">
+<svg viewBox="0 0 520 700" aria-label="Verschlafene Stadttaube mit Menschenfüßen">
 <defs>
-  <!-- flauschige Federkanten -->
   <filter id="fluff" x="-10%" y="-10%" width="120%" height="120%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="n"/>
-    <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
-  <!-- feine Federstruktur -->
   <filter id="grain" x="0" y="0" width="100%" height="100%">
-    <feTurbulence type="fractalNoise" baseFrequency="1.6 0.35" numOctaves="3" seed="8" result="t"/>
-    <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 -0.12" result="a"/>
+    <feTurbulence type="fractalNoise" baseFrequency="1.4 0.4" numOctaves="3" seed="8" result="t"/>
+    <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 -0.12" result="a"/>
     <feComposite in="a" in2="SourceGraphic" operator="in"/>
   </filter>
   <filter id="soft"><feGaussianBlur stdDeviation="6"/></filter>
   <filter id="soft2"><feGaussianBlur stdDeviation="2"/></filter>
+  <filter id="soft4"><feGaussianBlur stdDeviation="4"/></filter>
 
-  <radialGradient id="bodyG" cx="35%" cy="40%" r="75%">
-    <stop offset="0" stop-color="#9fe05a"/><stop offset=".45" stop-color="#6cc23a"/>
-    <stop offset=".85" stop-color="#3f8f25"/><stop offset="1" stop-color="#2c6a1b"/>
+  <radialGradient id="bodyG" cx="30%" cy="35%" r="80%">
+    <stop offset="0" stop-color="#a9aec2"/><stop offset=".5" stop-color="#868ca3"/>
+    <stop offset=".85" stop-color="#5f6479"/><stop offset="1" stop-color="#474b5c"/>
   </radialGradient>
-  <radialGradient id="headG" cx="38%" cy="35%" r="70%">
-    <stop offset="0" stop-color="#fff59a"/><stop offset=".6" stop-color="#f3dc3a"/><stop offset="1" stop-color="#c9a81e"/>
+  <radialGradient id="headG" cx="35%" cy="30%" r="75%">
+    <stop offset="0" stop-color="#8e93a8"/><stop offset=".6" stop-color="#6c7186"/><stop offset="1" stop-color="#4b4f61"/>
   </radialGradient>
-  <linearGradient id="tailG" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#2f6f6a"/><stop offset=".5" stop-color="#244f8f"/><stop offset="1" stop-color="#16285a"/>
+  <linearGradient id="neckG" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#5d6a7a"/>
+    <stop offset=".3" stop-color="#3f9a7c"><animate attributeName="stop-color" values="#3f9a7c;#7a4fa6;#3f9a7c" dur="5s" repeatCount="indefinite"/></stop>
+    <stop offset=".6" stop-color="#8a5aa8"><animate attributeName="stop-color" values="#8a5aa8;#3c9c86;#8a5aa8" dur="5s" repeatCount="indefinite"/></stop>
+    <stop offset="1" stop-color="#7d83a0"/>
+  </linearGradient>
+  <linearGradient id="wingG" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#c3c8d6"/><stop offset=".6" stop-color="#a6abbd"/><stop offset="1" stop-color="#7a7f93"/>
+  </linearGradient>
+  <linearGradient id="tailG" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#7d8296"/><stop offset="1" stop-color="#5c6074"/>
   </linearGradient>
   <linearGradient id="beakG" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#f4ead0"/><stop offset=".6" stop-color="#d9c79a"/><stop offset="1" stop-color="#a8956a"/>
+    <stop offset="0" stop-color="#4a4446"/><stop offset=".7" stop-color="#2a2527"/><stop offset="1" stop-color="#191517"/>
   </linearGradient>
   <radialGradient id="cereG" cx="40%" cy="35%" r="70%">
-    <stop offset="0" stop-color="#8fb0ff"/><stop offset=".7" stop-color="#3f63c4"/><stop offset="1" stop-color="#2a4290"/>
+    <stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#e3e1dc"/><stop offset="1" stop-color="#b9b5ad"/>
   </radialGradient>
-  <radialGradient id="eyeG" cx="40%" cy="40%" r="60%">
-    <stop offset="0" stop-color="#1b1410"/><stop offset=".55" stop-color="#0b0806"/>
-    <stop offset=".62" stop-color="#cfc6b4"/><stop offset=".9" stop-color="#a49a88"/><stop offset="1" stop-color="#3a3228"/>
+  <radialGradient id="eyeG" cx="50%" cy="50%" r="50%">
+    <stop offset="0" stop-color="#0a0606"/><stop offset=".38" stop-color="#0a0606"/>
+    <stop offset=".45" stop-color="#ffb23a"/><stop offset=".8" stop-color="#e5571c"/><stop offset="1" stop-color="#9c2b10"/>
   </radialGradient>
   <linearGradient id="skinShin" x1="0" y1="0" x2="1" y2="0">
     <stop offset="0" stop-color="#b9785a"/><stop offset=".3" stop-color="#e2a988"/>
@@ -79,17 +87,10 @@
     <stop offset="0" stop-color="#f6dcd6"/><stop offset=".75" stop-color="#e9b8ad"/><stop offset="1" stop-color="#fff4ec"/>
   </linearGradient>
 
-  <clipPath id="headClip"><circle cx="255" cy="172" r="78"/></clipPath>
-  <clipPath id="wingClip"><path id="wingPathC" d="M283 232 C342 248 366 330 360 410 C356 455 343 490 332 520 C312 480 289 425 279 360 C271 308 268 262 283 232Z"/></clipPath>
-  <clipPath id="bodyClip"><path d="M208 228 C150 290 158 425 215 472 C245 498 302 496 332 468 C364 424 354 300 302 232 Z"/></clipPath>
-  <!-- Bänderung nur am Hinterkopf, nicht in der gelben Maske -->
-  <mask id="barMask">
-    <rect width="520" height="700" fill="#000"/>
-    <circle cx="255" cy="172" r="80" fill="#fff"/>
-    <path d="M150 140 C175 95 215 92 240 112 C226 140 224 170 236 196 C240 222 248 250 262 268 L150 280Z" fill="#000" filter="url(#soft2)"/>
-  </mask>
+  <clipPath id="wingClip"><path d="M250 268 C320 250 388 298 398 370 C408 430 432 490 462 534 C412 514 350 474 302 432 C258 392 236 322 250 268Z"/></clipPath>
+  <clipPath id="tailClip"><path d="M330 432 L446 566 L476 546 L364 424Z"/></clipPath>
+  <clipPath id="bodyClip"><path d="M196 252 C140 300 148 405 205 458 C246 492 322 490 362 450 C396 410 392 300 332 250 C300 228 228 228 196 252Z"/></clipPath>
 
-  <!-- Fuß, Großzeh auf +x-Seite -->
   <g id="foot">
     <ellipse cx="2" cy="78" rx="52" ry="9" fill="#000" opacity=".35" filter="url(#soft2)"/>
     <path d="M-19 -6 C-22 16 -36 34 -44 52 C-48 64 -40 72 -30 72 L40 74 C50 74 54 64 49 52 C42 36 28 16 20 -6 Z" fill="url(#skinFoot)"/>
@@ -126,17 +127,21 @@
       <path d="M28 60 l1 -3 M33 60 l1 -3 M37 61 l1 -3 M6 62 l0 -3 M-8 62 l0 -3"/>
     </g>
   </g>
+
 </defs>
 
-<!-- Ast -->
-<path d="M0 668 C140 650 380 690 520 660 L520 700 L0 700Z" fill="#3b2a1e"/>
-<path d="M0 668 C140 650 380 690 520 660" stroke="#5b4330" stroke-width="5" fill="none"/>
+<!-- Pflaster / Gehweg -->
+<path d="M0 668 L520 668 L520 700 L0 700Z" fill="#4a4a52"/>
+<path d="M0 668 L520 668" stroke="#6a6a74" stroke-width="3"/>
+<path d="M120 668 l-10 32 M300 668 l8 32 M450 668 l-6 32" stroke="#36363c" stroke-width="2"/>
 
 <g id="bird">
   <!-- Schwanz -->
   <g filter="url(#fluff)">
-    <path d="M318 430 C332 500 352 580 378 668 L398 662 C380 580 360 500 345 430Z" fill="url(#tailG)"/>
-    <path d="M328 432 C338 505 352 590 366 672 L376 670 C366 590 352 505 340 432Z" fill="#1d3f7a"/>
+    <path d="M330 432 L446 566 L476 546 L364 424Z" fill="url(#tailG)"/>
+  </g>
+  <g clip-path="url(#tailClip)">
+    <path d="M410 520 L470 470 L500 520 L450 580Z" fill="#1f1f26" opacity=".9"/>
   </g>
 
   <!-- Beine (Menschenbeine) -->
@@ -149,71 +154,68 @@
     <!-- Beinbehaarung -->
     <g stroke="#5a3826" stroke-width="1" opacity=".55" stroke-linecap="round" id="hair"></g>
     <!-- Federhosen -->
-    <ellipse cx="238" cy="474" rx="30" ry="18" fill="#4f9e2c" filter="url(#fluff)"/>
-    <ellipse cx="292" cy="474" rx="30" ry="18" fill="#4a962a" filter="url(#fluff)"/>
+    <ellipse cx="238" cy="474" rx="30" ry="18" fill="#7a7f93" filter="url(#fluff)"/>
+    <ellipse cx="292" cy="474" rx="30" ry="18" fill="#6f7488" filter="url(#fluff)"/>
     <use href="#foot" transform="translate(226 596) rotate(10) scale(-1 1)"/>
     <use href="#foot" transform="translate(304 596) rotate(-10)"/>
   </g>
 
+
   <!-- Körper -->
   <g filter="url(#fluff)">
-    <path d="M208 228 C150 290 158 425 215 472 C245 498 302 496 332 468 C364 424 354 300 302 232 Z" fill="url(#bodyG)"/>
+    <path d="M196 252 C140 300 148 405 205 458 C246 492 322 490 362 450 C396 410 392 300 332 250 C300 228 228 228 196 252Z" fill="url(#bodyG)"/>
   </g>
-  <g clip-path="url(#bodyClip)" id="chestFeathers" opacity=".5"></g>
-  <path d="M208 228 C150 290 158 425 215 472 C245 498 302 496 332 468 C364 424 354 300 302 232 Z" fill="#fff" filter="url(#grain)" opacity=".5"/>
+  <!-- rosig-graue Brust -->
+  <ellipse cx="205" cy="320" rx="45" ry="65" fill="#a59bb4" opacity=".45" filter="url(#soft)"/>
+  <g clip-path="url(#bodyClip)" id="chestFeathers" opacity=".45"></g>
+  <path d="M196 252 C140 300 148 405 205 458 C246 492 322 490 362 450 C396 410 392 300 332 250 C300 228 228 228 196 252Z" fill="#fff" filter="url(#grain)" opacity=".4"/>
 
   <!-- Flügel -->
   <g filter="url(#fluff)">
-    <path d="M283 232 C342 248 366 330 360 410 C356 455 343 490 332 520 C312 480 289 425 279 360 C271 308 268 262 283 232Z" fill="#d9e46a"/>
+    <path d="M250 268 C320 250 388 298 398 370 C408 430 432 490 462 534 C412 514 350 474 302 432 C258 392 236 322 250 268Z" fill="url(#wingG)"/>
   </g>
   <g clip-path="url(#wingClip)" id="wingFeathers"></g>
-  <path d="M283 232 C342 248 366 330 360 410 C356 455 343 490 332 520" stroke="#2b5418" stroke-width="3" fill="none" opacity=".4" filter="url(#soft2)"/>
+  <g clip-path="url(#wingClip)" filter="url(#fluff)">
+    <!-- zwei schwarze Flügelbinden -->
+    <path d="M262 362 C300 350 345 356 400 378" stroke="#1d1c22" stroke-width="13" fill="none" stroke-linecap="round"/>
+    <path d="M276 400 C312 390 356 398 410 422" stroke="#1d1c22" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <!-- dunkle Handschwingen -->
+    <path d="M330 440 C380 470 420 500 470 540 L470 500 C430 470 400 450 380 430Z" fill="#4f5263" opacity=".85"/>
+  </g>
+  <path d="M250 268 C320 250 388 298 398 370 C408 430 432 490 462 534" stroke="#3c3f4e" stroke-width="3" fill="none" opacity=".4" filter="url(#soft2)"/>
 
-  <!-- Kopf -->
+  <!-- Kopf + Hals -->
   <g id="head">
     <g filter="url(#fluff)">
-      <circle cx="255" cy="172" r="78" fill="url(#headG)"/>
+      <path d="M182 168 C174 215 182 255 200 285 C240 300 300 285 322 258 C300 225 268 190 252 150 Z" fill="url(#neckG)"/>
     </g>
-    <g mask="url(#barMask)" id="headBars"></g>
-    <circle cx="255" cy="172" r="78" fill="#fff" filter="url(#grain)" opacity=".35" clip-path="url(#headClip)"/>
-    <!-- Kehlfleck-Schatten -->
-    <ellipse cx="225" cy="248" rx="38" ry="14" fill="#b8941a" opacity=".35" filter="url(#soft2)"/>
-
-    <!-- Wangenfleck violett -->
-    <ellipse cx="230" cy="232" rx="13" ry="9" transform="rotate(-25 230 232)" fill="#6a49b8" filter="url(#soft2)"/>
-    <ellipse cx="228" cy="230" rx="5" ry="3" fill="#a58ae0" opacity=".7"/>
-    <!-- Kehltupfen -->
-    <g fill="#111" filter="url(#soft2)" opacity=".9">
-      <circle cx="200" cy="252" r="4.5"/><circle cx="214" cy="258" r="4.5"/><circle cx="244" cy="258" r="4"/>
+    <path d="M182 168 C174 215 182 255 200 285 C240 300 300 285 322 258 C300 225 268 190 252 150 Z" fill="#fff" filter="url(#grain)" opacity=".35"/>
+    <g filter="url(#fluff)">
+      <ellipse cx="220" cy="150" rx="46" ry="42" fill="url(#headG)"/>
     </g>
-
+    <ellipse cx="220" cy="150" rx="46" ry="42" fill="#fff" filter="url(#grain)" opacity=".3"/>
     <!-- Auge -->
-    <g id="eye">
-      <ellipse cx="236" cy="158" rx="15" ry="14" fill="#c9b04a" opacity=".6"/>
-      <circle cx="236" cy="158" r="11" fill="url(#eyeG)"/>
-      <circle cx="232" cy="154" r="3" fill="#fff" opacity=".9"/>
-      <circle cx="240" cy="162" r="1.3" fill="#fff" opacity=".5"/>
-      <!-- Lider (halb geschlossen) -->
-      <path id="lidUp" d="M223 158 C225 144 247 144 249 158 Z" fill="#e6cc3a"/>
-      <path id="lidUpLine" d="M223 158 C230 152 242 152 249 158" stroke="#5b4a1a" stroke-width="1.6" fill="none"/>
-      <path d="M224 162 C230 168 242 168 248 162" stroke="#b8a03a" stroke-width="2" fill="none" opacity=".7"/>
+    <g>
+      <circle cx="204" cy="140" r="11" fill="#7a7c88"/>
+      <circle cx="204" cy="140" r="8.5" fill="url(#eyeG)"/>
+      <circle cx="201" cy="137" r="2.2" fill="#fff" opacity=".9"/>
+      <path id="lidUp" d="" fill="#6f7488"/>
+      <path id="lidUpLine" d="" stroke="#2e3040" stroke-width="1.4" fill="none"/>
     </g>
-
-    <!-- Wachshaut (blau = Männchen) -->
-    <path d="M188 168 C190 158 204 156 210 164 C212 172 206 180 196 180 C190 180 187 175 188 168Z" fill="url(#cereG)"/>
-    <ellipse cx="198" cy="166" rx="2.2" ry="1.6" fill="#1b2a5a"/>
     <!-- Schnabel -->
     <g id="beak">
-      <path id="lowerBeak" d="M181 196 C182 208 190 214 198 211 C204 207 205 200 202 194 Z" fill="#b8a77a"/>
-      <path d="M190 176 C176 178 168 192 172 210 C174 218 180 222 182 216 C182 205 190 198 205 196 C210 188 204 178 190 176Z" fill="url(#beakG)"/>
-      <path d="M182 186 C178 194 177 204 179 212" stroke="#fff" stroke-width="1.5" opacity=".5" fill="none"/>
+      <path id="lowerBeak" d="M178 158 C166 160 150 162 140 163 C150 168 166 168 180 164 Z" fill="#2a2527"/>
+      <path d="M182 150 C168 152 152 155 138 160 C140 163 150 162 160 161 C168 160 176 158 184 158 Z" fill="url(#beakG)"/>
+      <!-- weiße Wachshaut -->
+      <path d="M174 148 C178 142 190 142 192 149 C190 155 180 156 174 152Z" fill="url(#cereG)"/>
+      <path d="M176 147 C180 145 186 145 189 147" stroke="#fff" stroke-width="1" opacity=".8" fill="none"/>
     </g>
   </g>
 </g>
 
-<text class="z" x="330" y="95">z</text>
-<text class="z" x="345" y="80">z</text>
-<text class="z" x="320" y="75">Z</text>
+<text class="z" x="250" y="95">z</text>
+<text class="z" x="265" y="80">z</text>
+<text class="z" x="240" y="75">Z</text>
 </svg>
 </div>
 <div id="sub"></div>
@@ -223,43 +225,26 @@
 <script>
   const NS = 'http://www.w3.org/2000/svg';
   const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
-  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 
-  // Wellenbänderung am Hinterkopf
-  const bars = document.getElementById('headBars');
-  for (let y = 94; y < 262; y += 6.5) {
-    const w = 0.9 + (y - 94) / 75;
-    const bend = (y - 94) * 0.12;
-    let d = `M180 ${y}`;
-    for (let x = 180; x < 345; x += 24) d += ` Q${x + 12} ${y + 3 + rnd() * 2 - bend * 0.1} ${x + 24} ${y + (x - 180) / 165 * bend * -0.4 + rnd()}`;
-    el('path', { d, stroke: '#17120a', 'stroke-width': w.toFixed(1), fill: 'none', opacity: .85, 'stroke-linecap': 'round' }, bars);
-  }
-
-  // Flügelfedern: schwarze Mitte, gelbgrüner Saum, obere Reihen überlappen untere
+  // Deckfedern am Flügel: hellgraue Schuppen mit dunklerem Rand
   const wing = document.getElementById('wingFeathers');
-  const rows = [];
-  for (let r = 0; r < 14; r++) rows.push(r);
-  rows.reverse().forEach(r => {
-    const y = 236 + r * 19 + r * r * 0.6;
-    const fw = 9 + r * 0.9, fh = 14 + r * 1.6;
-    for (let x = 262 + (r % 2) * fw; x < 372; x += fw * 1.9) {
-      const dark = r > 10 ? '#1d2a14' : '#151208';
-      const edge = r > 10 ? '#7a9a3a' : '#e3ea78';
-      const jx = (rnd() - .5) * 4, jy = (rnd() - .5) * 4, s = 0.85 + rnd() * 0.3;
-      const a = fw * s, h = fh * s, cx = x + jx, cy = y + jy;
-      el('path', { d: `M${cx - a} ${cy} C${cx - a * .9} ${cy + h} ${cx + a * .9} ${cy + h * 1.05} ${cx + a} ${cy - 1} C${cx + a * .3} ${cy + h * .25} ${cx - a * .3} ${cy + h * .25} ${cx - a} ${cy} Z`,
-        fill: dark, stroke: edge, 'stroke-width': r > 10 ? 1.5 : 2.6, 'stroke-linejoin': 'round', opacity: .95 }, wing);
+  for (let r = 13; r >= 0; r--) {
+    const y = 262 + r * 18;
+    const fw = 10 + r * 0.6, fh = 13 + r * 0.8;
+    for (let x = 240 + (r % 2) * fw; x < 470; x += fw * 1.8) {
+      const cx = x + (rnd() - .5) * 4, cy = y + (rnd() - .5) * 4;
+      el('path', { d: `M${cx - fw} ${cy} C${cx - fw * .9} ${cy + fh} ${cx + fw * .9} ${cy + fh} ${cx + fw} ${cy}`,
+        stroke: rnd() > .5 ? '#7c8195' : '#d6dae4', 'stroke-width': 1.1, fill: 'none', opacity: .38 }, wing);
     }
-  });
-
+  }
   // feine Brustfedern
   const chest = document.getElementById('chestFeathers');
-  for (let y = 240; y < 490; y += 9) for (let x = 150; x < 360; x += 12) {
-    const xx = x + (y % 18 ? 6 : 0);
-    el('path', { d: `M${xx - 6} ${y} Q${xx} ${y + 6} ${xx + 6} ${y}`, stroke: rnd() > .5 ? '#2f7a1c' : '#b6ee6c',
-      'stroke-width': 1, fill: 'none', opacity: .6 }, chest);
+  for (let y = 250; y < 490; y += 8) for (let x = 140; x < 400; x += 11) {
+    const xx = x + (y % 16 ? 5.5 : 0);
+    el('path', { d: `M${xx - 5} ${y} Q${xx} ${y + 5} ${xx + 5} ${y}`, stroke: rnd() > .5 ? '#5a5f72' : '#c4c8d6',
+      'stroke-width': 1, fill: 'none', opacity: .55 }, chest);
   }
-
   // Beinhaare
   const hair = document.getElementById('hair');
   for (let i = 0; i < 60; i++) {
@@ -268,7 +253,7 @@
     el('path', { d: `M${x.toFixed(1)} ${y.toFixed(1)} l${(left ? -1 : 1) * (2 + rnd() * 2)} ${(3 + rnd() * 3).toFixed(1)}` }, hair);
   }
 
-  // Audio, Schnabel, Untertitel
+  // Audio, Schnabel, Lider, Untertitel
   const audio = document.getElementById('voice');
   const lowerBeak = document.getElementById('lowerBeak');
   const lidUp = document.getElementById('lidUp'), lidLine = document.getElementById('lidUpLine');
@@ -293,13 +278,12 @@
   let smooth = 0;
   function frame(t) {
     smooth += (level() - smooth) * 0.35;
-    lowerBeak.setAttribute('transform', `rotate(${(smooth * 28).toFixed(1)} 202 196)`);
-    // schläfriges Blinzeln: Lid meist halb zu, ab und zu ganz zu
+    lowerBeak.setAttribute('transform', `rotate(${(-smooth * 18).toFixed(1)} 180 160)`);
     const cyc = (t / 5200) % 1;
     const closed = cyc > 0.9 && cyc < 0.96 ? 1 : 0;
-    const lidY = 158 + closed * 11;
-    lidUp.setAttribute('d', `M223 158 C225 144 247 144 249 158 L249 ${lidY} C242 ${lidY - 6} 230 ${lidY - 6} 223 ${lidY} Z`);
-    lidLine.setAttribute('d', `M223 ${lidY} C230 ${lidY - 6} 242 ${lidY - 6} 249 ${lidY}`);
+    const ly = 140 + closed * 9;   // Lid hängt halb übers Auge = verschlafen
+    lidUp.setAttribute('d', `M193 140 C195 128 213 128 215 140 L215 ${ly} C209 ${ly - 4} 199 ${ly - 4} 193 ${ly} Z`);
+    lidLine.setAttribute('d', `M193 ${ly} C199 ${ly - 4} 209 ${ly - 4} 215 ${ly}`);
     if (!audio.paused) { let txt = ''; for (const [tm, l] of lines) if (audio.currentTime >= tm) txt = l; sub.textContent = txt; }
     requestAnimationFrame(frame);
   }
@@ -310,7 +294,7 @@
   }
   btn.addEventListener('click', play);
   document.getElementById('stage').addEventListener('click', play);
-  audio.addEventListener('ended', () => setTimeout(() => sub.textContent = 'z z z …', 400));
+  audio.addEventListener('ended', () => setTimeout(() => sub.textContent = 'gurr… z z z …', 400));
 </script>
 </body>
 </html>
