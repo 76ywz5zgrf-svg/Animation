@@ -155,18 +155,18 @@ def make_sheet(k):
     me.update()
     ob = bpy.data.objects.new(f"Sheet{k}", me)
     scene.collection.objects.link(ob)
-    ob.location = (0.05, -0.03, 4.4)
+    ob.location = (0.08, -0.05, 3.1)
     ob.rotation_euler = (math.radians(9), math.radians(-6), math.radians(23))
 
     cloth = ob.modifiers.new("Cloth", "CLOTH")
     s = cloth.settings
     s.quality = max(6, k // 6)
-    s.mass = 0.3 * (32 / k) if k > 32 else 0.3
+    s.mass = 0.3 * (32 / k) ** 2 if k > 32 else 0.3
     s.tension_stiffness = 15
     s.compression_stiffness = 15
     s.shear_stiffness = 5
     s.bending_stiffness = 0.5 if k <= 8 else 0.05
-    s.air_damping = 0.3
+    s.air_damping = 1.0
     cs = cloth.collision_settings
     cs.collision_quality = 3
     cs.distance_min = 0.012
