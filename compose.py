@@ -157,7 +157,7 @@ notes = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25, 587.33]
 for li, start in enumerate(level_starts):
     t0 = start / FPS
     add(whoosh(), t0 + 0.05)
-    impact = t0 + 0.75  # sheet reaches the sphere
+    impact = t0 + {64: 1.4, 128: 2.5}.get(LEVELS[li], 0.6)  # sheet reaches the sphere
     add(chime(notes[li]), impact, pan=-0.2)
     add(chime(notes[li] * 1.5, amp=0.08), impact + 0.03, pan=0.3)
     add(rustle(min(140, LEVELS[li] * 1.2)), impact, pan=0.1)
