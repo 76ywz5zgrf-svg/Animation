@@ -10,12 +10,12 @@
   html, body { margin:0; background:var(--bg); color:var(--text); font-family: system-ui, sans-serif; }
   body { min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:12px 16px 20px; overflow-x:hidden; }
   h1 { font-size:clamp(20px,5vw,30px); margin:4px 0 8px; }
-  #stage { position:relative; width:min(640px,100%); aspect-ratio: 4 / 5; border-radius:16px; overflow:hidden; background:#24232e; touch-action:none; }
+  #stage { position:relative; width:min(640px,100%); aspect-ratio: 4 / 5; border-radius:16px; overflow:hidden; background:#cfdbe6; touch-action:none; }
   #stage canvas { display:block; width:100%; height:100%; }
   #sub { position:absolute; left:50%; transform:translateX(-50%); width:max-content; max-width:92%; bottom:14px; background:rgba(20,18,30,.72);
          padding:6px 16px; border-radius:999px; text-align:center; font-size:clamp(18px,4.5vw,26px); font-style:italic; color:var(--accent); pointer-events:none; }
   #sub:empty { display:none; }
-  #hint { position:absolute; top:10px; left:0; right:0; text-align:center; font-size:13px; opacity:.6; pointer-events:none; }
+  #hint { position:absolute; top:10px; left:0; right:0; text-align:center; font-size:13px; opacity:.7; color:#2a2d38; pointer-events:none; }
   #msg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; }
   button { margin-top:12px; background:var(--accent); color:#2b1f4a; border:0; border-radius:999px; padding:12px 26px; font-size:18px; font-weight:700; cursor:pointer; }
 </style>
@@ -51,13 +51,15 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.95;
+renderer.toneMappingExposure = 0.78;
 renderer.localClippingEnabled = true;
 stage.prepend(renderer.domElement);
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x24232e);
-scene.fog = new THREE.Fog(0x24232e, 10, 22);
+scene.background = (() => { const c = document.createElement('canvas'); c.width = 4; c.height = 256; const g = c.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, '#8fb1d6'); gr.addColorStop(.6, '#cfdbe6'); gr.addColorStop(1, '#e6e2da');
+  g.fillStyle = gr; g.fillRect(0, 0, 4, 256); const tx = new THREE.CanvasTexture(c); tx.encoding = THREE.sRGBEncoding; return tx; })();
+scene.fog = new THREE.Fog(0xcfd9e3, 8, 30);
 { const pm = new THREE.PMREMGenerator(renderer); scene.environment = pm.fromScene(new THREE.RoomEnvironment(), 0.04).texture; }
 
 const camera = new THREE.PerspectiveCamera(34, 4 / 5, 0.1, 100);
@@ -67,8 +69,8 @@ controls.target.set(0.1, 1.85, 0);
 controls.enableDamping = true; controls.enablePan = false;
 controls.minDistance = 2.5; controls.maxDistance = 12; controls.maxPolarAngle = Math.PI * 0.49;
 
-scene.add(new THREE.HemisphereLight(0xe8ecff, 0x4a3f36, 0.35));
-const key = new THREE.DirectionalLight(0xfff1e0, 1.5);
+scene.add(new THREE.HemisphereLight(0xdfe9ff, 0x6b5e50, 0.55));
+const key = new THREE.DirectionalLight(0xfff0dc, 1.7);
 key.position.set(4, 7, 5); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
 Object.assign(key.shadow.camera, { left: -3, right: 3, top: 5, bottom: -1, near: 1, far: 20 });
 key.shadow.bias = -0.0005; key.shadow.radius = 4; scene.add(key);
@@ -82,7 +84,7 @@ function canvasTex(w, h, draw, rep = [1, 1], srgb = true) {
   t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep[0], rep[1]); t.anisotropy = 8; return t;
 }
 const skinTex = canvasTex(256, 256, (g, w, h) => {
-  g.fillStyle = '#e4a586'; g.fillRect(0, 0, w, h);
+  g.fillStyle = '#d6967a'; g.fillRect(0, 0, w, h);
   for (let i = 0; i < 5000; i++) { g.globalAlpha = .13 * rnd(); g.fillStyle = rnd() > .5 ? '#c27a5b' : '#f6c9ae';
     g.beginPath(); g.arc(rnd() * w, rnd() * h, rnd() * 1.6, 0, 7); g.fill(); }
 }, [3, 3]);
@@ -91,16 +93,16 @@ const stoneTex = canvasTex(256, 256, (g, w, h) => {
   for (let i = 0; i < 9000; i++) { g.globalAlpha = .3 * rnd(); g.fillStyle = rnd() > .5 ? '#b2b1ab' : '#5e5d59'; g.fillRect(rnd() * w, rnd() * h, 2, 2); }
 }, [2, 2]);
 const groundTex = canvasTex(1024, 1024, (g, w, h) => {
-  g.fillStyle = '#5a5a63'; g.fillRect(0, 0, w, h);
-  for (let i = 0; i < 40000; i++) { g.globalAlpha = .25 * rnd(); g.fillStyle = rnd() > .5 ? '#7a7a84' : '#3b3b42'; g.fillRect(rnd() * w, rnd() * h, 2, 2); }
-  g.globalAlpha = 1; g.strokeStyle = '#2f2f36'; g.lineWidth = 6;
+  g.fillStyle = '#6f6c66'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 40000; i++) { g.globalAlpha = .25 * rnd(); g.fillStyle = rnd() > .5 ? '#aaa69f' : '#5f5c57'; g.fillRect(rnd() * w, rnd() * h, 2, 2); }
+  g.globalAlpha = 1; g.strokeStyle = '#55524d'; g.lineWidth = 5;
   for (let i = 0; i <= 4; i++) { g.beginPath(); g.moveTo(i * w / 4, 0); g.lineTo(i * w / 4, h); g.stroke();
     g.beginPath(); g.moveTo(0, i * h / 4); g.lineTo(w, i * h / 4); g.stroke(); }
-}, [4, 4]);
+}, [26, 26]);
 
 const M = {
   skin: new THREE.MeshPhysicalMaterial({ map: skinTex, roughness: .55, sheen: .4, sheenColor: new THREE.Color(0xffb59a), clearcoat: .1, clearcoatRoughness: .5 }),
-  nail: new THREE.MeshPhysicalMaterial({ color: 0xcf8a80, roughness: .35, clearcoat: .35, envMapIntensity: .3, clearcoatRoughness: .2 }),
+  nail: new THREE.MeshPhysicalMaterial({ color: 0xc98a82, roughness: .3, clearcoat: .6, envMapIntensity: .4, clearcoatRoughness: .2 }),
   nailTip: new THREE.MeshPhysicalMaterial({ color: 0xf6e6dc, roughness: .4, clearcoat: .5 }),
   crease: new THREE.MeshStandardMaterial({ color: 0xa8664c, roughness: .8 }),
   hair: new THREE.MeshStandardMaterial({ color: 0x3e2a1e, roughness: .8 }),
@@ -117,7 +119,7 @@ function deform(geo, fn) {
   geo.computeVertexNormals(); return geo;
 }
 
-const ground = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), M.ground);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), M.ground);
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
 for (let i = 0; i < 9; i++) {
   const g = deform(new THREE.IcosahedronGeometry(.03 + rnd() * .03, 1), v => v.multiplyScalar(.8 + rnd() * .4));
@@ -141,7 +143,18 @@ const toeGeo = deform(new THREE.SphereGeometry(1, 128, 64), v => {
   v.set(x * .82, y * .27 * taper, z * .3 * taper);
   v.y += .06 * Math.pow(Math.max(0, x), 3);            // Spitze leicht nach oben
 });
-const toeMesh = mesh(toeGeo, M.skin, toe, TOE_C);
+{ // natürliche Hautfärbung per Vertex-Farben
+  const P = toeGeo.attributes.position, col = new Float32Array(P.count * 3);
+  for (let i = 0; i < P.count; i++) {
+    const x = P.getX(i), y = P.getY(i);
+    const tip = Math.max(0, (x - .45) / .37), under = Math.max(0, -y / .2), knuckle = Math.exp(-Math.pow((x + .02) / .12, 2)) * Math.max(0, y / .27);
+    const red = Math.min(1, tip * .55 + under * .35 + knuckle * .3);
+    col[i * 3] = 1; col[i * 3 + 1] = 1 - red * .22; col[i * 3 + 2] = 1 - red * .26;
+  }
+  toeGeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+}
+M.toeSkin = M.skin.clone(); M.toeSkin.vertexColors = true;
+const toeMesh = mesh(toeGeo, M.toeSkin, toe, TOE_C);
 // Nagel: per Raycast genau auf die Hautoberfläche gesetzt
 toe.updateMatrixWorld(true);
 function surfaceAt(x, z) {
@@ -149,21 +162,30 @@ function surfaceAt(x, z) {
   const hit = rc.intersectObject(toeMesh)[0];
   return hit ? { p: hit.point, n: hit.face.normal.clone().transformDirection(toeMesh.matrixWorld) } : null;
 }
-{
-  const nailGeo = deform(new THREE.SphereGeometry(1, 48, 24), v => { if (v.y < 0) v.y *= .15; v.set(v.x * .27, v.y * .03, v.z * .22); });
-  const s = surfaceAt(.72, 0);
-  if (s) {
-    const nail = mesh(nailGeo, M.nail, toe, [s.p.x, s.p.y + .004, s.p.z]);
-    nail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), s.n);
-    const tip = mesh(deform(new THREE.SphereGeometry(1, 32, 12), v => { if (v.y < 0) v.y *= .15; v.set(v.x * .06, v.y * .032, v.z * .2); }),
-      M.nailTip, toe, [s.p.x + .24, s.p.y - .06, s.p.z]);
-    tip.quaternion.copy(nail.quaternion);
+{ // Nagel: Stück der Zehenoberfläche, leicht angehoben -> liegt exakt an
+  const P = toeGeo.attributes.position, N = toeGeo.attributes.normal, idx = toeGeo.index.array;
+  const inNail = i => { const x = P.getX(i), z = P.getZ(i), y = P.getY(i);
+    return y > 0 && Math.pow((x - .66) / .19, 2) + Math.pow(z / .17, 2) < 1; };
+  const keep = [];
+  for (let f = 0; f < idx.length; f += 3) if (inNail(idx[f]) && inNail(idx[f + 1]) && inNail(idx[f + 2])) keep.push(idx[f], idx[f + 1], idx[f + 2]);
+  const ng = new THREE.BufferGeometry(), np = new Float32Array(P.count * 3), nc = new Float32Array(P.count * 3);
+  for (let i = 0; i < P.count; i++) {
+    const x = P.getX(i), z = P.getZ(i), d = Math.pow((x - .66) / .19, 2) + Math.pow(z / .17, 2);
+    const lift = .012 * Math.sqrt(Math.max(0, 1 - d)) + .002;
+    np[i * 3] = x + N.getX(i) * lift; np[i * 3 + 1] = P.getY(i) + N.getY(i) * lift; np[i * 3 + 2] = z + N.getZ(i) * lift;
+    const edge = Math.min(1, Math.max(0, (x - .74) / .08));                                         // heller freier Rand
+    const lun = Math.max(0, 1 - Math.sqrt(Math.pow((x - .5) / .08, 2) + Math.pow(z / .1, 2)));          // Halbmond
+    nc[i * 3] = 1; nc[i * 3 + 1] = .9 + edge * .1 + lun * .06; nc[i * 3 + 2] = .88 + edge * .12 + lun * .06;
   }
+  ng.setAttribute('position', new THREE.BufferAttribute(np, 3)); ng.setAttribute('color', new THREE.BufferAttribute(nc, 3));
+  ng.setIndex(keep); ng.computeVertexNormals();
+  const nm = M.nail.clone(); nm.vertexColors = true;
+  mesh(ng, nm, toe, TOE_C);
 }
 // Falten am Gelenk (oben über den Zeh gelegt)
 for (const [x, w] of [[-.08, 1], [-.02, .95], [.04, .9]]) {
   const s = surfaceAt(x, 0); if (!s) continue;
-  mesh(new THREE.TorusGeometry(1, .01, 6, 48, Math.PI), M.crease, toe, [x, TOE_C[1], 0], [0, Math.PI / 2, 0], [.3 * w, s.p.y - TOE_C[1] + .003, 1]);
+  mesh(new THREE.TorusGeometry(1, .006, 6, 48, Math.PI), M.crease, toe, [x, TOE_C[1], 0], [0, Math.PI / 2, 0], [.3 * w, s.p.y - TOE_C[1] + .003, 1]);
 }
 // Härchen auf dem Zeh
 {
@@ -199,6 +221,7 @@ const cap = mesh(new THREE.SphereGeometry(1, 64, 32), M.stone, rig, [-.2, BIRD_B
 
 // ---------- Vogel (3D-Scan) ----------
 const birdHolder = new THREE.Group(); rig.add(birdHolder);
+const head = { mesh: null, pivot: new THREE.Vector3(), x0: .5, x1: .68, y0: .46, y1: .64 };
 let bird = null, headPos = new THREE.Vector3(.6, 3.2, 0);
 const clip = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
 try {
@@ -211,6 +234,19 @@ try {
     bird.scale.setScalar(s);
     bird.position.set(-c.x * s, -box.min.y * s, -c.z * s);   // unten mittig auf 0
     birdHolder.add(bird);
+    // Kopf-Gelenk: der Kopfbereich des Scans wird weich um einen Halspunkt gedreht
+    bird.traverse(o => { if (o.isMesh && !head.mesh) head.mesh = o; });
+    const geo = head.mesh.geometry, P = geo.attributes.position; geo.computeBoundingBox();
+    const gb = geo.boundingBox, gs = gb.getSize(new THREE.Vector3());
+    const ss = (a, b, x) => { const k = Math.min(1, Math.max(0, (x - a) / (b - a))); return k * k * (3 - 2 * k); };
+    head.orig = P.array.slice(); head.idx = []; head.w = [];
+    for (let i = 0; i < P.count; i++) {
+      const nx = (P.getX(i) - gb.min.x) / gs.x, ny = (P.getY(i) - gb.min.y) / gs.y;
+      const w = ss(.5, .72, ny) * ss(.4, .62, nx);
+      if (w > 0) { head.idx.push(i); head.w.push(w); }
+    }
+    head.pivot.set(gb.min.x + gs.x * .74, gb.min.y + gs.y * .62, gb.min.z + gs.z * .5);
+    head.mesh.frustumCulled = false;
     const H = size.y * s;
     birdHolder.position.y = BIRD_BASE - H * .14;              // Steinfüße liegen unter der Schnittebene
     clip.constant = -(BIRD_BASE + .02);                       // alles unter der Platte wegschneiden
@@ -220,6 +256,20 @@ try {
     msg.style.display = 'none';
   }, e => { msg.textContent = 'Vogel konnte nicht geladen werden.'; console.error(e); });
 } catch (e) { msg.textContent = 'Vogel konnte nicht geladen werden.'; console.error(e); }
+
+function setHead(yaw, pitch) {
+  if (!head.mesh) return;
+  const P = head.mesh.geometry.attributes.position, a = P.array, o = head.orig, pv = head.pivot;
+  for (let k = 0; k < head.idx.length; k++) {
+    const i = head.idx[k], w = head.w[k], j = i * 3;
+    const dx = o[j] - pv.x, dy = o[j + 1] - pv.y, dz = o[j + 2] - pv.z;
+    const cy = Math.cos(yaw * w), sy = Math.sin(yaw * w), cp = Math.cos(pitch * w), sp = Math.sin(pitch * w);
+    const x1 = dx * cy + dz * sy, z1 = -dx * sy + dz * cy;
+    a[j] = pv.x + x1 * cp - dy * sp; a[j + 1] = pv.y + x1 * sp + dy * cp; a[j + 2] = pv.z + z1;
+  }
+  P.needsUpdate = true;
+  if (head.mesh.geometry.attributes.normal) head.mesh.geometry.computeVertexNormals();
+}
 
 // Zzz
 const zTex = canvasTex(128, 128, g => { g.fillStyle = '#d8ccff'; g.font = 'bold 96px Georgia'; g.textAlign = 'center'; g.fillText('z', 64, 96); });
@@ -268,11 +318,13 @@ function tick() {
   rig.rotation.z = Math.sin(t * 1.1) * .035;
   rig.rotation.x = Math.sin(t * .8) * .03;
   // beim Sprechen nickt und "pumpt" der Vogel mit der Stimme
-  birdHolder.rotation.z = -smooth * .09 + Math.sin(t * .7) * .03;
-  birdHolder.rotation.y = Math.sin(t * .45) * .12;
+  birdHolder.rotation.z = -smooth * .03 + Math.sin(t * .7) * .02;
+  birdHolder.rotation.y = -.5 + Math.sin(t * .45) * .05;   // Körper halb zur Kamera gedreht
+  // Kopf schaut nach vorne zur Kamera, nickt beim Sprechen
+  setHead(-.5 + Math.sin(t * .5) * .08, -smooth * .22 + Math.sin(t * .9) * .04);
   birdHolder.scale.set(1 - smooth * .015, 1 + smooth * .035, 1 - smooth * .015);
   // Riesenzeh wackelt
-  toe.rotation.z = Math.max(0, Math.sin(t * 2.4)) * .1;
+  toe.rotation.set(0, -.45, Math.max(0, Math.sin(t * 2.4)) * .1);   // Zeh zeigt mit dem Vogel nach vorne
 
   zs.forEach((z, i) => {
     const p = ((t / 3.5) + i / 3) % 1;
