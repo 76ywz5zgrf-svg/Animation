@@ -3,127 +3,217 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Good Boy Vogel</title>
+<title>Good Boy Wellensittich</title>
 <style>
-  :root { --bg1:#2b1f4a; --bg2:#0f0b1f; --text:#f4e9ff; --accent:#ff9ec7; }
+  :root { --bg1:#3a2f4f; --bg2:#120e1c; --text:#f4e9ff; --accent:#ff9ec7; }
   * { box-sizing: border-box; }
-  body { margin:0; min-height:100vh; background:radial-gradient(circle at 50% 30%, var(--bg1), var(--bg2)); color:var(--text);
+  body { margin:0; min-height:100vh; background:radial-gradient(circle at 50% 35%, var(--bg1), var(--bg2)); color:var(--text);
          font-family: system-ui, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; overflow-x:hidden; }
-  h1 { font-size:clamp(20px,5vw,32px); margin:0 0 8px; letter-spacing:.5px; }
+  h1 { font-size:clamp(20px,5vw,30px); margin:0 0 6px; }
   #stage { width:min(520px,100%); cursor:pointer; }
   svg { width:100%; height:auto; display:block; }
-  #sub { min-height:2.4em; font-size:clamp(18px,4.5vw,26px); font-style:italic; color:var(--accent); text-align:center; transition:opacity .4s; }
-  button { margin-top:10px; background:var(--accent); color:#2b1f4a; border:0; border-radius:999px; padding:12px 26px; font-size:18px; font-weight:700; cursor:pointer; }
-  button:active { transform:scale(.96); }
-
-  #bird { transform-origin: 260px 520px; animation: sway 4.5s ease-in-out infinite; }
-  @keyframes sway { 0%,100%{ transform:rotate(-2.5deg);} 50%{ transform:rotate(2.5deg);} }
-  .lid { transform-box: fill-box; transform-origin: top; animation: blink 5s infinite; }
-  @keyframes blink { 0%,86%,100%{ transform:scaleY(1);} 90%,94%{ transform:scaleY(1.9);} }
-  .z { font: bold 28px system-ui; fill:#cfc2ff; opacity:0; animation: zz 3.6s linear infinite; }
-  .z:nth-of-type(2){ animation-delay:1.2s; font-size:22px; }
-  .z:nth-of-type(3){ animation-delay:2.4s; font-size:34px; }
-  @keyframes zz { 0%{ opacity:0; transform:translate(0,0);} 20%{opacity:.9;} 100%{ opacity:0; transform:translate(40px,-90px);} }
-  .heart { fill:#ff6fa8; opacity:0; }
-  .wiggle { transform-box: fill-box; transform-origin: 50% 0; animation: toes 1.6s ease-in-out infinite; }
-  .wiggle:nth-child(2){animation-delay:.15s} .wiggle:nth-child(3){animation-delay:.3s} .wiggle:nth-child(4){animation-delay:.45s} .wiggle:nth-child(5){animation-delay:.6s}
-  @keyframes toes { 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-4px);} }
+  #sub { min-height:2.4em; font-size:clamp(18px,4.5vw,26px); font-style:italic; color:var(--accent); text-align:center; }
+  button { margin-top:8px; background:var(--accent); color:#2b1f4a; border:0; border-radius:999px; padding:12px 26px; font-size:18px; font-weight:700; cursor:pointer; }
+  #bird { transform-origin: 260px 600px; animation: sway 5s ease-in-out infinite; }
+  @keyframes sway { 0%,100%{ transform:rotate(-1.8deg);} 50%{ transform:rotate(1.8deg);} }
+  #head { transform-origin: 255px 240px; animation: nod 6s ease-in-out infinite; }
+  @keyframes nod { 0%,100%{ transform:rotate(0);} 40%{ transform:rotate(-4deg) translateY(2px);} 70%{ transform:rotate(3deg);} }
+  .toe { transform-box: fill-box; transform-origin: 50% 0; animation: toes 2.2s ease-in-out infinite; }
+  @keyframes toes { 0%,100%{ transform:scaleY(1);} 50%{ transform:scaleY(.86);} }
+  .z { font: 600 26px Georgia, serif; fill:#d8ccff; opacity:0; animation: zz 4s linear infinite; }
+  .z:nth-of-type(2){ animation-delay:1.3s; font-size:20px; }
+  .z:nth-of-type(3){ animation-delay:2.6s; font-size:32px; }
+  @keyframes zz { 0%{ opacity:0; transform:translate(0,0);} 20%{opacity:.85;} 100%{ opacity:0; transform:translate(40px,-80px);} }
 </style>
 </head>
 <body>
-<h1>🐦 Der Good-Boy-Vogel</h1>
+<h1>🦜 Der Good-Boy-Wellensittich</h1>
 <div id="stage" title="Klick mich">
-<svg viewBox="0 0 520 640" aria-label="Verschlafener Vogel mit Menschenfüßen">
-  <!-- Boden -->
-  <ellipse cx="260" cy="610" rx="170" ry="16" fill="#000" opacity=".35"/>
+<svg viewBox="0 0 520 700" aria-label="Verschlafener Wellensittich mit Menschenfüßen">
+<defs>
+  <!-- flauschige Federkanten -->
+  <filter id="fluff" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <!-- feine Federstruktur -->
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="1.6 0.35" numOctaves="3" seed="8" result="t"/>
+    <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 -0.12" result="a"/>
+    <feComposite in="a" in2="SourceGraphic" operator="in"/>
+  </filter>
+  <filter id="soft"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="soft2"><feGaussianBlur stdDeviation="2"/></filter>
 
-  <!-- Beine mit Menschenfüßen -->
-  <g id="legs">
-    <path d="M215 430 C205 480 212 530 205 585" stroke="#e9b48f" stroke-width="30" stroke-linecap="round" fill="none"/>
-    <path d="M305 430 C315 480 308 530 315 585" stroke="#e9b48f" stroke-width="30" stroke-linecap="round" fill="none"/>
-    <!-- Knie -->
-    <ellipse cx="210" cy="505" rx="13" ry="9" fill="#dca07c"/>
-    <ellipse cx="311" cy="505" rx="13" ry="9" fill="#dca07c"/>
-    <!-- Haare an den Beinen -->
-    <g stroke="#8a5a3c" stroke-width="1.5" stroke-linecap="round">
-      <path d="M200 545 l-6 -5 M205 560 l-6 -4 M198 530 l-5 -5"/>
-      <path d="M322 545 l6 -5 M318 560 l6 -4 M324 530 l5 -5"/>
+  <radialGradient id="bodyG" cx="35%" cy="40%" r="75%">
+    <stop offset="0" stop-color="#9fe05a"/><stop offset=".45" stop-color="#6cc23a"/>
+    <stop offset=".85" stop-color="#3f8f25"/><stop offset="1" stop-color="#2c6a1b"/>
+  </radialGradient>
+  <radialGradient id="headG" cx="38%" cy="35%" r="70%">
+    <stop offset="0" stop-color="#fff59a"/><stop offset=".6" stop-color="#f3dc3a"/><stop offset="1" stop-color="#c9a81e"/>
+  </radialGradient>
+  <linearGradient id="tailG" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#2f6f6a"/><stop offset=".5" stop-color="#244f8f"/><stop offset="1" stop-color="#16285a"/>
+  </linearGradient>
+  <linearGradient id="beakG" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f4ead0"/><stop offset=".6" stop-color="#d9c79a"/><stop offset="1" stop-color="#a8956a"/>
+  </linearGradient>
+  <radialGradient id="cereG" cx="40%" cy="35%" r="70%">
+    <stop offset="0" stop-color="#8fb0ff"/><stop offset=".7" stop-color="#3f63c4"/><stop offset="1" stop-color="#2a4290"/>
+  </radialGradient>
+  <radialGradient id="eyeG" cx="40%" cy="40%" r="60%">
+    <stop offset="0" stop-color="#1b1410"/><stop offset=".55" stop-color="#0b0806"/>
+    <stop offset=".62" stop-color="#cfc6b4"/><stop offset=".9" stop-color="#a49a88"/><stop offset="1" stop-color="#3a3228"/>
+  </radialGradient>
+  <linearGradient id="skinShin" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#b9785a"/><stop offset=".3" stop-color="#e2a988"/>
+    <stop offset=".55" stop-color="#efbfa0"/><stop offset="1" stop-color="#a86a4d"/>
+  </linearGradient>
+  <linearGradient id="skinFoot" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e6ad8c"/><stop offset=".6" stop-color="#f0c2a4"/><stop offset="1" stop-color="#cf8f70"/>
+  </linearGradient>
+  <radialGradient id="toeG" cx="45%" cy="30%" r="75%">
+    <stop offset="0" stop-color="#f7cfb3"/><stop offset=".7" stop-color="#e3a385"/><stop offset="1" stop-color="#b8735a"/>
+  </radialGradient>
+  <linearGradient id="nailG" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#f6dcd6"/><stop offset=".75" stop-color="#e9b8ad"/><stop offset="1" stop-color="#fff4ec"/>
+  </linearGradient>
+
+  <clipPath id="headClip"><circle cx="255" cy="172" r="78"/></clipPath>
+  <clipPath id="wingClip"><path id="wingPathC" d="M283 232 C342 248 366 330 360 410 C356 455 343 490 332 520 C312 480 289 425 279 360 C271 308 268 262 283 232Z"/></clipPath>
+  <clipPath id="bodyClip"><path d="M208 228 C150 290 158 425 215 472 C245 498 302 496 332 468 C364 424 354 300 302 232 Z"/></clipPath>
+  <!-- Bänderung nur am Hinterkopf, nicht in der gelben Maske -->
+  <mask id="barMask">
+    <rect width="520" height="700" fill="#000"/>
+    <circle cx="255" cy="172" r="80" fill="#fff"/>
+    <path d="M150 140 C175 95 215 92 240 112 C226 140 224 170 236 196 C240 222 248 250 262 268 L150 280Z" fill="#000" filter="url(#soft2)"/>
+  </mask>
+
+  <!-- Fuß, Großzeh auf +x-Seite -->
+  <g id="foot">
+    <ellipse cx="2" cy="78" rx="52" ry="9" fill="#000" opacity=".35" filter="url(#soft2)"/>
+    <path d="M-19 -6 C-22 16 -36 34 -44 52 C-48 64 -40 72 -30 72 L40 74 C50 74 54 64 49 52 C42 36 28 16 20 -6 Z" fill="url(#skinFoot)"/>
+    <!-- Sehnen / Mittelfußknochen -->
+    <g stroke="#c48466" stroke-width="2" fill="none" opacity=".55" stroke-linecap="round">
+      <path d="M6 6 C14 26 26 42 36 56"/><path d="M0 10 C4 30 10 44 14 56"/>
+      <path d="M-6 12 C-6 30 -6 44 -4 56"/><path d="M-10 14 C-16 30 -20 44 -22 56"/>
     </g>
-    <!-- linker Fuß -->
+    <!-- Vene -->
+    <path d="M-14 4 C-6 20 6 26 2 44" stroke="#8f8fb8" stroke-width="2.2" fill="none" opacity=".35"/>
+    <!-- Knöchel -->
+    <ellipse cx="22" cy="-2" rx="8" ry="10" fill="#f2c4a6" opacity=".8"/>
+    <ellipse cx="-21" cy="2" rx="7" ry="9" fill="#c98a6b" opacity=".7"/>
+    <!-- Zehen -->
     <g>
-      <path d="M220 575 C200 572 150 580 140 598 C135 610 150 614 175 612 L220 612 C232 612 234 590 220 575Z" fill="#f0bf9b" stroke="#c98d68" stroke-width="2"/>
-      <g fill="#f0bf9b" stroke="#c98d68" stroke-width="2">
-        <ellipse class="wiggle" cx="140" cy="603" rx="11" ry="9"/>
-        <ellipse class="wiggle" cx="156" cy="597" rx="8" ry="7"/>
-        <ellipse class="wiggle" cx="168" cy="594" rx="7" ry="6.5"/>
-        <ellipse class="wiggle" cx="179" cy="592" rx="6" ry="6"/>
-        <ellipse class="wiggle" cx="189" cy="591" rx="5" ry="5.5"/>
-      </g>
-      <ellipse cx="136" cy="600" rx="5" ry="4" fill="#fde3e8" opacity=".9"/>
+      <g class="toe"><path d="M-40 56 C-46 60 -46 74 -38 76 C-31 78 -27 70 -28 60Z" fill="url(#toeG)"/>
+        <path d="M-41 69 C-41 74 -35 75 -33 70 C-34 67 -39 66 -41 69Z" fill="url(#nailG)" stroke="#c99a8e" stroke-width=".8"/></g>
+      <g class="toe" style="animation-delay:.12s"><path d="M-28 58 C-33 62 -33 79 -24 80 C-16 81 -14 72 -15 60Z" fill="url(#toeG)"/>
+        <path d="M-28 72 C-28 78 -20 78 -19 73 C-20 69 -26 68 -28 72Z" fill="url(#nailG)" stroke="#c99a8e" stroke-width=".8"/></g>
+      <g class="toe" style="animation-delay:.24s"><path d="M-14 59 C-19 64 -19 82 -9 83 C0 84 2 74 0 60Z" fill="url(#toeG)"/>
+        <path d="M-14 75 C-14 81 -5 81 -4 76 C-5 72 -12 71 -14 75Z" fill="url(#nailG)" stroke="#c99a8e" stroke-width=".8"/></g>
+      <g class="toe" style="animation-delay:.36s"><path d="M1 59 C-4 64 -4 84 7 85 C17 86 18 74 16 60Z" fill="url(#toeG)"/>
+        <path d="M1 77 C1 83 11 83 12 78 C11 74 3 73 1 77Z" fill="url(#nailG)" stroke="#c99a8e" stroke-width=".8"/></g>
+      <g class="toe" style="animation-delay:.48s"><path d="M17 56 C12 62 12 86 30 87 C46 88 50 76 47 58 C38 52 24 52 17 56Z" fill="url(#toeG)"/>
+        <path d="M20 76 C20 85 38 86 40 78 C38 71 24 70 20 76Z" fill="url(#nailG)" stroke="#c99a8e" stroke-width="1"/>
+        <path d="M22 62 C30 60 40 60 44 63" stroke="#c48466" stroke-width="1.2" fill="none" opacity=".6"/></g>
     </g>
-    <!-- rechter Fuß -->
-    <g>
-      <path d="M300 575 C320 572 370 580 380 598 C385 610 370 614 345 612 L300 612 C288 612 286 590 300 575Z" fill="#f0bf9b" stroke="#c98d68" stroke-width="2"/>
-      <g fill="#f0bf9b" stroke="#c98d68" stroke-width="2">
-        <ellipse class="wiggle" cx="380" cy="603" rx="11" ry="9"/>
-        <ellipse class="wiggle" cx="364" cy="597" rx="8" ry="7"/>
-        <ellipse class="wiggle" cx="352" cy="594" rx="7" ry="6.5"/>
-        <ellipse class="wiggle" cx="341" cy="592" rx="6" ry="6"/>
-        <ellipse class="wiggle" cx="331" cy="591" rx="5" ry="5.5"/>
-      </g>
-      <ellipse cx="384" cy="600" rx="5" ry="4" fill="#fde3e8" opacity=".9"/>
+    <!-- Zehenfalten -->
+    <g stroke="#b97a5e" stroke-width="1" opacity=".5" fill="none">
+      <path d="M-36 64 l6 1"/><path d="M-24 66 l7 0"/><path d="M-10 67 l7 0"/><path d="M5 67 l8 0"/>
+    </g>
+    <!-- Härchen auf den Zehen -->
+    <g stroke="#7a4c36" stroke-width=".8" opacity=".55">
+      <path d="M28 60 l1 -3 M33 60 l1 -3 M37 61 l1 -3 M6 62 l0 -3 M-8 62 l0 -3"/>
     </g>
   </g>
+</defs>
 
-  <g id="bird">
-    <!-- Schwanz -->
-    <path d="M120 360 L50 330 L70 370 L40 395 L125 395Z" fill="#5a8fd6"/>
-    <!-- Körper -->
-    <ellipse cx="260" cy="340" rx="150" ry="125" fill="#7fb3f5"/>
-    <ellipse cx="270" cy="370" rx="95" ry="85" fill="#fff3d6"/>
-    <!-- Flügel -->
-    <path d="M140 320 C110 380 150 430 210 415 C190 380 180 350 140 320Z" fill="#5a8fd6"/>
-    <path id="wingR" d="M380 320 C410 380 370 430 310 415 C330 380 340 350 380 320Z" fill="#5a8fd6"/>
-    <!-- Kopf -->
-    <circle cx="260" cy="190" r="105" fill="#7fb3f5"/>
-    <!-- Federschopf (verwuschelt) -->
-    <path d="M240 92 C230 50 255 40 258 85 C262 35 290 45 275 92Z" fill="#5a8fd6"/>
-    <!-- Schlafmütze -->
-    <path d="M175 120 C200 50 300 40 345 115 C320 100 210 100 175 120Z" fill="#b36bd9"/>
-    <path d="M330 95 C370 80 400 110 405 150" stroke="#b36bd9" stroke-width="22" fill="none" stroke-linecap="round"/>
-    <circle cx="408" cy="160" r="16" fill="#fff"/>
-    <!-- Augen (halb zu, verschlafen) -->
-    <g>
-      <ellipse cx="220" cy="185" rx="30" ry="26" fill="#fff"/>
-      <ellipse cx="300" cy="185" rx="30" ry="26" fill="#fff"/>
-      <circle id="pupL" cx="224" cy="194" r="11" fill="#2a1b3d"/>
-      <circle id="pupR" cx="296" cy="194" r="11" fill="#2a1b3d"/>
-      <circle cx="228" cy="190" r="3" fill="#fff"/>
-      <circle cx="300" cy="190" r="3" fill="#fff"/>
-      <path class="lid" d="M188 186 A32 30 0 0 1 252 186 Z" fill="#6aa0e6"/>
-      <path class="lid" d="M268 186 A32 30 0 0 1 332 186 Z" fill="#6aa0e6"/>
-      <path d="M190 186 Q220 196 250 186" stroke="#2a1b3d" stroke-width="3" fill="none"/>
-      <path d="M270 186 Q300 196 330 186" stroke="#2a1b3d" stroke-width="3" fill="none"/>
-      <!-- Augenringe -->
-      <path d="M198 213 Q220 222 242 213" stroke="#5a6fb0" stroke-width="3" fill="none" opacity=".7"/>
-      <path d="M278 213 Q300 222 322 213" stroke="#5a6fb0" stroke-width="3" fill="none" opacity=".7"/>
+<!-- Ast -->
+<path d="M0 668 C140 650 380 690 520 660 L520 700 L0 700Z" fill="#3b2a1e"/>
+<path d="M0 668 C140 650 380 690 520 660" stroke="#5b4330" stroke-width="5" fill="none"/>
+
+<g id="bird">
+  <!-- Schwanz -->
+  <g filter="url(#fluff)">
+    <path d="M318 430 C332 500 352 580 378 668 L398 662 C380 580 360 500 345 430Z" fill="url(#tailG)"/>
+    <path d="M328 432 C338 505 352 590 366 672 L376 670 C366 590 352 505 340 432Z" fill="#1d3f7a"/>
+  </g>
+
+  <!-- Beine (Menschenbeine) -->
+  <g id="legs">
+    <path d="M222 470 C218 510 214 545 210 590 L244 592 C246 548 250 512 254 470Z" fill="url(#skinShin)"/>
+    <path d="M276 470 C280 512 284 548 286 592 L320 590 C316 545 312 510 308 470Z" fill="url(#skinShin)"/>
+    <!-- Schienbeinkante und Wade -->
+    <path d="M238 486 C236 520 232 552 230 585" stroke="#f6d0b6" stroke-width="3" opacity=".6" fill="none"/>
+    <path d="M294 486 C296 520 300 552 302 585" stroke="#f6d0b6" stroke-width="3" opacity=".6" fill="none"/>
+    <!-- Beinbehaarung -->
+    <g stroke="#5a3826" stroke-width="1" opacity=".55" stroke-linecap="round" id="hair"></g>
+    <!-- Federhosen -->
+    <ellipse cx="238" cy="474" rx="30" ry="18" fill="#4f9e2c" filter="url(#fluff)"/>
+    <ellipse cx="292" cy="474" rx="30" ry="18" fill="#4a962a" filter="url(#fluff)"/>
+    <use href="#foot" transform="translate(226 596) rotate(10) scale(-1 1)"/>
+    <use href="#foot" transform="translate(304 596) rotate(-10)"/>
+  </g>
+
+  <!-- Körper -->
+  <g filter="url(#fluff)">
+    <path d="M208 228 C150 290 158 425 215 472 C245 498 302 496 332 468 C364 424 354 300 302 232 Z" fill="url(#bodyG)"/>
+  </g>
+  <g clip-path="url(#bodyClip)" id="chestFeathers" opacity=".5"></g>
+  <path d="M208 228 C150 290 158 425 215 472 C245 498 302 496 332 468 C364 424 354 300 302 232 Z" fill="#fff" filter="url(#grain)" opacity=".5"/>
+
+  <!-- Flügel -->
+  <g filter="url(#fluff)">
+    <path d="M283 232 C342 248 366 330 360 410 C356 455 343 490 332 520 C312 480 289 425 279 360 C271 308 268 262 283 232Z" fill="#d9e46a"/>
+  </g>
+  <g clip-path="url(#wingClip)" id="wingFeathers"></g>
+  <path d="M283 232 C342 248 366 330 360 410 C356 455 343 490 332 520" stroke="#2b5418" stroke-width="3" fill="none" opacity=".4" filter="url(#soft2)"/>
+
+  <!-- Kopf -->
+  <g id="head">
+    <g filter="url(#fluff)">
+      <circle cx="255" cy="172" r="78" fill="url(#headG)"/>
     </g>
-    <!-- Wangen -->
-    <ellipse id="blushL" cx="185" cy="232" rx="20" ry="11" fill="#ff7fb0" opacity=".55"/>
-    <ellipse id="blushR" cx="335" cy="232" rx="20" ry="11" fill="#ff7fb0" opacity=".55"/>
+    <g mask="url(#barMask)" id="headBars"></g>
+    <circle cx="255" cy="172" r="78" fill="#fff" filter="url(#grain)" opacity=".35" clip-path="url(#headClip)"/>
+    <!-- Kehlfleck-Schatten -->
+    <ellipse cx="225" cy="248" rx="38" ry="14" fill="#b8941a" opacity=".35" filter="url(#soft2)"/>
+
+    <!-- Wangenfleck violett -->
+    <ellipse cx="230" cy="232" rx="13" ry="9" transform="rotate(-25 230 232)" fill="#6a49b8" filter="url(#soft2)"/>
+    <ellipse cx="228" cy="230" rx="5" ry="3" fill="#a58ae0" opacity=".7"/>
+    <!-- Kehltupfen -->
+    <g fill="#111" filter="url(#soft2)" opacity=".9">
+      <circle cx="200" cy="252" r="4.5"/><circle cx="214" cy="258" r="4.5"/><circle cx="244" cy="258" r="4"/>
+    </g>
+
+    <!-- Auge -->
+    <g id="eye">
+      <ellipse cx="236" cy="158" rx="15" ry="14" fill="#c9b04a" opacity=".6"/>
+      <circle cx="236" cy="158" r="11" fill="url(#eyeG)"/>
+      <circle cx="232" cy="154" r="3" fill="#fff" opacity=".9"/>
+      <circle cx="240" cy="162" r="1.3" fill="#fff" opacity=".5"/>
+      <!-- Lider (halb geschlossen) -->
+      <path id="lidUp" d="M223 158 C225 144 247 144 249 158 Z" fill="#e6cc3a"/>
+      <path id="lidUpLine" d="M223 158 C230 152 242 152 249 158" stroke="#5b4a1a" stroke-width="1.6" fill="none"/>
+      <path d="M224 162 C230 168 242 168 248 162" stroke="#b8a03a" stroke-width="2" fill="none" opacity=".7"/>
+    </g>
+
+    <!-- Wachshaut (blau = Männchen) -->
+    <path d="M188 168 C190 158 204 156 210 164 C212 172 206 180 196 180 C190 180 187 175 188 168Z" fill="url(#cereG)"/>
+    <ellipse cx="198" cy="166" rx="2.2" ry="1.6" fill="#1b2a5a"/>
     <!-- Schnabel -->
     <g id="beak">
-      <path id="beakLow" d="M232 238 L288 238 L260 262Z" fill="#e8892e"/>
-      <path d="M228 222 Q260 205 292 222 L260 246Z" fill="#ffae42"/>
+      <path id="lowerBeak" d="M181 196 C182 208 190 214 198 211 C204 207 205 200 202 194 Z" fill="#b8a77a"/>
+      <path d="M190 176 C176 178 168 192 172 210 C174 218 180 222 182 216 C182 205 190 198 205 196 C210 188 204 178 190 176Z" fill="url(#beakG)"/>
+      <path d="M182 186 C178 194 177 204 179 212" stroke="#fff" stroke-width="1.5" opacity=".5" fill="none"/>
     </g>
-    <!-- Herzchen -->
-    <path class="heart" id="h1" d="M0 6 C0 -2 10 -2 10 4 C10 -2 20 -2 20 6 C20 13 10 18 10 22 C10 18 0 13 0 6Z" transform="translate(360 220)"/>
-    <path class="heart" id="h2" d="M0 6 C0 -2 10 -2 10 4 C10 -2 20 -2 20 6 C20 13 10 18 10 22 C10 18 0 13 0 6Z" transform="translate(140 210)"/>
   </g>
-  <!-- Zzz -->
-  <text class="z" x="370" y="110">z</text>
-  <text class="z" x="385" y="95">z</text>
-  <text class="z" x="360" y="90">Z</text>
+</g>
+
+<text class="z" x="330" y="95">z</text>
+<text class="z" x="345" y="80">z</text>
+<text class="z" x="320" y="75">Z</text>
 </svg>
 </div>
 <div id="sub"></div>
@@ -131,72 +221,96 @@
 <audio id="voice" src="audio/good-boy.mp3" preload="auto"></audio>
 
 <script>
-  const audio = document.getElementById('voice');
-  const beakLow = document.getElementById('beakLow');
-  const sub = document.getElementById('sub');
-  const btn = document.getElementById('play');
-  const hearts = [document.getElementById('h1'), document.getElementById('h2')];
-  const blush = [document.getElementById('blushL'), document.getElementById('blushR')];
-  const lines = [
-    [0.4, 'Heeey… 🥱'],
-    [2.5, 'mmmh…'],
-    [4.9, 'mein kleiner…'],
-    [7.8, 'Good Boy… 😏'],
-    [10.9, 'mmmmh… 💕']
-  ];
-  let ctx, analyser, data;
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 
+  // Wellenbänderung am Hinterkopf
+  const bars = document.getElementById('headBars');
+  for (let y = 94; y < 262; y += 6.5) {
+    const w = 0.9 + (y - 94) / 75;
+    const bend = (y - 94) * 0.12;
+    let d = `M180 ${y}`;
+    for (let x = 180; x < 345; x += 24) d += ` Q${x + 12} ${y + 3 + rnd() * 2 - bend * 0.1} ${x + 24} ${y + (x - 180) / 165 * bend * -0.4 + rnd()}`;
+    el('path', { d, stroke: '#17120a', 'stroke-width': w.toFixed(1), fill: 'none', opacity: .85, 'stroke-linecap': 'round' }, bars);
+  }
+
+  // Flügelfedern: schwarze Mitte, gelbgrüner Saum, obere Reihen überlappen untere
+  const wing = document.getElementById('wingFeathers');
+  const rows = [];
+  for (let r = 0; r < 14; r++) rows.push(r);
+  rows.reverse().forEach(r => {
+    const y = 236 + r * 19 + r * r * 0.6;
+    const fw = 9 + r * 0.9, fh = 14 + r * 1.6;
+    for (let x = 262 + (r % 2) * fw; x < 372; x += fw * 1.9) {
+      const dark = r > 10 ? '#1d2a14' : '#151208';
+      const edge = r > 10 ? '#7a9a3a' : '#e3ea78';
+      const jx = (rnd() - .5) * 4, jy = (rnd() - .5) * 4, s = 0.85 + rnd() * 0.3;
+      const a = fw * s, h = fh * s, cx = x + jx, cy = y + jy;
+      el('path', { d: `M${cx - a} ${cy} C${cx - a * .9} ${cy + h} ${cx + a * .9} ${cy + h * 1.05} ${cx + a} ${cy - 1} C${cx + a * .3} ${cy + h * .25} ${cx - a * .3} ${cy + h * .25} ${cx - a} ${cy} Z`,
+        fill: dark, stroke: edge, 'stroke-width': r > 10 ? 1.5 : 2.6, 'stroke-linejoin': 'round', opacity: .95 }, wing);
+    }
+  });
+
+  // feine Brustfedern
+  const chest = document.getElementById('chestFeathers');
+  for (let y = 240; y < 490; y += 9) for (let x = 150; x < 360; x += 12) {
+    const xx = x + (y % 18 ? 6 : 0);
+    el('path', { d: `M${xx - 6} ${y} Q${xx} ${y + 6} ${xx + 6} ${y}`, stroke: rnd() > .5 ? '#2f7a1c' : '#b6ee6c',
+      'stroke-width': 1, fill: 'none', opacity: .6 }, chest);
+  }
+
+  // Beinhaare
+  const hair = document.getElementById('hair');
+  for (let i = 0; i < 60; i++) {
+    const left = i % 2 === 0, y = 490 + rnd() * 90;
+    const x = left ? 216 + rnd() * 32 : 282 + rnd() * 32;
+    el('path', { d: `M${x.toFixed(1)} ${y.toFixed(1)} l${(left ? -1 : 1) * (2 + rnd() * 2)} ${(3 + rnd() * 3).toFixed(1)}` }, hair);
+  }
+
+  // Audio, Schnabel, Untertitel
+  const audio = document.getElementById('voice');
+  const lowerBeak = document.getElementById('lowerBeak');
+  const lidUp = document.getElementById('lidUp'), lidLine = document.getElementById('lidUpLine');
+  const sub = document.getElementById('sub'), btn = document.getElementById('play');
+  const lines = [[0.4,'Heeey… 🥱'],[2.5,'mmmh…'],[4.9,'mein kleiner…'],[7.8,'Good Boy… 😏'],[10.9,'mmmmh… 💕']];
+  let ctx, analyser, data;
   function setupAudio() {
     if (ctx) return;
     try {
       ctx = new (window.AudioContext || window.webkitAudioContext)();
       const src = ctx.createMediaElementSource(audio);
-      analyser = ctx.createAnalyser();
-      analyser.fftSize = 512;
-      data = new Uint8Array(analyser.fftSize);
+      analyser = ctx.createAnalyser(); analyser.fftSize = 512; data = new Uint8Array(512);
       src.connect(analyser); analyser.connect(ctx.destination);
     } catch (e) { analyser = null; }
   }
-
   function level() {
     if (!analyser) return audio.paused ? 0 : 0.5 + 0.5 * Math.sin(performance.now() / 90);
     analyser.getByteTimeDomainData(data);
     let s = 0; for (const v of data) { const d = (v - 128) / 128; s += d * d; }
     return Math.min(1, Math.sqrt(s / data.length) * 6);
   }
-
   let smooth = 0;
   function frame(t) {
     smooth += (level() - smooth) * 0.35;
-    const open = smooth * 22;
-    beakLow.setAttribute('d', `M232 238 L288 238 L260 ${262 + open}Z`);
-    const playing = !audio.paused;
-    const pulse = playing ? 0.55 + 0.35 * Math.abs(Math.sin(t / 400)) : 0.55;
-    blush.forEach(b => b.setAttribute('opacity', pulse.toFixed(2)));
-    hearts.forEach((h, i) => {
-      const p = ((t / 2200) + i * 0.5) % 1;
-      h.style.opacity = playing ? (1 - p).toFixed(2) : 0;
-      h.style.transform = `translateY(${-p * 60}px)`;
-    });
-    if (playing) {
-      let txt = '';
-      for (const [time, l] of lines) if (audio.currentTime >= time) txt = l;
-      sub.textContent = txt;
-    }
+    lowerBeak.setAttribute('transform', `rotate(${(smooth * 28).toFixed(1)} 202 196)`);
+    // schläfriges Blinzeln: Lid meist halb zu, ab und zu ganz zu
+    const cyc = (t / 5200) % 1;
+    const closed = cyc > 0.9 && cyc < 0.96 ? 1 : 0;
+    const lidY = 158 + closed * 11;
+    lidUp.setAttribute('d', `M223 158 C225 144 247 144 249 158 L249 ${lidY} C242 ${lidY - 6} 230 ${lidY - 6} 223 ${lidY} Z`);
+    lidLine.setAttribute('d', `M223 ${lidY} C230 ${lidY - 6} 242 ${lidY - 6} 249 ${lidY}`);
+    if (!audio.paused) { let txt = ''; for (const [tm, l] of lines) if (audio.currentTime >= tm) txt = l; sub.textContent = txt; }
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
-
   function play() {
-    setupAudio();
-    if (ctx && ctx.state === 'suspended') ctx.resume();
-    audio.currentTime = 0;
-    audio.play();
-    btn.textContent = '↻ Nochmal';
+    setupAudio(); if (ctx && ctx.state === 'suspended') ctx.resume();
+    audio.currentTime = 0; audio.play(); btn.textContent = '↻ Nochmal';
   }
   btn.addEventListener('click', play);
   document.getElementById('stage').addEventListener('click', play);
-  audio.addEventListener('ended', () => { setTimeout(() => sub.textContent = 'z z z …', 400); });
+  audio.addEventListener('ended', () => setTimeout(() => sub.textContent = 'z z z …', 400));
 </script>
 </body>
 </html>
