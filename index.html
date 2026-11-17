@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Good Boy Taube 3D</title>
+<title>Omas Good-Boy-Vogel</title>
 <style>
   :root { --bg:#1c1b24; --text:#f1eef8; --accent:#ff9ec7; }
   * { box-sizing: border-box; }
@@ -12,20 +12,20 @@
   h1 { font-size:clamp(20px,5vw,30px); margin:4px 0 8px; }
   #stage { position:relative; width:min(640px,100%); aspect-ratio: 4 / 5; border-radius:16px; overflow:hidden; background:#24232e; touch-action:none; }
   #stage canvas { display:block; width:100%; height:100%; }
-  #sub { position:absolute; left:50%; transform:translateX(-50%); width:max-content; max-width:92%; bottom:14px; background:rgba(20,18,30,.72); padding:6px 16px; border-radius:999px; text-align:center; font-size:clamp(18px,4.5vw,26px); font-style:italic;
-         color:var(--accent); text-shadow:0 2px 8px #000; pointer-events:none; }
-  #hint { position:absolute; top:10px; left:0; right:0; text-align:center; font-size:13px; opacity:.6; pointer-events:none; }
-  #err { position:absolute; inset:0; display:none; align-items:center; justify-content:center; text-align:center; padding:20px; }
-  button { margin-top:12px; background:var(--accent); color:#2b1f4a; border:0; border-radius:999px; padding:12px 26px; font-size:18px; font-weight:700; cursor:pointer; }
+  #sub { position:absolute; left:50%; transform:translateX(-50%); width:max-content; max-width:92%; bottom:14px; background:rgba(20,18,30,.72);
+         padding:6px 16px; border-radius:999px; text-align:center; font-size:clamp(18px,4.5vw,26px); font-style:italic; color:var(--accent); pointer-events:none; }
   #sub:empty { display:none; }
+  #hint { position:absolute; top:10px; left:0; right:0; text-align:center; font-size:13px; opacity:.6; pointer-events:none; }
+  #msg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; }
+  button { margin-top:12px; background:var(--accent); color:#2b1f4a; border:0; border-radius:999px; padding:12px 26px; font-size:18px; font-weight:700; cursor:pointer; }
 </style>
 </head>
 <body>
-<h1>🕊️ Die Good-Boy-Taube 3D</h1>
+<h1>🐦 Omas Good-Boy-Vogel</h1>
 <div id="stage">
   <div id="hint">Ziehen = drehen · Scrollen/Pinch = zoomen</div>
   <div id="sub"></div>
-  <div id="err">WebGL wird von diesem Browser nicht unterstützt.</div>
+  <div id="msg">Lade Vogel …</div>
 </div>
 <button id="play">▶ Abspielen</button>
 <audio id="voice" src="audio/good-boy-20s.mp3" preload="auto"></audio>
@@ -33,144 +33,82 @@
 <script src="vendor/three.min.js"></script>
 <script src="vendor/OrbitControls.js"></script>
 <script src="vendor/RoomEnvironment.js"></script>
+<script src="vendor/GLTFLoader.js"></script>
+<!-- 3D-Scan als eingebettete Datei, damit die Seite auch per Doppelklick (file://) funktioniert -->
+<script src="models/omas-vogel.glb.js"></script>
 <script>
 (() => {
-const stage = document.getElementById('stage');
+const stage = document.getElementById('stage'), msg = document.getElementById('msg');
+const RENDER = new URLSearchParams(location.search).has('render');
+if (RENDER) document.getElementById('hint').style.display = 'none';
+window.__t = 0; window.__lvl = 0;
+
 let renderer;
 try { renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true }); }
-catch (e) { document.getElementById('err').style.display = 'flex'; return; }
+catch (e) { msg.textContent = 'WebGL wird von diesem Browser nicht unterstützt.'; return; }
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.78;
+renderer.toneMappingExposure = 0.95;
+renderer.localClippingEnabled = true;
 stage.prepend(renderer.domElement);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x24232e);
 scene.fog = new THREE.Fog(0x24232e, 10, 22);
+{ const pm = new THREE.PMREMGenerator(renderer); scene.environment = pm.fromScene(new THREE.RoomEnvironment(), 0.04).texture; }
 
 const camera = new THREE.PerspectiveCamera(34, 4 / 5, 0.1, 100);
-camera.position.set(-5.6, 3.1, 7.6);
+camera.position.set(5.2, 3.0, 7.2);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.target.set(-0.2, 1.85, 0);
-controls.enableDamping = true;
-controls.minDistance = 2.5; controls.maxDistance = 12;
-controls.maxPolarAngle = Math.PI * 0.49;
-controls.enablePan = false;
+controls.target.set(0.1, 1.85, 0);
+controls.enableDamping = true; controls.enablePan = false;
+controls.minDistance = 2.5; controls.maxDistance = 12; controls.maxPolarAngle = Math.PI * 0.49;
 
-// Licht
-scene.add(new THREE.HemisphereLight(0xdfe6ff, 0x40362f, 0.3));
-{ const pm = new THREE.PMREMGenerator(renderer); scene.environment = pm.fromScene(new THREE.RoomEnvironment(), 0.04).texture; }
-const key = new THREE.DirectionalLight(0xfff1e0, 1.6);
-key.position.set(-4, 7, 5); key.castShadow = true;
-key.shadow.mapSize.set(2048, 2048);
-Object.assign(key.shadow.camera, { left: -4, right: 4, top: 5, bottom: -2, near: 1, far: 20 });
-key.shadow.bias = -0.0005; key.shadow.radius = 4;
-scene.add(key);
-const rim = new THREE.DirectionalLight(0xa9c4ff, 0.9); rim.position.set(4, 4, -5); scene.add(rim);
-const fill = new THREE.PointLight(0xffd2e6, 0.35, 12); fill.position.set(-2, 2, 4); scene.add(fill);
+scene.add(new THREE.HemisphereLight(0xe8ecff, 0x4a3f36, 0.35));
+const key = new THREE.DirectionalLight(0xfff1e0, 1.5);
+key.position.set(4, 7, 5); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
+Object.assign(key.shadow.camera, { left: -3, right: 3, top: 5, bottom: -1, near: 1, far: 20 });
+key.shadow.bias = -0.0005; key.shadow.radius = 4; scene.add(key);
+const rim = new THREE.DirectionalLight(0xa9c4ff, 0.7); rim.position.set(-4, 4, -5); scene.add(rim);
 
-// ---------- Texturen (prozedural) ----------
+// ---------- Texturen ----------
 let seed = 5; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-function canvasTex(w, h, draw, rep = [1, 1]) {
-  const c = document.createElement('canvas'); c.width = w; c.height = h;
-  const g = c.getContext('2d'); draw(g, w, h);
-  const t = new THREE.CanvasTexture(c);
-  t.encoding = THREE.sRGBEncoding; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep[0], rep[1]);
-  t.anisotropy = 8; return t;
+function canvasTex(w, h, draw, rep = [1, 1], srgb = true) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h);
+  const t = new THREE.CanvasTexture(c); if (srgb) t.encoding = THREE.sRGBEncoding;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep[0], rep[1]); t.anisotropy = 8; return t;
 }
-function speckle(g, w, h, n, colors, a) {
-  for (let i = 0; i < n; i++) { g.globalAlpha = a * rnd(); g.fillStyle = colors[(rnd() * colors.length) | 0];
-    g.fillRect(rnd() * w, rnd() * h, 1 + rnd() * 2, 2 + rnd() * 5); }
-  g.globalAlpha = 1;
-}
-function scallops(g, w, h, sx, sy, light, dark, a) {
-  for (let y = 0, r = 0; y < h + sy; y += sy, r++) for (let x = (r % 2) * sx / 2; x < w + sx; x += sx) {
-    g.globalAlpha = a; g.strokeStyle = dark; g.lineWidth = 2;
-    g.beginPath(); g.arc(x, y, sx / 2, 0.15 * Math.PI, 0.85 * Math.PI); g.stroke();
-    g.strokeStyle = light; g.lineWidth = 1.2;
-    g.beginPath(); g.arc(x, y - 2, sx / 2, 0.2 * Math.PI, 0.8 * Math.PI); g.stroke();
-  }
-  g.globalAlpha = 1;
-}
-const featherTex = (base, light, dark, rep) => canvasTex(512, 512, (g, w, h) => {
-  g.fillStyle = base; g.fillRect(0, 0, w, h);
-  speckle(g, w, h, 9000, [light, dark], 0.35);
-  scallops(g, w, h, 26, 15, light, dark, 0.28);
-}, rep);
-
-const wingTex = canvasTex(1024, 512, (g, w, h) => {
-  const gr = g.createLinearGradient(0, 0, w, h);
-  gr.addColorStop(0, '#9da3b5'); gr.addColorStop(.6, '#878da0'); gr.addColorStop(1, '#6a6f82');
-  g.fillStyle = gr; g.fillRect(0, 0, w, h);
-  speckle(g, w, h, 14000, ['#c0c5d2', '#5a5f72'], 0.3);
-  scallops(g, w * 0.68, h, 34, 20, '#e4e8f0', '#7b8093', 0.35);
-  // dunkle Handschwingen
-  g.fillStyle = '#4b4e5d';
-  g.beginPath(); g.moveTo(w * .66, h * .35); g.bezierCurveTo(w * .8, h * .3, w * .95, h * .4, w, h * .5);
-  g.lineTo(w, h); g.lineTo(w * .62, h); g.closePath(); g.fill();
-  g.strokeStyle = '#353744'; g.lineWidth = 3;
-  for (let i = 0; i < 9; i++) { g.beginPath(); g.moveTo(w * (.64 + i * .035), h); g.lineTo(w * (.72 + i * .03), h * .42); g.stroke(); }
-  // zwei schwarze Flügelbinden
-  g.fillStyle = '#18171d';
-  for (const [x0, wd] of [[.30, .06], [.44, .055]]) {
-    g.beginPath();
-    g.moveTo(w * x0, h * .28); g.quadraticCurveTo(w * (x0 + .05), h * .65, w * (x0 + .02), h * 1.0);
-    g.lineTo(w * (x0 + .02 + wd), h * 1.0); g.quadraticCurveTo(w * (x0 + .05 + wd), h * .62, w * (x0 + wd * .8), h * .28);
-    g.closePath(); g.fill();
-  }
-});
-const tailTex = canvasTex(512, 256, (g, w, h) => {
-  g.fillStyle = '#7b8094'; g.fillRect(0, 0, w, h);
-  speckle(g, w, h, 5000, ['#a3a8b9', '#545869'], 0.35);
-  g.strokeStyle = '#5d6174'; g.lineWidth = 2;
-  for (let i = 0; i < 12; i++) { g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, i * h / 11); g.stroke(); }
-  g.fillStyle = '#1b1a20'; g.fillRect(w * .78, 0, w * .14, h);
-});
 const skinTex = canvasTex(256, 256, (g, w, h) => {
   g.fillStyle = '#e4a586'; g.fillRect(0, 0, w, h);
-  for (let i = 0; i < 4000; i++) { g.globalAlpha = .12 * rnd(); g.fillStyle = rnd() > .5 ? '#c27a5b' : '#f6c9ae';
+  for (let i = 0; i < 5000; i++) { g.globalAlpha = .13 * rnd(); g.fillStyle = rnd() > .5 ? '#c27a5b' : '#f6c9ae';
     g.beginPath(); g.arc(rnd() * w, rnd() * h, rnd() * 1.6, 0, 7); g.fill(); }
 }, [3, 3]);
+const stoneTex = canvasTex(256, 256, (g, w, h) => {
+  g.fillStyle = '#8f8e89'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 9000; i++) { g.globalAlpha = .3 * rnd(); g.fillStyle = rnd() > .5 ? '#b2b1ab' : '#5e5d59'; g.fillRect(rnd() * w, rnd() * h, 2, 2); }
+}, [2, 2]);
 const groundTex = canvasTex(1024, 1024, (g, w, h) => {
   g.fillStyle = '#5a5a63'; g.fillRect(0, 0, w, h);
-  for (let i = 0; i < 40000; i++) { g.globalAlpha = .25 * rnd(); g.fillStyle = rnd() > .5 ? '#7a7a84' : '#3b3b42';
-    g.fillRect(rnd() * w, rnd() * h, 2, 2); }
+  for (let i = 0; i < 40000; i++) { g.globalAlpha = .25 * rnd(); g.fillStyle = rnd() > .5 ? '#7a7a84' : '#3b3b42'; g.fillRect(rnd() * w, rnd() * h, 2, 2); }
   g.globalAlpha = 1; g.strokeStyle = '#2f2f36'; g.lineWidth = 6;
   for (let i = 0; i <= 4; i++) { g.beginPath(); g.moveTo(i * w / 4, 0); g.lineTo(i * w / 4, h); g.stroke();
     g.beginPath(); g.moveTo(0, i * h / 4); g.lineTo(w, i * h / 4); g.stroke(); }
 }, [4, 4]);
 
-// ---------- Materialien ----------
 const M = {
-  body: new THREE.MeshStandardMaterial({ map: featherTex('#7a8096', '#a9aec0', '#4e5366', [5, 3]), roughness: .92 }),
-  // bump wird unten gesetzt
-  head: new THREE.MeshStandardMaterial({ map: featherTex('#6d7287', '#9ea3b6', '#4b4f61', [3, 2]), roughness: .9 }),
-  neck: new THREE.MeshPhysicalMaterial({ map: featherTex('#9aa0b0', '#d8dce6', '#6a6f80', [4, 2]), color: 0x5fae8c,
-          roughness: .55, iridescence: .6, iridescenceIOR: 1.3, iridescenceThicknessRange: [250, 600], sheen: .35, sheenColor: new THREE.Color(0x9a5cc8), sheenRoughness: .4 }),
-  wing: new THREE.MeshStandardMaterial({ map: wingTex, roughness: .85, side: THREE.DoubleSide }),
-  tail: new THREE.MeshStandardMaterial({ map: tailTex, roughness: .85, side: THREE.DoubleSide }),
-  beak: new THREE.MeshPhysicalMaterial({ color: 0x1f1c20, roughness: .6, clearcoat: .2, envMapIntensity: .25 }),
-  cere: new THREE.MeshStandardMaterial({ color: 0xece9e2, roughness: 1 }),
-  eye: new THREE.MeshPhysicalMaterial({ color: 0xf06a1c, roughness: .1, clearcoat: 1, clearcoatRoughness: .05, emissive: 0x3a0f00 }),
-  pupil: new THREE.MeshPhysicalMaterial({ color: 0x050303, roughness: .05, clearcoat: 1 }),
-  eyering: new THREE.MeshStandardMaterial({ color: 0x8b8d99, roughness: .7 }),
-  skin: new THREE.MeshPhysicalMaterial({ map: skinTex, color: 0xffffff, roughness: .58, sheen: .4, sheenColor: new THREE.Color(0xffb59a), clearcoat: .08 }),
-  nail: new THREE.MeshPhysicalMaterial({ color: 0xeab7aa, roughness: .25, clearcoat: 1, clearcoatRoughness: .2 }),
+  skin: new THREE.MeshPhysicalMaterial({ map: skinTex, roughness: .55, sheen: .4, sheenColor: new THREE.Color(0xffb59a), clearcoat: .1, clearcoatRoughness: .5 }),
+  nail: new THREE.MeshPhysicalMaterial({ color: 0xcf8a80, roughness: .35, clearcoat: .35, envMapIntensity: .3, clearcoatRoughness: .2 }),
+  nailTip: new THREE.MeshPhysicalMaterial({ color: 0xf6e6dc, roughness: .4, clearcoat: .5 }),
+  crease: new THREE.MeshStandardMaterial({ color: 0xa8664c, roughness: .8 }),
   hair: new THREE.MeshStandardMaterial({ color: 0x3e2a1e, roughness: .8 }),
+  stone: new THREE.MeshStandardMaterial({ map: stoneTex, roughness: 1 }),
   ground: new THREE.MeshStandardMaterial({ map: groundTex, roughness: .95 }),
 };
-
-M.body.bumpMap = M.body.map; M.body.bumpScale = .015;
-M.head.bumpMap = M.head.map; M.head.bumpScale = .012;
-M.neck.bumpMap = M.neck.map; M.neck.bumpScale = .02;
-M.wing.bumpMap = M.wing.map; M.wing.bumpScale = .015;
-
 function mesh(geo, mat, parent, pos = [0, 0, 0], rot = [0, 0, 0], scl = [1, 1, 1]) {
-  const m = new THREE.Mesh(geo, mat);
-  m.position.set(...pos); m.rotation.set(...rot); m.scale.set(...scl);
+  const m = new THREE.Mesh(geo, mat); m.position.set(...pos); m.rotation.set(...rot); m.scale.set(...scl);
   m.castShadow = true; m.receiveShadow = true; parent.add(m); return m;
 }
 function deform(geo, fn) {
@@ -178,206 +116,119 @@ function deform(geo, fn) {
   for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i); fn(v); p.setXYZ(i, v.x, v.y, v.z); }
   geo.computeVertexNormals(); return geo;
 }
-function planarUV(geo) {
-  geo.computeBoundingBox(); const b = geo.boundingBox, p = geo.attributes.position, uv = geo.attributes.uv;
-  for (let i = 0; i < p.count; i++)
-    uv.setXY(i, (p.getX(i) - b.min.x) / (b.max.x - b.min.x), (p.getY(i) - b.min.y) / (b.max.y - b.min.y));
-  return geo;
-}
 
-// ---------- Federflaum (Shell-Technik) ----------
-const strandTex = (() => {
-  const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d');
-  g.fillStyle = '#000'; g.fillRect(0, 0, 512, 512); g.lineCap = 'round';
-  for (let i = 0; i < 16000; i++) {
-    const x = rnd() * 512, y = rnd() * 512, l = 4 + rnd() * 10, a = (rnd() - .5) * .5, v = (90 + rnd() * 165) | 0;
-    g.strokeStyle = `rgb(${v},${v},${v})`; g.lineWidth = .8 + rnd() * 1.4;
-    g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.sin(a) * l, y + Math.cos(a) * l); g.stroke();
-  }
-  const tx = new THREE.CanvasTexture(c); tx.wrapS = tx.wrapT = THREE.RepeatWrapping; return tx;
-})();
-function addShells(target, baseMat, layers, len) {
-  const geo = target.geometry, pos = geo.attributes.position, nor = geo.attributes.normal;
-  for (let i = 1; i <= layers; i++) {
-    const k = i / layers, g = geo.clone(), p = g.attributes.position;
-    for (let j = 0; j < p.count; j++)
-      p.setXYZ(j, pos.getX(j) + nor.getX(j) * len * k, pos.getY(j) + nor.getY(j) * len * k - len * .35 * k * k, pos.getZ(j) + nor.getZ(j) * len * k);
-    const m = baseMat.clone();
-    m.alphaMap = strandTex; m.alphaTest = .12 + .8 * k; m.transparent = false;
-    m.color = baseMat.color.clone().multiplyScalar(.72 + .28 * k);
-    const sh = new THREE.Mesh(g, m); sh.receiveShadow = true; target.add(sh);
-    if (baseMat === M.neck) neckShells.push([m, .72 + .28 * k]);
-  }
-}
-const neckShells = [];
-function quillTex(base, edge, band) {
-  return canvasTex(512, 96, (g, w, h) => {
-    const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, edge); gr.addColorStop(.5, base); gr.addColorStop(1, edge);
-    g.fillStyle = gr; g.fillRect(0, 0, w, h);
-    g.lineWidth = 1;
-    for (let x = -40; x < w; x += 3) { g.strokeStyle = rnd() > .5 ? 'rgba(255,255,255,.08)' : 'rgba(0,0,0,.12)';
-      g.beginPath(); g.moveTo(x, h * .47); g.lineTo(x + 30, 0); g.moveTo(x, h * .53); g.lineTo(x + 30, h); g.stroke(); }
-    if (band) { g.fillStyle = 'rgba(20,19,24,.92)'; g.fillRect(w * .72, 0, w * .16, h); }
-    g.strokeStyle = 'rgba(230,232,240,.55)'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(0, h * .5); g.lineTo(w * .97, h * .5); g.stroke();
-  });
-}
-function featherGeo(len, wid) {
-  const s = new THREE.Shape();
-  s.moveTo(0, -wid * .25);
-  s.quadraticCurveTo(len * .5, -wid * .6, len * .93, -wid * .3);
-  s.quadraticCurveTo(len * 1.03, 0, len * .93, wid * .3);
-  s.quadraticCurveTo(len * .5, wid * .55, 0, wid * .25);
-  s.closePath();
-  const g = planarUV(new THREE.ExtrudeGeometry(s, { depth: .004, bevelEnabled: true, bevelThickness: .006, bevelSize: .006, bevelSegments: 1, curveSegments: 24 }));
-  return deform(g, v => { v.z -= .06 * Math.pow(v.x / len, 2); });
-}
-const primTex = quillTex('#55586a', '#33353f'), tailFTex = quillTex('#767b8f', '#4d5163', true);
-
-// Boden
 const ground = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), M.ground);
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
-// Brotkrumen
 for (let i = 0; i < 9; i++) {
   const g = deform(new THREE.IcosahedronGeometry(.03 + rnd() * .03, 1), v => v.multiplyScalar(.8 + rnd() * .4));
-  mesh(g, new THREE.MeshStandardMaterial({ color: 0xc89a5c, roughness: 1 }), scene, [-1.6 - rnd() * 1.5, .03, -1 + rnd() * 2.4]);
+  mesh(g, new THREE.MeshStandardMaterial({ color: 0xc89a5c, roughness: 1 }), scene, [1.4 + rnd() * 1.5, .03, -1 + rnd() * 2.4]);
 }
 
-// ---------- Taube ----------
-const bird = new THREE.Group(); scene.add(bird);
+// ---------- Figur: ein Bein, ein Riesenzeh ----------
+const rig = new THREE.Group(); scene.add(rig);          // alles, was schaukelt
+const BIRD_BASE = 1.85;                                 // Höhe, auf der der Vogel sitzt
 
-// Körper: Ei-Form, Brust vorne voll, hinten zum Schwanz verjüngt
-const bodyGeo = deform(new THREE.SphereGeometry(1, 96, 64), v => {
-  const f = -v.x; let sx = 1.3, sy = 1, sz = .86;
-  if (f > 0) { sy *= 1 + .16 * f; sz *= 1 + .08 * f; }
-  else { const b = -f; sy *= 1 - .4 * b; sz *= 1 - .34 * b; sx *= 1 + .28 * b; }
-  v.set(v.x * sx, v.y * sy, v.z * sz);
+// Riesenzeh als Fuß (zeigt nach +x, wie der Vogel)
+const toe = new THREE.Group(); rig.add(toe);
+const TOE_C = [.25, .27, 0];
+const toeGeo = deform(new THREE.SphereGeometry(1, 128, 64), v => {
+  const x = v.x;
+  // Kapsel-artig: Seiten fast gerade, Enden rund
+  const r = Math.sqrt(Math.max(0, 1 - x * x)), straight = Math.pow(r, .45);
+  let y = v.y / (r || 1) * straight, z = v.z / (r || 1) * straight;
+  if (y < 0) y *= .8;                                  // Zehenballen unten flacher
+  const taper = 1 - .12 * Math.max(0, x) + .06 * Math.max(0, -x);
+  v.set(x * .82, y * .27 * taper, z * .3 * taper);
+  v.y += .06 * Math.pow(Math.max(0, x), 3);            // Spitze leicht nach oben
 });
-const bodyPivot = new THREE.Group(); bodyPivot.position.set(0, 1.95, 0); bodyPivot.rotation.z = -0.38; bird.add(bodyPivot);
-const body = mesh(bodyGeo, M.body, bodyPivot);
-addShells(body, M.body, 14, .05);
-
-// Flügel (beide Seiten)
-function wingGeo() {
-  const s = new THREE.Shape();
-  s.moveTo(0, 0);
-  s.bezierCurveTo(.6, .32, 1.6, .22, 2.45, -.5);
-  s.bezierCurveTo(2.7, -.72, 2.62, -.86, 2.38, -.82);
-  s.bezierCurveTo(1.6, -.78, .7, -.98, .15, -.72);
-  s.bezierCurveTo(-.15, -.5, -.15, -.2, 0, 0);
-  const g = new THREE.ExtrudeGeometry(s, { depth: .04, bevelEnabled: true, bevelThickness: .05, bevelSize: .05, bevelSegments: 4, curveSegments: 48 });
-  planarUV(g);
-  return deform(g, v => { v.z -= .38 * Math.pow(v.y + .25, 2) + .08 * Math.pow(v.x - .8, 2); });
+const toeMesh = mesh(toeGeo, M.skin, toe, TOE_C);
+// Nagel: per Raycast genau auf die Hautoberfläche gesetzt
+toe.updateMatrixWorld(true);
+function surfaceAt(x, z) {
+  const rc = new THREE.Raycaster(new THREE.Vector3(x, 3, z), new THREE.Vector3(0, -1, 0));
+  const hit = rc.intersectObject(toeMesh)[0];
+  return hit ? { p: hit.point, n: hit.face.normal.clone().transformDirection(toeMesh.matrixWorld) } : null;
 }
-const wings = [];
-for (const s of [1, -1]) {
-  const w = mesh(wingGeo(), M.wing, bodyPivot, [-.62, .5, s * 1.0], [0, s * .14, .1], [1.05, 1.05, s]);
-  wings.push(w);
-  // einzelne Handschwingen an der Flügelspitze
-  for (let i = 0; i < 7; i++) {
-    const fm = new THREE.MeshPhysicalMaterial({ map: primTex, roughness: .55, sheen: .3, side: THREE.DoubleSide });
-    fm.color.setScalar(.8 + i * .03);
-    mesh(featherGeo(1.3 - i * .07, .22), fm, w, [1.25 + i * .06, -.38 - i * .045, -.02 + i * .014], [0, 0, -.42 + i * .045]);
-  }
-}
-
-// Schwanz
 {
-  const s = new THREE.Shape();
-  s.moveTo(0, -.24); s.lineTo(1.35, -.34); s.quadraticCurveTo(1.47, 0, 1.35, .34); s.lineTo(0, .24); s.closePath();
-  const g = planarUV(new THREE.ExtrudeGeometry(s, { depth: .02, bevelEnabled: true, bevelThickness: .025, bevelSize: .025, bevelSegments: 2, curveSegments: 24 }));
-  const tailG = new THREE.Group(); tailG.position.set(1.0, -.05, 0); tailG.rotation.z = -.12; bodyPivot.add(tailG);
-  const tm = new THREE.MeshPhysicalMaterial({ map: tailFTex, roughness: .6, sheen: .3, side: THREE.DoubleSide });
-  for (let i = 0; i < 12; i++) {
-    const a = -.28 + i * .051;
-    mesh(featherGeo(1.45 - Math.abs(a) * .5, .24), tm, tailG, [0, .01 + (6 - Math.abs(i - 5.5)) * .006, 0], [Math.PI / 2, 0, a]);
+  const nailGeo = deform(new THREE.SphereGeometry(1, 48, 24), v => { if (v.y < 0) v.y *= .15; v.set(v.x * .27, v.y * .03, v.z * .22); });
+  const s = surfaceAt(.72, 0);
+  if (s) {
+    const nail = mesh(nailGeo, M.nail, toe, [s.p.x, s.p.y + .004, s.p.z]);
+    nail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), s.n);
+    const tip = mesh(deform(new THREE.SphereGeometry(1, 32, 12), v => { if (v.y < 0) v.y *= .15; v.set(v.x * .06, v.y * .032, v.z * .2); }),
+      M.nailTip, toe, [s.p.x + .24, s.p.y - .06, s.p.z]);
+    tip.quaternion.copy(nail.quaternion);
   }
 }
-
-// Hals (schillernd)
-// ein durchgehender, nach unten breiter werdender Hals
-const neckGeo = deform(new THREE.SphereGeometry(1, 96, 64), v => {
-  const k = (1 - v.y) / 2;                  // 0 oben, 1 unten
-  const r = .36 + .26 * k * k;
-  v.set(v.x * r + .12 * k, v.y * .78, v.z * r * .95);
-});
-addShells(mesh(neckGeo, M.neck, bird, [-1.0, 2.78, 0], [0, 0, .32]), M.neck, 10, .045);
-
-// Kopf
-const headPivot = new THREE.Group(); headPivot.position.set(-.95, 2.95, 0); bird.add(headPivot);
-const head = new THREE.Group(); head.position.set(-.18, .38, 0); headPivot.add(head);
-addShells(mesh(new THREE.SphereGeometry(.42, 64, 48), M.head, head, [0, 0, 0], [0, 0, 0], [1.15, 1, .92]), M.head, 8, .03);
-// Wachshaut + Schnabel
-mesh(new THREE.SphereGeometry(.1, 32, 16), M.cere, head, [-.44, .02, 0], [0, 0, -.2], [1.35, .7, 1.15]);
-mesh(new THREE.ConeGeometry(.062, .36, 32), M.beak, head, [-.63, -.05, 0], [0, 0, Math.PI / 2 + .14], [1, 1, .85]);
-const lowerPivot = new THREE.Group(); lowerPivot.position.set(-.45, -.1, 0); head.add(lowerPivot);
-mesh(new THREE.ConeGeometry(.055, .34, 32), M.beak, lowerPivot, [-.17, 0, 0], [0, 0, Math.PI / 2 + .05], [1, .9, .8]);
-// Augen mit verschlafenen Lidern
-const lids = [];
-for (const s of [1, -1]) {
-  const eye = new THREE.Group(); eye.position.set(-.17, .1, s * .335); eye.rotation.y = s * -.2; head.add(eye);
-  mesh(new THREE.SphereGeometry(.066, 32, 24), M.eye, eye);
-  mesh(new THREE.SphereGeometry(.03, 24, 16), M.pupil, eye, [0, 0, s * .045]);
-  mesh(new THREE.TorusGeometry(.068, .014, 16, 48), M.eyering, eye, [0, 0, s * .012]);
-  const lid = mesh(new THREE.SphereGeometry(.074, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), M.head, eye);
-  lid.userData.s = s; lids.push(lid);
+// Falten am Gelenk (oben über den Zeh gelegt)
+for (const [x, w] of [[-.08, 1], [-.02, .95], [.04, .9]]) {
+  const s = surfaceAt(x, 0); if (!s) continue;
+  mesh(new THREE.TorusGeometry(1, .01, 6, 48, Math.PI), M.crease, toe, [x, TOE_C[1], 0], [0, Math.PI / 2, 0], [.3 * w, s.p.y - TOE_C[1] + .003, 1]);
+}
+// Härchen auf dem Zeh
+{
+  const hairs = new THREE.InstancedMesh(new THREE.CylinderGeometry(.004, .002, .05, 4), M.hair, 50), d = new THREE.Object3D();
+  let n = 0;
+  for (let i = 0; i < 50; i++) {
+    const s = surfaceAt(-.25 + rnd() * .55, (rnd() - .5) * .2); if (!s) continue;
+    d.position.copy(s.p); d.rotation.set((rnd() - .5) * .8, 0, -1 + rnd() * .4); d.updateMatrix(); hairs.setMatrixAt(n++, d.matrix);
+  }
+  hairs.count = n; toe.add(hairs);
 }
 
-// ---------- Menschenbeine + Füße ----------
-const toes = [];
-for (const s of [1, -1]) {
-  const leg = new THREE.Group(); leg.position.set(.02, 0, s * .3); bird.add(leg);
-  mesh(new THREE.SphereGeometry(.27, 32, 24), M.body, leg, [.02, 1.28, 0], [0, 0, 0], [1, .8, 1]);   // Federhose
-  mesh(new THREE.CapsuleGeometry(.105, .82, 8, 32), M.skin, leg, [.04, .74, 0], [0, 0, -.04]);        // Schienbein
-  mesh(new THREE.SphereGeometry(.12, 32, 24), M.skin, leg, [.11, .9, 0], [0, 0, .1], [1, 1.9, .95]);   // Wade
-  mesh(new THREE.SphereGeometry(.12, 32, 24), M.skin, leg, [.07, .27, 0], [0, 0, 0], [1.05, 1, 1]);     // Knöchel
-  mesh(new THREE.SphereGeometry(.045, 16, 12), M.skin, leg, [.07, .3, .1]);
-  mesh(new THREE.SphereGeometry(.045, 16, 12), M.skin, leg, [.07, .32, -.1]);
-  // Beinhaare
-  const hairGeo = new THREE.CylinderGeometry(.003, .002, .06, 4);
-  const hairs = new THREE.InstancedMesh(hairGeo, M.hair, 90);
-  const d = new THREE.Object3D();
-  for (let i = 0; i < 90; i++) {
-    const a = rnd() * Math.PI * 2, y = .45 + rnd() * .7;
-    d.position.set(.04 + Math.cos(a) * .108, y, Math.sin(a) * .108);
+// Bein (Schienbein + Knie + Wade + Knöchel), sitzt hinten auf dem Zeh
+const leg = new THREE.Group(); rig.add(leg);
+const LX = -.3;
+mesh(new THREE.SphereGeometry(.2, 48, 32), M.skin, leg, [LX, .5, 0], [0, 0, 0], [1.1, 1, 1.15]);              // Knöchel
+mesh(new THREE.SphereGeometry(.06, 16, 12), M.skin, leg, [LX, .55, .2]);
+mesh(new THREE.SphereGeometry(.06, 16, 12), M.skin, leg, [LX, .57, -.2]);
+mesh(new THREE.CapsuleGeometry(.155, 1.15, 8, 32), M.skin, leg, [LX, 1.15, 0]);                                    // Schienbein
+mesh(new THREE.SphereGeometry(.17, 32, 24), M.skin, leg, [LX - .09, 1.3, 0], [0, 0, -.08], [1, 2.0, 1]);          // Wade
+mesh(new THREE.SphereGeometry(.15, 32, 24), M.skin, leg, [LX + .04, 1.78, 0], [0, 0, 0], [1.05, .9, 1.1]);          // Knie
+{
+  const hairs = new THREE.InstancedMesh(new THREE.CylinderGeometry(.004, .002, .07, 4), M.hair, 200), d = new THREE.Object3D();
+  for (let i = 0; i < 200; i++) {
+    const a = rnd() * Math.PI * 2, y = .65 + rnd() * 1.05;
+    d.position.set(LX + Math.cos(a) * .158, y, Math.sin(a) * .158);
     d.rotation.set(Math.sin(a) * .9, 0, -Math.cos(a) * .9 - .4); d.updateMatrix(); hairs.setMatrixAt(i, d.matrix);
   }
   leg.add(hairs);
-
-  // Fuß (zeigt nach -x, leicht nach außen gedreht)
-  const foot = new THREE.Group(); foot.rotation.y = s * .22; leg.add(foot);
-  const footGeo = deform(new THREE.SphereGeometry(1, 64, 32), v => {
-    if (v.y < 0) v.y *= .35;
-    const front = Math.max(0, -v.x);
-    v.z *= 1 + .45 * front;               // vorne breiter (Ballen)
-    v.y *= 1 - .45 * front;               // vorne flacher
-    if (v.x > .6) v.y *= 1.1;             // Ferse
-    v.z += -s * .12 * front * front;      // Innenseite für den Großzeh
-    v.set(v.x * .36, v.y * .17, v.z * .15);
-  });
-  mesh(footGeo, M.skin, foot, [-.16, .1, 0]);
-  // Zehen: Großzeh innen (Richtung Körpermitte)
-  const spec = [ // [z, Länge, Radius, x-Vorsprung]
-    [-s * .115, .15, .056, .0], [-s * .045, .12, .04, .005], [s * .01, .11, .036, -.01], [s * .06, .095, .033, -.035], [s * .105, .08, .03, -.065]];
-  spec.forEach(([z, len, r, dx], i) => {
-    const toe = new THREE.Group(); toe.position.set(-.44 + dx, .05, z * 1.05); toe.scale.setScalar(1.3); foot.add(toe);
-    mesh(new THREE.CapsuleGeometry(r, len, 8, 24), M.skin, toe, [-len / 2 - r * .3, r * .55, 0], [0, 0, Math.PI / 2 + .1]);
-    mesh(new THREE.SphereGeometry(r * .82, 24, 12), M.nail, toe, [-len - r * .55, r * 1.25, 0], [0, 0, .35], [1.0, .25, .8]);
-    toe.userData.i = i; toes.push(toe);
-  });
 }
+// Steinplatte unter dem Vogel, wo das Bein herauskommt
+const cap = mesh(new THREE.SphereGeometry(1, 64, 32), M.stone, rig, [-.2, BIRD_BASE + .02, 0], [0, 0, 0], [.5, .08, .42]);
 
-// ---------- Zzz-Sprites ----------
-const zTex = canvasTex(128, 128, (g) => { g.fillStyle = '#d8ccff'; g.font = 'bold 96px Georgia'; g.textAlign = 'center'; g.fillText('z', 64, 96); });
-const zs = [0, 1, 2].map(i => { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: zTex, transparent: true, depthWrite: false }));
-  scene.add(sp); return sp; });
+// ---------- Vogel (3D-Scan) ----------
+const birdHolder = new THREE.Group(); rig.add(birdHolder);
+let bird = null, headPos = new THREE.Vector3(.6, 3.2, 0);
+const clip = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+try {
+  const raw = atob(window.OMAS_VOGEL_GLB), bin = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) bin[i] = raw.charCodeAt(i);
+  new THREE.GLTFLoader().parse(bin.buffer, '', gltf => {
+    bird = gltf.scene;
+    const box = new THREE.Box3().setFromObject(bird), size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
+    const s = 2.7 / size.x;                                   // Vogel ca. 2,7 Einheiten lang
+    bird.scale.setScalar(s);
+    bird.position.set(-c.x * s, -box.min.y * s, -c.z * s);   // unten mittig auf 0
+    birdHolder.add(bird);
+    const H = size.y * s;
+    birdHolder.position.y = BIRD_BASE - H * .14;              // Steinfüße liegen unter der Schnittebene
+    clip.constant = -(BIRD_BASE + .02);                       // alles unter der Platte wegschneiden
+    bird.traverse(o => { if (o.isMesh) { o.castShadow = o.receiveShadow = true;
+      o.material.clippingPlanes = [clip]; o.material.side = THREE.DoubleSide; o.material.envMapIntensity = .5; } });
+    headPos.set(size.x * s * .28, BIRD_BASE + H * .86, 0);
+    msg.style.display = 'none';
+  }, e => { msg.textContent = 'Vogel konnte nicht geladen werden.'; console.error(e); });
+} catch (e) { msg.textContent = 'Vogel konnte nicht geladen werden.'; console.error(e); }
 
-// ---------- Audio / Lippensync ----------
+// Zzz
+const zTex = canvasTex(128, 128, g => { g.fillStyle = '#d8ccff'; g.font = 'bold 96px Georgia'; g.textAlign = 'center'; g.fillText('z', 64, 96); });
+const zs = [0, 1, 2].map(() => { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: zTex, transparent: true, depthWrite: false })); scene.add(sp); return sp; });
+
+// ---------- Audio ----------
 const audio = document.getElementById('voice');
 const sub = document.getElementById('sub'), btn = document.getElementById('play');
 const lines = [[0.32,'Heeey… 🥱'],[1.45,'mmmh…'],[3.19,'Good Boy… 😏'],[4.96,'mein kleiner…'],[6.64,'guter Junge… 🥺'],[8.69,'ja… du bist mein Good Boy 💕'],[12.44,'mmmh…'],[14.31,'komm her… 🥱'],[15.5,'mein kleiner guter Junge… 😏'],[18.06,'Good Boy… 💕'],[19.78,'mmmmh… z z z']];
-const RENDER = new URLSearchParams(location.search).has('render');
-if (RENDER) document.getElementById('hint').style.display = 'none';
-window.__t = 0; window.__lvl = 0;
 let actx, analyser, data;
 function setupAudio() {
   if (actx) return;
@@ -394,14 +245,12 @@ function level() {
   let s = 0; for (const v of data) { const d = (v - 128) / 128; s += d * d; }
   return Math.min(1, Math.sqrt(s / data.length) * 6);
 }
-function play() {
+btn.addEventListener('click', () => {
   setupAudio(); if (actx && actx.state === 'suspended') actx.resume();
   audio.currentTime = 0; audio.play(); btn.textContent = '↻ Nochmal';
-}
-btn.addEventListener('click', play);
-audio.addEventListener('ended', () => setTimeout(() => sub.textContent = 'gurr… z z z …', 400));
+});
+audio.addEventListener('ended', () => setTimeout(() => sub.textContent = 'z z z …', 400));
 
-// ---------- Größe ----------
 function resize() {
   const w = stage.clientWidth, h = stage.clientHeight;
   renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
@@ -409,48 +258,40 @@ function resize() {
 new ResizeObserver(resize).observe(stage); resize();
 
 // ---------- Animation ----------
-const green = new THREE.Color(0x2f7a5e), purple = new THREE.Color(0x6a3f8f), tmpC = new THREE.Color();
 let smooth = 0; const clock = new THREE.Clock();
 function tick() {
   const t = RENDER ? window.__t : clock.getElapsedTime();
   smooth += ((RENDER ? window.__lvl : level()) - smooth) * 0.35;
-  const talking = RENDER ? (window.__t > 0.2 && window.__t < 22.4) : !audio.paused;
+  const talking = RENDER ? (t > 0.2 && t < 22.4) : !audio.paused;
 
-  bird.rotation.z = Math.sin(t * 1.2) * .025;
-  bird.rotation.x = Math.sin(t * .9) * .015;
-  body.scale.y = 1 + Math.sin(t * 1.6) * .012;                     // Atmen
-  headPivot.rotation.z = -.06 + Math.sin(t * .8) * .07 + (talking ? Math.sin(t * 3) * .03 : 0);
-  headPivot.rotation.y = Math.sin(t * .5) * .18;
-  headPivot.position.x = -.95 + Math.sin(t * .8) * .03;
-  lowerPivot.rotation.z = smooth * .45;
+  // verschlafenes Schaukeln auf dem einen Bein
+  rig.rotation.z = Math.sin(t * 1.1) * .035;
+  rig.rotation.x = Math.sin(t * .8) * .03;
+  // beim Sprechen nickt und "pumpt" der Vogel mit der Stimme
+  birdHolder.rotation.z = -smooth * .09 + Math.sin(t * .7) * .03;
+  birdHolder.rotation.y = Math.sin(t * .45) * .12;
+  birdHolder.scale.set(1 - smooth * .015, 1 + smooth * .035, 1 - smooth * .015);
+  // Riesenzeh wackelt
+  toe.rotation.z = Math.max(0, Math.sin(t * 2.4)) * .1;
 
-  // verschlafene Lider: meist halb zu, ab und zu ganz zu
-  const cyc = (t / 5.2) % 1, blink = cyc > .9 && cyc < .96 ? 1 : 0;
-  const lidAmt = .35 + Math.sin(t * .7) * .08 + blink * 1.05;
-  lids.forEach(l => l.rotation.x = l.userData.s * lidAmt);
-
-  toes.forEach(tg => tg.rotation.z = Math.max(0, Math.sin(t * 2.8 - tg.userData.i * .5)) * .25);
-  tmpC.copy(green).lerp(purple, .5 + .5 * Math.sin(t * .8)); M.neck.color.copy(tmpC);
-  neckShells.forEach(([m, f]) => m.color.copy(tmpC).multiplyScalar(f));
-
-  const hp = new THREE.Vector3(); head.getWorldPosition(hp);
   zs.forEach((z, i) => {
     const p = ((t / 3.5) + i / 3) % 1;
-    z.position.set(hp.x + .2 + p * .5, hp.y + .45 + p * 1.1, hp.z + p * .2);
+    z.position.set(headPos.x + .1 + p * .4, headPos.y + .3 + p * 1.0, headPos.z + p * .25);
     z.scale.setScalar(.18 + p * .22 + i * .03); z.material.opacity = talking ? 0 : Math.sin(p * Math.PI) * .85;
   });
 
   const now = RENDER ? t : audio.currentTime;
   if (talking || RENDER) { let txt = ''; for (const [tm, l] of lines) if (now >= tm) txt = l; sub.textContent = txt; }
   if (RENDER) {   // langsame Kamerafahrt fürs Video
-    const a = -0.95 + Math.sin(t * 0.18) * 0.55, dist = 9.4 - t * 0.045;
-    camera.position.set(-0.2 + Math.sin(a) * dist, 2.9 + Math.sin(t * 0.25) * 0.4, Math.cos(a) * dist);
-    camera.lookAt(-0.3, 1.55, 0);
+    const a = .62 + Math.sin(t * .18) * .55, dist = 9.6 - t * .05;
+    camera.position.set(.1 + Math.sin(a) * dist, 3.0 + Math.sin(t * .25) * .35, Math.cos(a) * dist);
+    camera.lookAt(.1, 1.8, 0);
   } else controls.update();
   renderer.render(scene, camera);
   if (!RENDER) requestAnimationFrame(tick);
 }
 window.__frame = (time, lvl) => { window.__t = time; window.__lvl = lvl; tick(); };
+window.__ready = () => !!bird;
 tick();
 })();
 </script>
