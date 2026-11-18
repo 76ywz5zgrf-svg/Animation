@@ -1,11 +1,15 @@
-import json,wave,numpy as np,sys
+import json,wave,numpy as np,sys,subprocess
 base=sys.argv[1];SR=44100
 tl=json.load(open(f"{base}/gen/timeline.json"));T=tl["total"];N=int(T*SR)+SR
 def rd(fn):
     w=wave.open(fn);sr=w.getframerate();x=np.frombuffer(w.readframes(w.getnframes()),np.int16).astype(np.float32)/32768;w.close()
     return np.interp(np.arange(int(len(x)*SR/sr))*sr/SR,np.arange(len(x)),x)
-voice=np.zeros(N);
-for i,s in enumerate(tl["scenes"]):
+voice=np.zeros(N)
+if len(sys.argv)>2:
+    raw=subprocess.run(["ffmpeg","-v","error","-i",sys.argv[2],"-f","f32le","-ac","1","-ar",str(SR),"-"],capture_output=True).stdout
+    x=np.frombuffer(raw,np.float32).astype(np.float64);voice[:min(N,len(x))]=x[:N]
+else:
+  for i,s in enumerate(tl["scenes"]):
     x=rd(f"{base}/gen/voice/{i:02d}.wav")
     if s.get("gap"):
         a=int(s["gap"]["at"]*SR);x=np.concatenate([x[:a],np.zeros(int(s["gap"]["len"]*SR)),x[a:]])
@@ -20,7 +24,7 @@ def put(buf,at,sig):
     i=int(at*SR);
     if i>=len(buf):return
     sig=sig[:len(buf)-i];buf[i:i+len(sig)]+=sig
-tA=sc["alone"]["start"];tG=sc["gold"]["start"]+0.1+sc["gold"]["gap"]["at"]
+tA=sc["alone"]["start"];tG=sc["gold"]["start"]+sc["gold"]["gap"]["at"]+0.05
 minor=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]]   # Am F C G
 major=[[57,61,64],[50,54,57],[52,56,59],[57,61,64]]   # A D E A
 def pad(chord,L,vol):
@@ -55,8 +59,8 @@ ve=np.convolve(np.abs(voice),np.ones(4410)/4410,'same');duck=1-0.45*np.clip(ve*1
 mix=voice*1.0+mus*duck
 mix/=max(1,np.abs(mix).max()/0.95)
 mix=mix[:int(T*SR)]
-w=wave.open(f"{base}/out/audio.wav","w");w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes((mix*32767).astype(np.int16).tobytes());w.close()
-w=wave.open(f"{base}/out/voice_only.wav","w");w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);v=voice[:int(T*SR)];w.writeframes((v/max(1,np.abs(v).max())*32767*0.95).astype(np.int16).tobytes());w.close()
+w=wave.open(f"{base}/out/audio_el.wav","w");w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes((mix*32767).astype(np.int16).tobytes());w.close()
+w=wave.open(f"{base}/out/voice_el_only.wav","w");w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);v=voice[:int(T*SR)];w.writeframes((v/max(1,np.abs(v).max())*32767*0.95).astype(np.int16).tobytes());w.close()
 print("ok",T)
 m=mus[:int(T*SR)];m=m/max(1,np.abs(m).max()/0.9)
-w=wave.open(f"{base}/out/music_only.wav","w");w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes((m*32767).astype(np.int16).tobytes());w.close()
+w=wave.open(f"{base}/out/music_el.wav","w");w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes((m*32767).astype(np.int16).tobytes());w.close()
