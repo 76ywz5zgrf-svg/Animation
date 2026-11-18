@@ -1,0 +1,17 @@
+In meiner Stadt gehen alle tagsüber arbeiten. <break time="0.4s" />
+Und nachts schlafen alle. <break time="0.3s" />
+Nur ich nicht. <break time="0.4s" />
+Ich scrolle. Tag und Nacht. Nacht und Tag. <break time="0.4s" />
+Ich gucke sogar „In meiner Stadt“-Videos. <break time="0.3s" /> In meiner Stadt. <break time="0.4s" />
+Mein Nachbar sagt: „Bro, du hast null Leben.“ <break time="0.4s" />
+Doch dann hängt überall dieses Plakat. Das große Doomscroll-Event! <break time="0.5s" />
+Alle lachen mich aus. „Der? Der gewinnt doch nie.“ <break time="0.5s" />
+Der große Tag. Die besten Scroller der ganzen Region. <break time="0.4s" />
+Der Titelverteidiger. Zwanzig Stunden am Stück. <break time="0.4s" />
+Nach zehn Stunden fällt der Erste. Akku leer. <break time="0.4s" />
+Nach zwanzig Stunden schläft sogar der Champion ein. <break time="0.5s" />
+Nur einer scrollt noch. <break time="0.6s" />
+Ich. <break time="1.1s" />
+Der ultimative Doomscroller! <break time="2.0s" />
+Und alle, die mich ausgelacht haben? Verbeugen sich jetzt. <break time="0.4s" />
+Morgen gehen sie wieder arbeiten. Und ich? <break time="0.4s" /> Scroll einfach weiter.
