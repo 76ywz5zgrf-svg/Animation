@@ -1,0 +1,18 @@
+[
+ {"scene":"city_day",   "text":"In meiner Stadt gehen alle tagsüber arbeiten."},
+ {"scene":"city_night", "text":"Und nachts schlafen alle."},
+ {"scene":"bed_close",  "text":"Nur ich nicht."},
+ {"scene":"bed_cycle",  "text":"Ich scrolle. Tag und Nacht. Nacht und Tag."},
+ {"scene":"phone_meta", "text":"Ich gucke sogar In meiner Stadt Videos. In meiner Stadt."},
+ {"scene":"neighbor",   "text":"Mein Nachbar sagt: Bro, du hast null Leben."},
+ {"scene":"poster",     "text":"Doch dann hängt überall dieses Plakat. Das große Doomscroll Event."},
+ {"scene":"laugh",      "text":"Alle lachen mich aus. Der? Der gewinnt doch nie."},
+ {"scene":"arena",      "text":"Der große Tag. Die besten Scroller der ganzen Region."},
+ {"scene":"champion",   "text":"Der Titelverteidiger. Zwanzig Stunden am Stück."},
+ {"scene":"drop1",      "text":"Nach zehn Stunden fällt der Erste. Akku leer."},
+ {"scene":"drop2",      "text":"Nach zwanzig Stunden schläft sogar der Champion ein."},
+ {"scene":"alone",      "text":"Nur einer scrollt noch."},
+ {"scene":"gold",       "text":"Ich. Der ultimative Doomscroller."},
+ {"scene":"bow",        "text":"Und alle, die mich ausgelacht haben? Verbeugen sich jetzt."},
+ {"scene":"ending",     "text":"Morgen gehen sie wieder arbeiten. Und ich? Scroll einfach weiter."}
+]

@@ -1,0 +1,753 @@
+{
+ "total": 51.397,
+ "scenes": [
+  {
+   "name": "city_day",
+   "start": 0,
+   "dur": 3.03,
+   "voiceAt": 0.4,
+   "words": [
+    [
+     "In",
+     0.4,
+     0.58
+    ],
+    [
+     "meiner",
+     0.58,
+     0.939
+    ],
+    [
+     "Stadt",
+     0.939,
+     1.253
+    ],
+    [
+     "gehen",
+     1.253,
+     1.568
+    ],
+    [
+     "alle",
+     1.568,
+     1.837
+    ],
+    [
+     "tagsüber",
+     1.837,
+     2.286
+    ],
+    [
+     "arbeiten",
+     2.286,
+     2.955
+    ]
+   ],
+   "gap": null,
+   "text": "In meiner Stadt gehen alle tagsüber arbeiten."
+  },
+  {
+   "name": "city_night",
+   "start": 3.03,
+   "dur": 1.755,
+   "voiceAt": 3.13,
+   "words": [
+    [
+     "Und",
+     0.1,
+     0.4
+    ],
+    [
+     "nachts",
+     0.4,
+     0.7
+    ],
+    [
+     "schlafen",
+     0.7,
+     1.1
+    ],
+    [
+     "alle",
+     1.1,
+     1.68
+    ]
+   ],
+   "gap": null,
+   "text": "Und nachts schlafen alle."
+  },
+  {
+   "name": "bed_close",
+   "start": 4.785,
+   "dur": 1.302,
+   "voiceAt": 4.885,
+   "words": [
+    [
+     "Nur",
+     0.1,
+     0.5
+    ],
+    [
+     "ich",
+     0.5,
+     0.64
+    ],
+    [
+     "nicht",
+     0.64,
+     1.227
+    ]
+   ],
+   "gap": null,
+   "text": "Nur ich nicht."
+  },
+  {
+   "name": "bed_cycle",
+   "start": 6.087,
+   "dur": 3.028,
+   "voiceAt": 6.187,
+   "words": [
+    [
+     "Ich",
+     0.1,
+     0.26
+    ],
+    [
+     "scrolle",
+     0.26,
+     1.0
+    ],
+    [
+     "Tag",
+     1.0,
+     1.12
+    ],
+    [
+     "und",
+     1.12,
+     1.28
+    ],
+    [
+     "Nacht",
+     1.28,
+     1.92
+    ],
+    [
+     "Nacht",
+     1.92,
+     2.12
+    ],
+    [
+     "und",
+     2.12,
+     2.32
+    ],
+    [
+     "Tag",
+     2.32,
+     2.953
+    ]
+   ],
+   "gap": null,
+   "text": "Ich scrolle. Tag und Nacht. Nacht und Tag."
+  },
+  {
+   "name": "phone_meta",
+   "start": 9.115,
+   "dur": 3.105,
+   "voiceAt": 9.215,
+   "words": [
+    [
+     "Ich",
+     0.1,
+     0.28
+    ],
+    [
+     "gucke",
+     0.28,
+     0.54
+    ],
+    [
+     "sogar",
+     0.54,
+     0.74
+    ],
+    [
+     "In",
+     0.74,
+     0.92
+    ],
+    [
+     "meiner",
+     0.92,
+     1.1
+    ],
+    [
+     "Stadt",
+     1.1,
+     1.28
+    ],
+    [
+     "Videos",
+     1.28,
+     2.08
+    ],
+    [
+     "In",
+     2.08,
+     2.2
+    ],
+    [
+     "meiner",
+     2.2,
+     2.4
+    ],
+    [
+     "Stadt",
+     2.4,
+     3.03
+    ]
+   ],
+   "gap": null,
+   "text": "Ich gucke sogar In meiner Stadt Videos. In meiner Stadt."
+  },
+  {
+   "name": "neighbor",
+   "start": 12.22,
+   "dur": 2.614,
+   "voiceAt": 12.32,
+   "words": [
+    [
+     "Mein",
+     0.1,
+     0.28
+    ],
+    [
+     "Nachbar",
+     0.28,
+     0.66
+    ],
+    [
+     "sagt",
+     0.66,
+     1.08
+    ],
+    [
+     "Bro",
+     1.08,
+     1.56
+    ],
+    [
+     "du",
+     1.56,
+     1.62
+    ],
+    [
+     "hast",
+     1.62,
+     1.76
+    ],
+    [
+     "null",
+     1.76,
+     1.94
+    ],
+    [
+     "Leben",
+     1.94,
+     2.539
+    ]
+   ],
+   "gap": null,
+   "text": "Mein Nachbar sagt: Bro, du hast null Leben."
+  },
+  {
+   "name": "poster",
+   "start": 14.834,
+   "dur": 3.759,
+   "voiceAt": 14.934,
+   "words": [
+    [
+     "Doch",
+     0.1,
+     0.24
+    ],
+    [
+     "dann",
+     0.24,
+     0.44
+    ],
+    [
+     "hängt",
+     0.44,
+     0.66
+    ],
+    [
+     "überall",
+     0.66,
+     0.9
+    ],
+    [
+     "dieses",
+     0.9,
+     1.2
+    ],
+    [
+     "Plakat",
+     1.2,
+     2.0
+    ],
+    [
+     "Das",
+     2.0,
+     2.16
+    ],
+    [
+     "große",
+     2.16,
+     2.46
+    ],
+    [
+     "Doomscroll",
+     2.46,
+     3.04
+    ],
+    [
+     "Event",
+     3.04,
+     3.669
+    ]
+   ],
+   "gap": null,
+   "text": "Doch dann hängt überall dieses Plakat. Das große Doomscroll Event."
+  },
+  {
+   "name": "laugh",
+   "start": 18.593,
+   "dur": 3.113,
+   "voiceAt": 18.693,
+   "words": [
+    [
+     "Alle",
+     0.1,
+     0.3
+    ],
+    [
+     "lachen",
+     0.3,
+     0.58
+    ],
+    [
+     "mich",
+     0.58,
+     0.74
+    ],
+    [
+     "aus",
+     0.74,
+     1.34
+    ],
+    [
+     "Der",
+     1.34,
+     1.9
+    ],
+    [
+     "Der",
+     1.9,
+     2.04
+    ],
+    [
+     "gewinnt",
+     2.04,
+     2.36
+    ],
+    [
+     "doch",
+     2.36,
+     2.46
+    ],
+    [
+     "nie",
+     2.46,
+     3.023
+    ]
+   ],
+   "gap": null,
+   "text": "Alle lachen mich aus. Der? Der gewinnt doch nie."
+  },
+  {
+   "name": "arena",
+   "start": 21.706,
+   "dur": 3.396,
+   "voiceAt": 21.806,
+   "words": [
+    [
+     "Der",
+     0.1,
+     0.24
+    ],
+    [
+     "große",
+     0.24,
+     0.48
+    ],
+    [
+     "Tag",
+     0.48,
+     1.14
+    ],
+    [
+     "Die",
+     1.14,
+     1.28
+    ],
+    [
+     "besten",
+     1.28,
+     1.54
+    ],
+    [
+     "Scroller",
+     1.54,
+     1.94
+    ],
+    [
+     "der",
+     1.94,
+     2.12
+    ],
+    [
+     "ganzen",
+     2.12,
+     2.34
+    ],
+    [
+     "Region",
+     2.34,
+     3.321
+    ]
+   ],
+   "gap": null,
+   "text": "Der große Tag. Die besten Scroller der ganzen Region."
+  },
+  {
+   "name": "champion",
+   "start": 25.102,
+   "dur": 3.206,
+   "voiceAt": 25.202,
+   "words": [
+    [
+     "Der",
+     0.1,
+     0.26
+    ],
+    [
+     "Titelverteidiger",
+     0.26,
+     1.5
+    ],
+    [
+     "Zwanzig",
+     1.5,
+     2.04
+    ],
+    [
+     "Stunden",
+     2.04,
+     2.28
+    ],
+    [
+     "am",
+     2.28,
+     2.58
+    ],
+    [
+     "Stück",
+     2.58,
+     3.146
+    ]
+   ],
+   "gap": null,
+   "text": "Der Titelverteidiger. Zwanzig Stunden am Stück."
+  },
+  {
+   "name": "drop1",
+   "start": 28.308,
+   "dur": 3.202,
+   "voiceAt": 28.408,
+   "words": [
+    [
+     "Nach",
+     0.1,
+     0.52
+    ],
+    [
+     "zehn",
+     0.52,
+     0.8
+    ],
+    [
+     "Stunden",
+     0.8,
+     1.12
+    ],
+    [
+     "fällt",
+     1.12,
+     1.42
+    ],
+    [
+     "der",
+     1.42,
+     1.6
+    ],
+    [
+     "Erste",
+     1.6,
+     2.22
+    ],
+    [
+     "Akku",
+     2.22,
+     2.54
+    ],
+    [
+     "leer",
+     2.54,
+     3.112
+    ]
+   ],
+   "gap": null,
+   "text": "Nach zehn Stunden fällt der Erste. Akku leer."
+  },
+  {
+   "name": "drop2",
+   "start": 31.51,
+   "dur": 3.298,
+   "voiceAt": 31.61,
+   "words": [
+    [
+     "Nach",
+     0.1,
+     0.48
+    ],
+    [
+     "zwanzig",
+     0.48,
+     1.04
+    ],
+    [
+     "Stunden",
+     1.04,
+     1.26
+    ],
+    [
+     "schläft",
+     1.26,
+     1.7
+    ],
+    [
+     "sogar",
+     1.7,
+     1.96
+    ],
+    [
+     "der",
+     1.96,
+     2.1
+    ],
+    [
+     "Champion",
+     2.1,
+     2.38
+    ],
+    [
+     "ein",
+     2.38,
+     3.178
+    ]
+   ],
+   "gap": null,
+   "text": "Nach zwanzig Stunden schläft sogar der Champion ein."
+  },
+  {
+   "name": "alone",
+   "start": 34.808,
+   "dur": 2.005,
+   "voiceAt": 34.908,
+   "words": [
+    [
+     "Nur",
+     0.1,
+     0.5
+    ],
+    [
+     "einer",
+     0.5,
+     0.72
+    ],
+    [
+     "scrollt",
+     0.72,
+     1.2
+    ],
+    [
+     "noch",
+     1.2,
+     1.855
+    ]
+   ],
+   "gap": null,
+   "text": "Nur einer scrollt noch."
+  },
+  {
+   "name": "gold",
+   "start": 36.813,
+   "dur": 5.963,
+   "voiceAt": 36.913,
+   "words": [
+    [
+     "Ich",
+     0.1,
+     1.84
+    ],
+    [
+     "Der",
+     1.84,
+     1.9
+    ],
+    [
+     "ultimative",
+     1.9,
+     2.48
+    ],
+    [
+     "Doomscroller",
+     2.48,
+     5.183
+    ]
+   ],
+   "gap": {
+    "at": 0.6,
+    "len": 1.1
+   },
+   "text": "Ich. Der ultimative Doomscroller."
+  },
+  {
+   "name": "bow",
+   "start": 42.776,
+   "dur": 3.314,
+   "voiceAt": 42.876,
+   "words": [
+    [
+     "Und",
+     0.1,
+     0.24
+    ],
+    [
+     "alle",
+     0.24,
+     0.7
+    ],
+    [
+     "die",
+     0.7,
+     0.82
+    ],
+    [
+     "mich",
+     0.82,
+     0.94
+    ],
+    [
+     "ausgelacht",
+     0.94,
+     1.44
+    ],
+    [
+     "haben",
+     1.44,
+     2.14
+    ],
+    [
+     "Verbeugen",
+     2.14,
+     2.52
+    ],
+    [
+     "sich",
+     2.52,
+     2.7
+    ],
+    [
+     "jetzt",
+     2.7,
+     3.239
+    ]
+   ],
+   "gap": null,
+   "text": "Und alle, die mich ausgelacht haben? Verbeugen sich jetzt."
+  },
+  {
+   "name": "ending",
+   "start": 46.09,
+   "dur": 5.307,
+   "voiceAt": 46.19,
+   "words": [
+    [
+     "Morgen",
+     0.1,
+     0.44
+    ],
+    [
+     "gehen",
+     0.44,
+     0.62
+    ],
+    [
+     "sie",
+     0.62,
+     0.76
+    ],
+    [
+     "wieder",
+     0.76,
+     0.94
+    ],
+    [
+     "arbeiten",
+     0.94,
+     1.78
+    ],
+    [
+     "Und",
+     1.78,
+     1.88
+    ],
+    [
+     "ich",
+     1.88,
+     2.54
+    ],
+    [
+     "Scroll",
+     2.54,
+     2.78
+    ],
+    [
+     "einfach",
+     2.78,
+     3.12
+    ],
+    [
+     "weiter",
+     3.12,
+     4.827
+    ]
+   ],
+   "gap": null,
+   "text": "Morgen gehen sie wieder arbeiten. Und ich? Scroll einfach weiter."
+  }
+ ]
+}
