@@ -1,5 +1,5 @@
 {
- "total": 54.03,
+ "total": 60.09,
  "scenes": [
   {
    "name": "city_day",
@@ -602,8 +602,76 @@
    "text": "Nur einer scrollt noch."
   },
   {
-   "name": "gold",
+   "name": "grind",
    "start": 40.16,
+   "dur": 6.06,
+   "voiceAt": 0,
+   "words": [
+    [
+     "HUSS",
+     0.15,
+     0.5700000000000001
+    ],
+    [
+     "HUSS",
+     1.14,
+     1.4499999999999997
+    ],
+    [
+     "HUSS",
+     2.11,
+     2.43
+    ],
+    [
+     "HUSS",
+     3.03,
+     3.3400000000000003
+    ],
+    [
+     "HUSS",
+     3.95,
+     4.23
+    ],
+    [
+     "HUSS",
+     4.36,
+     4.63
+    ],
+    [
+     "HUSS",
+     4.74,
+     5.0
+    ],
+    [
+     "HUSS",
+     5.07,
+     5.34
+    ],
+    [
+     "HUSS",
+     5.41,
+     5.73
+    ]
+   ],
+   "gap": null,
+   "text": "Huss! Huss! Huss!",
+   "huss": [
+    0.15,
+    1.14,
+    2.11,
+    3.03,
+    3.95,
+    4.36,
+    4.74,
+    5.07,
+    5.41
+   ],
+   "hussFile": "el/huss.mp3",
+   "hussOffset": 0.05
+  },
+  {
+   "name": "gold",
+   "start": 46.22,
    "dur": 3.9,
    "voiceAt": 0,
    "words": [
@@ -636,7 +704,7 @@
   },
   {
    "name": "bow",
-   "start": 44.06,
+   "start": 50.12,
    "dur": 3.24,
    "voiceAt": 0,
    "words": [
@@ -691,7 +759,7 @@
   },
   {
    "name": "ending",
-   "start": 47.3,
+   "start": 53.36,
    "dur": 6.73,
    "voiceAt": 0,
    "words": [
@@ -749,5 +817,9 @@
    "gap": null,
    "text": "Morgen gehen sie wieder arbeiten. Und ich? Scroll einfach weiter."
   }
- ]
+ ],
+ "insert": {
+  "at": 40.16,
+  "len": 6.06
+ }
 }

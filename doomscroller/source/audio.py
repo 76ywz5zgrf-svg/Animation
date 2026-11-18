@@ -7,7 +7,25 @@ def rd(fn):
 voice=np.zeros(N)
 if len(sys.argv)>2:
     raw=subprocess.run(["ffmpeg","-v","error","-i",sys.argv[2],"-f","f32le","-ac","1","-ar",str(SR),"-"],capture_output=True).stdout
-    x=np.frombuffer(raw,np.float32).astype(np.float64);voice[:min(N,len(x))]=x[:N]
+    x=np.frombuffer(raw,np.float32).astype(np.float64)
+    if tl.get("insert"):
+        a=int(tl["insert"]["at"]*SR);x=np.concatenate([x[:a],np.zeros(int(tl["insert"]["len"]*SR)),x[a:]])
+    voice[:min(N,len(x))]=x[:N]
+    for s_ in tl["scenes"]:
+        if s_.get("hussFile"):
+            raw=subprocess.run(["ffmpeg","-v","error","-i",f"{base}/"+s_["hussFile"],"-f","f32le","-ac","1","-ar",str(SR),"-"],capture_output=True).stdout
+            y=np.frombuffer(raw,np.float32).astype(np.float64)[int(s_["hussOffset"]*SR):]
+            st=int(s_["start"]*SR);y=y[:len(voice)-st];voice[st:st+len(y)]+=y
+        elif s_.get("huss"):
+            for j,h in enumerate(s_["huss"]):
+                y=rd(f"{base}/huss/h{j%3+1}.wav");nz=np.nonzero(np.abs(y)>0.02)[0];y=y[max(0,nz[0]-200):nz[-1]+400]
+                r=1.0+j*0.025;y=np.interp(np.arange(0,len(y)-1,r),np.arange(len(y)),y)
+                st=int((s_["start"]+h)*SR);voice[st:st+len(y)]+=y*1.15
+                L=int(0.12*SR);tt=np.arange(L)/SR;wh=np.random.randn(L)*np.sin(np.pi*tt/0.12)*0.05
+                st2=st+int(0.05*SR);voice[st2:st2+L]+=wh
+                if j<len(s_["huss"])-1:  # inhale
+                    L=int(0.14*SR);tt=np.arange(L)/SR;b=np.convolve(np.random.randn(L),np.ones(6)/6,'same')*np.sin(np.pi*tt/0.14)*0.05
+                    st3=int((s_["start"]+s_["huss"][j+1]-0.16)*SR);voice[st3:st3+L]+=b
 else:
   for i,s in enumerate(tl["scenes"]):
     x=rd(f"{base}/gen/voice/{i:02d}.wav")
