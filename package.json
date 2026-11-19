@@ -1,0 +1,6 @@
+{
+  "name": "auto-container-animation",
+  "private": true,
+  "scripts": { "render": "node render.mjs" },
+  "dependencies": { "three": "0.160.0" }
+}
