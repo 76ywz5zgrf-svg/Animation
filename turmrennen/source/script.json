@@ -1,0 +1,14 @@
+[
+ {"scene":"rewind",   "text":"Aber fangen wir von vorne an."},
+ {"scene":"lazy",     "text":"In meiner Stadt ist jeder faul."},
+ {"scene":"elevator", "text":"Alle fahren Aufzug. Sogar in den ersten Stock."},
+ {"scene":"stairs",   "text":"Nur ich nehme die Treppe. Jeden Tag. Hundert Mal."},
+ {"scene":"neighbor", "text":"Mein Nachbar sagt: Treppen sind was für Noobs."},
+ {"scene":"tower",    "text":"Dann kam das große Turmrennen. Wer zuerst oben ist, gewinnt."},
+ {"scene":"laugh",    "text":"Alle lachen. Der? Gegen den Aufzug? Niemals."},
+ {"scene":"start",    "text":"Startschuss! Alle rennen zum Aufzug."},
+ {"scene":"blackout", "text":"Und dann: Stromausfall."},
+ {"scene":"climb",    "text":"Alle stecken fest. Nur einer klettert."},
+ {"scene":"top",      "text":"Ich bin oben. Ganz allein. Der stärkste Spieler der Stadt."},
+ {"scene":"ending",   "text":"Und der Aufzug? Hängt immer noch fest."}
+]

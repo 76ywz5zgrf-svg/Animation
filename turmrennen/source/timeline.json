@@ -1,0 +1,602 @@
+{
+ "total": 42.116,
+ "scenes": [
+  {
+   "name": "hook",
+   "start": 0,
+   "dur": 5.96,
+   "words": [
+    [
+     "HUSS",
+     0.15,
+     0.5700000000000001
+    ],
+    [
+     "HUSS",
+     1.14,
+     1.4499999999999997
+    ],
+    [
+     "HUSS",
+     2.11,
+     2.43
+    ],
+    [
+     "HUSS",
+     3.03,
+     3.3400000000000003
+    ],
+    [
+     "HUSS",
+     3.95,
+     4.23
+    ],
+    [
+     "HUSS",
+     4.36,
+     4.63
+    ],
+    [
+     "HUSS",
+     4.74,
+     5.0
+    ],
+    [
+     "HUSS",
+     5.07,
+     5.34
+    ],
+    [
+     "HUSS",
+     5.41,
+     5.73
+    ]
+   ],
+   "huss": [
+    0.15,
+    1.14,
+    2.11,
+    3.03,
+    3.95,
+    4.36,
+    4.74,
+    5.07,
+    5.41
+   ],
+   "text": "Huss!"
+  },
+  {
+   "name": "rewind",
+   "start": 5.96,
+   "dur": 1.803,
+   "voiceAt": 6.08,
+   "words": [
+    [
+     "Aber",
+     0.12,
+     0.364
+    ],
+    [
+     "fangen",
+     0.364,
+     0.689
+    ],
+    [
+     "wir",
+     0.689,
+     0.892
+    ],
+    [
+     "von",
+     0.892,
+     1.095
+    ],
+    [
+     "vorne",
+     1.095,
+     1.38
+    ],
+    [
+     "an",
+     1.38,
+     1.737
+    ]
+   ],
+   "text": "Aber fangen wir von vorne an."
+  },
+  {
+   "name": "lazy",
+   "start": 7.763,
+   "dur": 1.814,
+   "voiceAt": 7.883,
+   "words": [
+    [
+     "In",
+     0.12,
+     0.28
+    ],
+    [
+     "meiner",
+     0.28,
+     0.44
+    ],
+    [
+     "Stadt",
+     0.44,
+     0.68
+    ],
+    [
+     "ist",
+     0.68,
+     0.86
+    ],
+    [
+     "jeder",
+     0.86,
+     1.06
+    ],
+    [
+     "faul",
+     1.06,
+     1.748
+    ]
+   ],
+   "text": "In meiner Stadt ist jeder faul."
+  },
+  {
+   "name": "elevator",
+   "start": 9.577,
+   "dur": 3.142,
+   "voiceAt": 9.697,
+   "words": [
+    [
+     "Alle",
+     0.12,
+     0.52
+    ],
+    [
+     "fahren",
+     0.52,
+     0.8
+    ],
+    [
+     "Aufzug",
+     0.8,
+     1.5
+    ],
+    [
+     "Sogar",
+     1.5,
+     1.96
+    ],
+    [
+     "in",
+     1.96,
+     2.12
+    ],
+    [
+     "den",
+     2.12,
+     2.22
+    ],
+    [
+     "ersten",
+     2.22,
+     2.44
+    ],
+    [
+     "Stock",
+     2.44,
+     3.076
+    ]
+   ],
+   "text": "Alle fahren Aufzug. Sogar in den ersten Stock."
+  },
+  {
+   "name": "stairs",
+   "start": 12.719,
+   "dur": 3.366,
+   "voiceAt": 12.839,
+   "words": [
+    [
+     "Nur",
+     0.12,
+     0.3
+    ],
+    [
+     "ich",
+     0.3,
+     0.46
+    ],
+    [
+     "nehme",
+     0.46,
+     0.62
+    ],
+    [
+     "die",
+     0.62,
+     0.8
+    ],
+    [
+     "Treppe",
+     0.8,
+     1.4
+    ],
+    [
+     "Jeden",
+     1.4,
+     1.8
+    ],
+    [
+     "Tag",
+     1.8,
+     2.4
+    ],
+    [
+     "Hundert",
+     2.4,
+     2.68
+    ],
+    [
+     "Mal",
+     2.68,
+     3.3
+    ]
+   ],
+   "text": "Nur ich nehme die Treppe. Jeden Tag. Hundert Mal."
+  },
+  {
+   "name": "neighbor",
+   "start": 16.085,
+   "dur": 2.604,
+   "voiceAt": 16.205,
+   "words": [
+    [
+     "Mein",
+     0.12,
+     0.32
+    ],
+    [
+     "Nachbar",
+     0.32,
+     0.7
+    ],
+    [
+     "sagt",
+     0.7,
+     1.28
+    ],
+    [
+     "Treppen",
+     1.28,
+     1.52
+    ],
+    [
+     "sind",
+     1.52,
+     1.62
+    ],
+    [
+     "was",
+     1.62,
+     1.8
+    ],
+    [
+     "für",
+     1.8,
+     1.98
+    ],
+    [
+     "Noobs",
+     1.98,
+     2.538
+    ]
+   ],
+   "text": "Mein Nachbar sagt: Treppen sind was für Noobs."
+  },
+  {
+   "name": "tower",
+   "start": 18.689,
+   "dur": 3.826,
+   "voiceAt": 18.809,
+   "words": [
+    [
+     "Dann",
+     0.12,
+     0.32
+    ],
+    [
+     "kam",
+     0.32,
+     0.5
+    ],
+    [
+     "das",
+     0.5,
+     0.66
+    ],
+    [
+     "große",
+     0.66,
+     0.92
+    ],
+    [
+     "Turmrennen",
+     0.92,
+     1.78
+    ],
+    [
+     "Wer",
+     1.78,
+     1.92
+    ],
+    [
+     "zuerst",
+     1.92,
+     2.26
+    ],
+    [
+     "oben",
+     2.26,
+     2.54
+    ],
+    [
+     "ist",
+     2.54,
+     3.08
+    ],
+    [
+     "gewinnt",
+     3.08,
+     3.736
+    ]
+   ],
+   "text": "Dann kam das große Turmrennen. Wer zuerst oben ist, gewinnt."
+  },
+  {
+   "name": "laugh",
+   "start": 22.515,
+   "dur": 3.45,
+   "voiceAt": 22.635,
+   "words": [
+    [
+     "Alle",
+     0.12,
+     0.4
+    ],
+    [
+     "lachen",
+     0.4,
+     0.98
+    ],
+    [
+     "Der",
+     0.98,
+     1.58
+    ],
+    [
+     "Gegen",
+     1.58,
+     1.66
+    ],
+    [
+     "den",
+     1.66,
+     1.84
+    ],
+    [
+     "Aufzug",
+     1.84,
+     2.54
+    ],
+    [
+     "Niemals",
+     2.54,
+     3.36
+    ]
+   ],
+   "text": "Alle lachen. Der? Gegen den Aufzug? Niemals."
+  },
+  {
+   "name": "start",
+   "start": 25.965,
+   "dur": 2.654,
+   "voiceAt": 26.085,
+   "words": [
+    [
+     "Startschuss",
+     0.12,
+     1.14
+    ],
+    [
+     "Alle",
+     1.14,
+     1.34
+    ],
+    [
+     "rennen",
+     1.34,
+     1.64
+    ],
+    [
+     "zum",
+     1.64,
+     1.76
+    ],
+    [
+     "Aufzug",
+     1.76,
+     2.588
+    ]
+   ],
+   "text": "Startschuss! Alle rennen zum Aufzug."
+  },
+  {
+   "name": "blackout",
+   "start": 28.619,
+   "dur": 2.303,
+   "voiceAt": 28.739,
+   "words": [
+    [
+     "Und",
+     0.12,
+     0.48
+    ],
+    [
+     "dann",
+     0.48,
+     0.68
+    ],
+    [
+     "Stromausfall",
+     0.68,
+     2.153
+    ]
+   ],
+   "text": "Und dann: Stromausfall."
+  },
+  {
+   "name": "climb",
+   "start": 30.922,
+   "dur": 2.44,
+   "voiceAt": 31.042,
+   "words": [
+    [
+     "Alle",
+     0.12,
+     0.34
+    ],
+    [
+     "stecken",
+     0.34,
+     0.62
+    ],
+    [
+     "fest",
+     0.62,
+     1.2
+    ],
+    [
+     "Nur",
+     1.2,
+     1.32
+    ],
+    [
+     "einer",
+     1.32,
+     1.54
+    ],
+    [
+     "klettert",
+     1.54,
+     2.32
+    ]
+   ],
+   "text": "Alle stecken fest. Nur einer klettert."
+  },
+  {
+   "name": "top",
+   "start": 33.362,
+   "dur": 4.955,
+   "voiceAt": 33.482,
+   "words": [
+    [
+     "Ich",
+     0.12,
+     0.26
+    ],
+    [
+     "bin",
+     0.26,
+     0.4
+    ],
+    [
+     "oben",
+     0.4,
+     1.04
+    ],
+    [
+     "Ganz",
+     1.04,
+     1.12
+    ],
+    [
+     "allein",
+     1.12,
+     1.88
+    ],
+    [
+     "Der",
+     1.88,
+     2.02
+    ],
+    [
+     "stärkste",
+     2.02,
+     2.5
+    ],
+    [
+     "Spieler",
+     2.5,
+     2.76
+    ],
+    [
+     "der",
+     2.76,
+     2.94
+    ],
+    [
+     "Stadt",
+     2.94,
+     4.475
+    ]
+   ],
+   "text": "Ich bin oben. Ganz allein. Der stärkste Spieler der Stadt."
+  },
+  {
+   "name": "ending",
+   "start": 38.317,
+   "dur": 3.799,
+   "voiceAt": 38.437,
+   "words": [
+    [
+     "Und",
+     0.12,
+     0.36
+    ],
+    [
+     "der",
+     0.36,
+     0.5
+    ],
+    [
+     "Aufzug",
+     0.5,
+     1.32
+    ],
+    [
+     "Hängt",
+     1.32,
+     1.68
+    ],
+    [
+     "immer",
+     1.68,
+     1.84
+    ],
+    [
+     "noch",
+     1.84,
+     2.02
+    ],
+    [
+     "fest",
+     2.02,
+     3.379
+    ]
+   ],
+   "text": "Und der Aufzug? Hängt immer noch fest."
+  }
+ ]
+}

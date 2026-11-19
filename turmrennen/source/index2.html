@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:P;font-weight:900;src:url(node_modules/@fontsource/poppins/files/poppins-latin-900-normal.woff2)}
+@font-face{font-family:P;font-weight:800;src:url(node_modules/@fontsource/poppins/files/poppins-latin-800-normal.woff2)}
+html,body{margin:0;background:#000;overflow:hidden;width:720px;height:1280px}
+#c{position:absolute;left:0;top:0}
+#cap{position:absolute;left:0;right:0;top:800px;text-align:center;font-family:P;font-weight:900;font-size:80px;color:#fff;
+ -webkit-text-stroke:14px #000;paint-order:stroke fill;letter-spacing:1px;transform-origin:50% 50%;white-space:nowrap}
+#cap.gold{color:#ffd54a}
+#cap.huss{color:#ffd54a;font-size:96px}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#fade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+#chat{position:absolute;left:18px;top:70px;width:400px;font-family:P;font-weight:800;font-size:22px;color:#fff;background:rgba(0,0,0,.38);border-radius:12px;padding:10px 14px;display:none;line-height:1.35}
+#chat b{font-weight:900}
+#lb{position:absolute;right:18px;top:70px;width:250px;font-family:P;font-weight:800;font-size:20px;color:#fff;background:rgba(0,0,0,.42);border-radius:12px;padding:8px 0;display:none}
+#lb .h{display:flex;justify-content:space-between;padding:2px 14px 6px;color:#cfd8dc;font-size:16px;border-bottom:1px solid rgba(255,255,255,.2);margin-bottom:4px}
+#lb .r{display:flex;justify-content:space-between;padding:3px 14px}
+#lb .r.me{background:rgba(255,213,74,.28)}
+#vhs{position:absolute;inset:0;display:none;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 5px)}
+#vhs span{position:absolute;left:30px;top:60px;font-family:P;font-weight:900;font-size:46px;color:#fff;-webkit-text-stroke:6px #000;paint-order:stroke fill}
+#vhs i{position:absolute;left:0;right:0;height:26px;background:rgba(255,255,255,.22)}
+#big{position:absolute;left:0;right:0;top:420px;text-align:center;font-family:P;font-weight:900;font-size:170px;color:#fff;-webkit-text-stroke:18px #000;paint-order:stroke fill;opacity:0}
+</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body>
+<canvas id="c"></canvas><div id="vhs"><i id="vbar"></i><span>◀◀ ZURÜCKSPULEN</span></div><div id="chat"></div><div id="lb"></div><div id="big"></div><div id="cap"></div><div id="flash"></div><div id="fade"></div>
+<script type="module" src="roblox.js"></script>
+</body></html>
