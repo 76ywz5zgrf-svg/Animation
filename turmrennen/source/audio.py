@@ -10,9 +10,12 @@ def put(buf,at,sig):
     if i>=len(buf):return
     sig=sig[:len(buf)-i];buf[i:i+len(sig)]+=sig
 sc={s["name"]:s for s in tl["scenes"]}
-put(voice,0,load("../el/huss.mp3")[int(0.05*SR):])
-for i,s in enumerate(tl["scenes"][1:]):
-    put(voice,s["voiceAt"],load(f"voice/{i:02d}.wav"))
+if tl.get("elVoice"):
+    put(voice,0,load(tl["elVoice"]))
+else:
+    put(voice,0,load("../el/huss.mp3")[int(0.05*SR):])
+    for i,s in enumerate(tl["scenes"][1:]):
+        put(voice,s["voiceAt"],load(f"voice/{i:02d}.wav"))
 def wt(s,w):return s["start"]+[x for x in s["words"] if x[0].lower().startswith(w.lower())][0][1]
 def env(L,a=0.01,r=0.3):
     e=np.ones(L);na=max(1,int(a*SR));e[:na]=np.linspace(0,1,na);return e*np.exp(-np.arange(L)/SR/r)
@@ -49,7 +52,7 @@ x=tt(2.5);put(mus,tG,np.sin(2*np.pi*(40+40*np.exp(-x*5))*x)*env(len(x),0.002,0.8
 for j,m in enumerate([84,88,91,96,100]):x=tt(1.4);put(mus,tG+0.05+j*0.07,np.sin(2*np.pi*nf(m)*x)*env(len(x),0.002,0.5)*0.05)
 # hook: driving pulse under huss
 x=tt(0.15)
-for j in range(int(5.9/0.25)):put(mus,j*0.25,np.sin(2*np.pi*nf(36)*x)*env(len(x),0.003,0.08)*0.12)
+for j in range(int(sc['hook']['dur']/0.25)):put(mus,j*0.25,np.sin(2*np.pi*nf(36)*x)*env(len(x),0.003,0.08)*0.12)
 fe=int((T-1.0)*SR);mus[fe:]*=np.linspace(1,0,N-fe)
 ve=np.convolve(np.abs(voice),np.ones(4410)/4410,'same');duck=1-0.45*np.clip(ve*12,0,1)
 mix=voice+(mus+sfx)*duck;mix/=max(1,np.abs(mix).max()/0.95);mix=mix[:int(T*SR)]
