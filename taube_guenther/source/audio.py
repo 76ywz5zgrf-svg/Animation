@@ -13,12 +13,15 @@ sc={s["name"]:s for s in tl["scenes"]};tt=lambda d:np.arange(int(d*SR))/SR
 def env(L,a=0.01,r=0.3):
     e=np.ones(L);na=max(1,int(a*SR));e[:na]=np.linspace(0,1,na);return e*np.exp(-np.arange(L)/SR/r)
 def wt(s,w):return s["start"]+[x for x in s["words"] if x[0].lower().startswith(w.lower())][0][1]
-put(voice,0,load("../v3/hook.wav"))
-for i,s in enumerate(tl["scenes"][1:]):put(voice,s["voiceAt"],load(f"voice/{i:02d}.wav")*(1.15 if s.get("v")=="p" else 1))
-# hill huss from Calm Boy recording
-segs=[(0.10,0.42),(0.90,1.18),(1.67,1.96)]
-for (a,b),h in zip(segs,sc["hill"]["huss"]):
-    y=load("../v2/el/voice.mp3",a,b);y*=np.minimum(1,np.arange(len(y))/400)*np.minimum(1,(len(y)-np.arange(len(y)))/800);put(voice,sc["hill"]["start"]+h,y)
+if tl.get("elVoice"):
+    put(voice,0,load(tl["elVoice"]))
+else:
+    put(voice,0,load("../v3/hook.wav"))
+    for i,s in enumerate(tl["scenes"][1:]):put(voice,s["voiceAt"],load(f"voice/{i:02d}.wav")*(1.15 if s.get("v")=="p" else 1))
+    # hill huss from Calm Boy recording
+    segs=[(0.10,0.42),(0.90,1.18),(1.67,1.96)]
+    for (a,b),h in zip(segs,sc["hill"]["huss"]):
+        y=load("../v2/el/voice.mp3",a,b);y*=np.minimum(1,np.arange(len(y))/400)*np.minimum(1,(len(y)-np.arange(len(y)))/800);put(voice,sc["hill"]["start"]+h,y)
 # sfx
 def honk(at,d=0.35,v=0.1):
     x=tt(d);y=(np.sign(np.sin(2*np.pi*392*x))+np.sign(np.sin(2*np.pi*494*x)))*0.5*np.minimum(1,(d-x)*30)*np.minimum(1,x*60);put(sfx,at,y*v)

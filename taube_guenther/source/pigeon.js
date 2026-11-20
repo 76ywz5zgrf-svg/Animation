@@ -624,7 +624,7 @@ S.gb3=gbScene(()=>{world({traffic:false,peds:false});lights({target:[RX1+8,PLY,9
 S.top={build(){const H=world({traffic:false,peds:false});lights({target:[RX1+10,PLY,9],size:14});const rig=makeRider({...MEB,face:'happy'});add(rig);const kev=sportCar('#e53935');onRoad(kev,RX1+3.5,10.8,Math.PI/2,0.5);setFace(kev.userData.kev,'sad');
   const pg=makePigeon();add(pg);pg.position.set(RX1+7.7,PLY+0.12,10.8);pg.rotation.y=-Math.PI/2+0.3;
   const rays=makeRays();scene.add(rays);const sparks=makeSparks();scene.add(sparks);const conf=makeConfetti();scene.add(conf);const gl=new THREE.PointLight('#ffb300',0,14,1.2);scene.add(gl);return {H,rig,rays,sparks,conf,gl,pg}},
- update(c,t,sc){const fx=c.H.fx;const tg=wordT(sc,'Erster');const ig=prog(t,tg,tg+0.4);const x=Math.min(fx+3,fx-3+t*6);const ch=c.rig.userData.ch;pigeonPose(c.pg,t,{});
+ update(c,t,sc){const fx=c.H.fx;const tg=Math.max(wordT(sc,'Erster'),0.9);const ig=prog(t,tg,tg+0.4);const x=Math.min(fx+3,fx-3+t*6);const ch=c.rig.userData.ch;pigeonPose(c.pg,t,{});
   ride(c.rig,x,7.6,Math.PI/2,x*1.7,0);if(x>=fx+3){const u=ch.userData;u.upper.rotation.x=0;u.armL.rotation.set(-2.8,0,-0.2);u.armR.rotation.set(-2.8,0,0.2)}
   goldify(ch,ig>0?0.6+0.4*Math.sin(t*6):0);if(ig>0&&!c.bg){c.bg=1;c.rig.userData.bike.traverse(o=>{if(o.isMesh)o.material=ch.userData.gold})}
   ch.updateMatrixWorld(true);const hp=new THREE.Vector3();ch.userData.headMesh.getWorldPosition(hp);
