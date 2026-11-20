@@ -1,0 +1,15 @@
+[
+ {"scene":"rewind",  "text":"Aber fangen wir von vorne an."},
+ {"scene":"cars",    "text":"In meiner Stadt hat jeder ein Auto."},
+ {"scene":"bakery",  "text":"Sogar zum Bäcker nebenan fahren sie mit dem Auto."},
+ {"scene":"bike",    "text":"Nur ich fahre Fahrrad. Bei Regen. Bei Schnee. Immer."},
+ {"scene":"neighbor","text":"Mein Nachbar hupt und lacht: Fahrräder sind was für Babys."},
+ {"scene":"event",   "text":"Dann kam das große Stadtrennen. Quer durch die Stadt, bis auf den Berg."},
+ {"scene":"laugh",   "text":"Alle lachen. Mit dem Fahrrad? Gegen Autos? Niemals."},
+ {"scene":"start",   "text":"Los geht's! Alle geben Vollgas."},
+ {"scene":"jam",     "text":"Und dann: der größte Stau aller Zeiten."},
+ {"scene":"bypass",  "text":"Alle stehen. Nur einer fährt einfach vorbei."},
+ {"scene":"hill",    "text":"Den ganzen Berg hoch."},
+ {"scene":"top",     "text":"Erster! Der schnellste Spieler der Stadt."},
+ {"scene":"ending",  "text":"Und die anderen? Stehen immer noch im Stau."}
+]

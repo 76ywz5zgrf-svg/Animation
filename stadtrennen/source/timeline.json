@@ -1,0 +1,681 @@
+{
+ "total": 45.14,
+ "scenes": [
+  {
+   "name": "hook",
+   "start": 0,
+   "dur": 5.25,
+   "words": [
+    [
+     "HUSS",
+     0.14,
+     0.47
+    ],
+    [
+     "HUSS",
+     0.94,
+     1.24
+    ],
+    [
+     "HUSS",
+     1.71,
+     2.02
+    ],
+    [
+     "HUSS",
+     2.43,
+     2.73
+    ],
+    [
+     "HUSS",
+     3.17,
+     3.44
+    ],
+    [
+     "HUSS",
+     3.77,
+     4.02
+    ],
+    [
+     "HUSS",
+     4.05,
+     4.31
+    ],
+    [
+     "HUSS",
+     4.33,
+     4.56
+    ],
+    [
+     "HUSS",
+     4.58,
+     4.92
+    ]
+   ],
+   "huss": [
+    0.14,
+    0.94,
+    1.71,
+    2.43,
+    3.17,
+    3.77,
+    4.05,
+    4.33,
+    4.58
+   ],
+   "text": "Huss"
+  },
+  {
+   "name": "rewind",
+   "start": 5.25,
+   "dur": 1.803,
+   "voiceAt": 5.37,
+   "words": [
+    [
+     "Aber",
+     0.12,
+     0.364
+    ],
+    [
+     "fangen",
+     0.364,
+     0.689
+    ],
+    [
+     "wir",
+     0.689,
+     0.892
+    ],
+    [
+     "von",
+     0.892,
+     1.095
+    ],
+    [
+     "vorne",
+     1.095,
+     1.38
+    ],
+    [
+     "an",
+     1.38,
+     1.737
+    ]
+   ],
+   "text": "Aber fangen wir von vorne an."
+  },
+  {
+   "name": "cars",
+   "start": 7.053,
+   "dur": 2.035,
+   "voiceAt": 7.173,
+   "words": [
+    [
+     "In",
+     0.12,
+     0.28
+    ],
+    [
+     "meiner",
+     0.28,
+     0.5
+    ],
+    [
+     "Stadt",
+     0.5,
+     0.76
+    ],
+    [
+     "hat",
+     0.76,
+     0.98
+    ],
+    [
+     "jeder",
+     0.98,
+     1.14
+    ],
+    [
+     "ein",
+     1.14,
+     1.34
+    ],
+    [
+     "Auto",
+     1.34,
+     1.969
+    ]
+   ],
+   "text": "In meiner Stadt hat jeder ein Auto."
+  },
+  {
+   "name": "bakery",
+   "start": 9.088,
+   "dur": 2.743,
+   "voiceAt": 9.208,
+   "words": [
+    [
+     "Sogar",
+     0.12,
+     0.48
+    ],
+    [
+     "zum",
+     0.48,
+     0.66
+    ],
+    [
+     "Bäcker",
+     0.66,
+     0.96
+    ],
+    [
+     "nebenan",
+     0.96,
+     1.34
+    ],
+    [
+     "fahren",
+     1.34,
+     1.56
+    ],
+    [
+     "sie",
+     1.56,
+     1.82
+    ],
+    [
+     "mit",
+     1.82,
+     1.98
+    ],
+    [
+     "dem",
+     1.98,
+     2.1
+    ],
+    [
+     "Auto",
+     2.1,
+     2.677
+    ]
+   ],
+   "text": "Sogar zum Bäcker nebenan fahren sie mit dem Auto."
+  },
+  {
+   "name": "bike",
+   "start": 11.831,
+   "dur": 3.884,
+   "voiceAt": 11.951,
+   "words": [
+    [
+     "Nur",
+     0.12,
+     0.407
+    ],
+    [
+     "ich",
+     0.407,
+     0.695
+    ],
+    [
+     "fahre",
+     0.695,
+     1.097
+    ],
+    [
+     "Fahrrad",
+     1.097,
+     1.672
+    ],
+    [
+     "Bei",
+     1.672,
+     1.959
+    ],
+    [
+     "Regen",
+     1.959,
+     2.419
+    ],
+    [
+     "Bei",
+     2.419,
+     2.707
+    ],
+    [
+     "Schnee",
+     2.707,
+     3.224
+    ],
+    [
+     "Immer",
+     3.224,
+     3.824
+    ]
+   ],
+   "text": "Nur ich fahre Fahrrad. Bei Regen. Bei Schnee. Immer."
+  },
+  {
+   "name": "neighbor",
+   "start": 15.715,
+   "dur": 3.335,
+   "voiceAt": 15.835,
+   "words": [
+    [
+     "Mein",
+     0.12,
+     0.34
+    ],
+    [
+     "Nachbar",
+     0.34,
+     0.72
+    ],
+    [
+     "hupt",
+     0.72,
+     1.06
+    ],
+    [
+     "und",
+     1.06,
+     1.24
+    ],
+    [
+     "lacht",
+     1.24,
+     1.74
+    ],
+    [
+     "Fahrräder",
+     1.74,
+     2.16
+    ],
+    [
+     "sind",
+     2.16,
+     2.28
+    ],
+    [
+     "was",
+     2.28,
+     2.44
+    ],
+    [
+     "für",
+     2.44,
+     2.62
+    ],
+    [
+     "Babys",
+     2.62,
+     3.269
+    ]
+   ],
+   "text": "Mein Nachbar hupt und lacht: Fahrräder sind was für Babys."
+  },
+  {
+   "name": "event",
+   "start": 19.05,
+   "dur": 4.267,
+   "voiceAt": 19.17,
+   "words": [
+    [
+     "Dann",
+     0.12,
+     0.48
+    ],
+    [
+     "kam",
+     0.48,
+     0.68
+    ],
+    [
+     "das",
+     0.68,
+     0.86
+    ],
+    [
+     "große",
+     0.86,
+     1.12
+    ],
+    [
+     "Stadtrennen",
+     1.12,
+     2.08
+    ],
+    [
+     "Quer",
+     2.08,
+     2.26
+    ],
+    [
+     "durch",
+     2.26,
+     2.48
+    ],
+    [
+     "die",
+     2.48,
+     2.64
+    ],
+    [
+     "Stadt",
+     2.64,
+     3.12
+    ],
+    [
+     "bis",
+     3.12,
+     3.22
+    ],
+    [
+     "auf",
+     3.22,
+     3.4
+    ],
+    [
+     "den",
+     3.4,
+     3.52
+    ],
+    [
+     "Berg",
+     3.52,
+     4.177
+    ]
+   ],
+   "text": "Dann kam das große Stadtrennen. Quer durch die Stadt, bis auf den Berg."
+  },
+  {
+   "name": "laugh",
+   "start": 23.317,
+   "dur": 3.775,
+   "voiceAt": 23.437,
+   "words": [
+    [
+     "Alle",
+     0.12,
+     0.34
+    ],
+    [
+     "lachen",
+     0.34,
+     0.98
+    ],
+    [
+     "Mit",
+     0.98,
+     1.08
+    ],
+    [
+     "dem",
+     1.08,
+     1.22
+    ],
+    [
+     "Fahrrad",
+     1.22,
+     1.86
+    ],
+    [
+     "Gegen",
+     1.86,
+     2.12
+    ],
+    [
+     "Autos",
+     2.12,
+     2.88
+    ],
+    [
+     "Niemals",
+     2.88,
+     3.685
+    ]
+   ],
+   "text": "Alle lachen. Mit dem Fahrrad? Gegen Autos? Niemals."
+  },
+  {
+   "name": "start",
+   "start": 27.092,
+   "dur": 2.399,
+   "voiceAt": 27.212,
+   "words": [
+    [
+     "Los",
+     0.12,
+     0.46
+    ],
+    [
+     "geht's",
+     0.46,
+     1.04
+    ],
+    [
+     "Alle",
+     1.04,
+     1.26
+    ],
+    [
+     "geben",
+     1.26,
+     1.5
+    ],
+    [
+     "Vollgas",
+     1.5,
+     2.333
+    ]
+   ],
+   "text": "Los geht's! Alle geben Vollgas."
+  },
+  {
+   "name": "jam",
+   "start": 29.491,
+   "dur": 2.907,
+   "voiceAt": 29.611,
+   "words": [
+    [
+     "Und",
+     0.12,
+     0.46
+    ],
+    [
+     "dann",
+     0.46,
+     0.64
+    ],
+    [
+     "der",
+     0.64,
+     1.0
+    ],
+    [
+     "größte",
+     1.0,
+     1.4
+    ],
+    [
+     "Stau",
+     1.4,
+     1.66
+    ],
+    [
+     "aller",
+     1.66,
+     1.84
+    ],
+    [
+     "Zeiten",
+     1.84,
+     2.757
+    ]
+   ],
+   "text": "Und dann: der größte Stau aller Zeiten."
+  },
+  {
+   "name": "bypass",
+   "start": 32.398,
+   "dur": 2.862,
+   "voiceAt": 32.518,
+   "words": [
+    [
+     "Alle",
+     0.12,
+     0.32
+    ],
+    [
+     "stehen",
+     0.32,
+     0.96
+    ],
+    [
+     "Nur",
+     0.96,
+     1.12
+    ],
+    [
+     "einer",
+     1.12,
+     1.36
+    ],
+    [
+     "fährt",
+     1.36,
+     1.62
+    ],
+    [
+     "einfach",
+     1.62,
+     1.92
+    ],
+    [
+     "vorbei",
+     1.92,
+     2.772
+    ]
+   ],
+   "text": "Alle stehen. Nur einer fährt einfach vorbei."
+  },
+  {
+   "name": "hill",
+   "start": 35.26,
+   "dur": 1.646,
+   "voiceAt": 35.38,
+   "words": [
+    [
+     "Den",
+     0.12,
+     0.28
+    ],
+    [
+     "ganzen",
+     0.28,
+     0.54
+    ],
+    [
+     "Berg",
+     0.54,
+     0.76
+    ],
+    [
+     "hoch",
+     0.76,
+     1.526
+    ]
+   ],
+   "text": "Den ganzen Berg hoch."
+  },
+  {
+   "name": "top",
+   "start": 36.906,
+   "dur": 4.176,
+   "voiceAt": 37.026,
+   "words": [
+    [
+     "Erster",
+     0.12,
+     0.88
+    ],
+    [
+     "Der",
+     0.88,
+     1.04
+    ],
+    [
+     "schnellste",
+     1.04,
+     1.48
+    ],
+    [
+     "Spieler",
+     1.48,
+     1.78
+    ],
+    [
+     "der",
+     1.78,
+     1.94
+    ],
+    [
+     "Stadt",
+     1.94,
+     3.636
+    ]
+   ],
+   "text": "Erster! Der schnellste Spieler der Stadt."
+  },
+  {
+   "name": "ending",
+   "start": 41.082,
+   "dur": 4.058,
+   "voiceAt": 41.202,
+   "words": [
+    [
+     "Und",
+     0.12,
+     0.26
+    ],
+    [
+     "die",
+     0.26,
+     0.42
+    ],
+    [
+     "anderen",
+     0.42,
+     1.14
+    ],
+    [
+     "Stehen",
+     1.14,
+     1.52
+    ],
+    [
+     "immer",
+     1.52,
+     1.76
+    ],
+    [
+     "noch",
+     1.76,
+     1.9
+    ],
+    [
+     "im",
+     1.9,
+     2.04
+    ],
+    [
+     "Stau",
+     2.04,
+     3.578
+    ]
+   ],
+   "text": "Und die anderen? Stehen immer noch im Stau."
+  }
+ ]
+}
