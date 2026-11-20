@@ -35,7 +35,7 @@ def coo(at,v=0.18):
     x=tt(0.55);f=170+40*np.sin(2*np.pi*3*x);ph=2*np.pi*np.cumsum(f)/SR;y=(np.sin(ph)+0.4*np.sin(2*ph))*np.sin(np.pi*x/0.55)*(0.6+0.4*np.sin(2*np.pi*14*x));put(sfx,at,y*v)
 n=sc["neighbor"];honk(n["start"]+0.15);honk(n["start"]+0.55)
 r=sc["rival"];[engine(r["start"]+o,0.45,60,140,0.07) for o in (0.3,1.2,2.2)]
-cd=sc["countdown"];[ (put(sfx,wt(cd,w),np.sin(2*np.pi*(880 if w!='Eins' else 1320)*tt(0.25))*env(int(0.25*SR),0.002,0.12)*0.18)) for w in ("Drei","Zwei","Eins")]
+
 st=sc["start"];noise(st["start"],0.5,0.4);engine(st["start"],2.0,80,260,0.1);noise(st["start"]+0.1,1.2,0.12,20)
 ch=sc["chase"];engine(ch["start"],2.0,240,180,0.05)
 for s,offs in (("jam",[0.2,0.6,1.0,1.5]),("cause",[0.3,0.9]),("bypass",[0.4,1.6]),("gb2",[0.05])):[honk(sc[s]["start"]+o,0.45 if k%2 else 0.3,0.08) for k,o in enumerate(offs)]
@@ -49,20 +49,22 @@ e=sc["ending"];[noise(e["start"]+o,0.6,0.05,3) for o in (0.1,0.5,0.9,1.3)]
 beat=60/128;bar=beat*4;nf=lambda m:440*2**((m-69)/12)
 tTense=sc["countdown"]["start"];tG=wt(sc["top"],"Erster");tS=sc["rewind"]["start"]
 P1=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]];P2=[[57,60,64],[57,60,64],[53,57,60],[52,56,59]];PG=[[60,64,67],[65,69,72],[67,71,74],[60,64,67,72]]
+def pad(ch,at,L,vol):
+    x=tt(L);y=sum(np.sin(2*np.pi*nf(m)*x)+0.25*np.sin(2*np.pi*nf(m)*2.002*x) for m in ch)/len(ch)
+    y*=np.minimum(1,x/0.4)*np.minimum(1,(L-x)/0.4);put(mus,at,y*vol)
 b=tS;k=0
 while b<T:
     gold=b>=tG-0.01;tense=tTense<=b<tG-0.01;chs=(PG if gold else P2 if tense else P1)[k%4]
+    pad(chs,b,bar,0.07)
     for q in range(8):
         tq=b+q*beat/2
         if tq>=T:break
-        m=chs[[0,1,2,1,0,2,1,2][q]]+12+(12 if gold and q%2 else 0);x=tt(0.2);put(mus,tq,np.sign(np.sin(2*np.pi*nf(m)*x))*0.5*env(len(x),0.003,0.07)*0.045)
-        if q%2==0 or tense:x=tt(0.25);put(mus,tq,np.sign(np.sin(2*np.pi*nf(chs[0]-24)*x))*0.5*env(len(x),0.004,0.12)*(0.12 if tense else 0.1))
-        if q%2==0:x=tt(0.25);fq=50+110*np.exp(-x*35);put(mus,tq,np.sin(2*np.pi*np.cumsum(fq)/SR)*env(len(x),0.002,0.1)*0.32)
-        if q%4==2:x=tt(0.15);put(mus,tq,np.random.randn(len(x))*env(len(x),0.001,0.05)*(0.12 if tense else 0.08))
-        x=tt(0.04);put(mus,tq+beat/4,np.random.randn(len(x))*env(len(x),0.001,0.01)*0.03)
+        if q%2==0:
+            x=tt(0.4);put(mus,tq,np.sin(2*np.pi*nf(chs[0]-24)*x)*env(len(x),0.01,0.25)*(0.16 if tense else 0.12))
+            x=tt(0.25);fq=50+110*np.exp(-x*35);put(mus,tq,np.sin(2*np.pi*np.cumsum(fq)/SR)*env(len(x),0.002,0.1)*0.3)
     b+=bar;k+=1
 x=tt(2.5);put(mus,tG,np.sin(2*np.pi*(40+40*np.exp(-x*5))*x)*env(len(x),0.002,0.8)*0.45)
-for j,m in enumerate([84,88,91,96,100]):x=tt(1.4);put(mus,tG+0.05+j*0.07,np.sin(2*np.pi*nf(m)*x)*env(len(x),0.002,0.5)*0.05)
+
 x=tt(0.15)
 for j in range(int(sc["hook"]["dur"]/0.25)):put(mus,j*0.25,np.sin(2*np.pi*nf(36)*x)*env(len(x),0.003,0.08)*0.12)
 fe=int((T-1.0)*SR);mus[fe:]*=np.linspace(1,0,N-fe)
