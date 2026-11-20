@@ -1,0 +1,52 @@
+=== ERZÄHLER (z. B. Calm Boy) ===
+
+[angestrengt, atemlos] Huss! … Huss! … Huss! … Huss! … Huss! Huss! Huss! Huss! Huss!
+
+[ruhig] Aber fangen wir von vorne an.
+
+In meiner Stadt fährt jeder Auto. [trocken] Wirklich jeder.
+
+[ungläubig] Sogar zum Bäcker nebenan.
+
+[geheimnisvoll] Und dann ist da noch Günther. [trocken] Die Taube mit Menschenbeinen.
+
+[stolz] Nur ich fahre Fahrrad. Bei Regen. Bei Schnee. Immer.
+
+Mein Nachbar lacht: [spöttisch] „Fahrräder sind was für Babys.“
+
+[spannend] Dann kam das große Stadtrennen. Der Sieger bekommt den goldenen Pokal.
+
+[bedrohlich] Mein Gegner: Kevin. Sportwagen. Dreihundert PS.
+
+Alle lachen. [spöttisch] „Mit dem Fahrrad? Niemals.“
+
+[angespannt, langsam] Drei. … Zwei. … Eins.
+
+[schreiend] Los!
+
+[verzweifelt] Kevin ist sofort weg. Ich habe keine Chance.
+
+[dramatisch] Doch dann: der größte Stau aller Zeiten.
+
+[trocken] Und schuld ist: Günther.
+
+[schnell, konzentriert] Ich schlängel mich durch. Zentimeter für Zentimeter.
+
+[erschrocken, schnell] Tür auf! Knapp vorbei!
+
+[panisch] Aber Kevin rast über den Gehweg. Er holt auf!
+
+[außer Atem] Der Berg. Meine Beine brennen. [angestrengt] Huss! Huss! Huss!
+
+[sehr angespannt] Kevin ist direkt neben mir. Zehn Meter. … Fünf Meter.
+
+[schockiert] Und dann springt Günther vor sein Auto!
+
+[episch, laut] Erster! Der schnellste Spieler der Stadt!
+
+[trocken, enttäuscht] Und Günther? Der bekommt den Pokal.
+
+
+=== GÜNTHER DIE TAUBE (tiefe, dumme Stimme, 4× einzeln erzeugen) ===
+
+[dumm, tief, langsam] Good Boy.
