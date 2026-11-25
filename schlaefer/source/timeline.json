@@ -1,0 +1,773 @@
+{
+ "total": 55.743,
+ "scenes": [
+  {
+   "name": "city_day",
+   "start": 0,
+   "dur": 3.309,
+   "voiceAt": 0.4,
+   "words": [
+    [
+     "In",
+     0.4,
+     0.52
+    ],
+    [
+     "meiner",
+     0.52,
+     0.7
+    ],
+    [
+     "Stadt",
+     0.7,
+     1.0
+    ],
+    [
+     "stehen",
+     1.0,
+     1.36
+    ],
+    [
+     "alle",
+     1.36,
+     1.66
+    ],
+    [
+     "um",
+     1.66,
+     1.82
+    ],
+    [
+     "fünf",
+     1.82,
+     2.1
+    ],
+    [
+     "Uhr",
+     2.1,
+     2.28
+    ],
+    [
+     "morgens",
+     2.28,
+     2.66
+    ],
+    [
+     "auf",
+     2.66,
+     3.234
+    ]
+   ],
+   "gap": null,
+   "text": "In meiner Stadt stehen alle um fünf Uhr morgens auf."
+  },
+  {
+   "name": "jog",
+   "start": 3.309,
+   "dur": 3.492,
+   "voiceAt": 3.409,
+   "words": [
+    [
+     "Sie",
+     0.1,
+     0.4
+    ],
+    [
+     "joggen",
+     0.4,
+     0.92
+    ],
+    [
+     "Sie",
+     0.92,
+     1.02
+    ],
+    [
+     "arbeiten",
+     1.02,
+     1.9
+    ],
+    [
+     "Sie",
+     1.9,
+     2.08
+    ],
+    [
+     "sind",
+     2.08,
+     2.22
+    ],
+    [
+     "super",
+     2.22,
+     2.48
+    ],
+    [
+     "produktiv",
+     2.48,
+     3.417
+    ]
+   ],
+   "gap": null,
+   "text": "Sie joggen. Sie arbeiten. Sie sind super produktiv."
+  },
+  {
+   "name": "bed_close",
+   "start": 6.801,
+   "dur": 2.2,
+   "voiceAt": 6.901,
+   "words": [
+    [
+     "Nur",
+     0.1,
+     0.32
+    ],
+    [
+     "ich",
+     0.32,
+     0.48
+    ],
+    [
+     "nicht",
+     0.48,
+     1.18
+    ],
+    [
+     "Ich",
+     1.18,
+     1.38
+    ],
+    [
+     "schlafe",
+     1.38,
+     2.125
+    ]
+   ],
+   "gap": null,
+   "text": "Nur ich nicht. Ich schlafe."
+  },
+  {
+   "name": "bed_cycle",
+   "start": 9.001,
+   "dur": 2.537,
+   "voiceAt": 9.101,
+   "words": [
+    [
+     "Bis",
+     0.1,
+     0.26
+    ],
+    [
+     "drei",
+     0.26,
+     0.52
+    ],
+    [
+     "Uhr",
+     0.52,
+     0.68
+    ],
+    [
+     "nachmittags",
+     0.68,
+     1.56
+    ],
+    [
+     "Jeden",
+     1.56,
+     1.9
+    ],
+    [
+     "Tag",
+     1.9,
+     2.462
+    ]
+   ],
+   "gap": null,
+   "text": "Bis drei Uhr nachmittags. Jeden Tag."
+  },
+  {
+   "name": "neighbor",
+   "start": 11.538,
+   "dur": 2.858,
+   "voiceAt": 11.638,
+   "words": [
+    [
+     "Mein",
+     0.1,
+     0.28
+    ],
+    [
+     "Nachbar",
+     0.28,
+     0.66
+    ],
+    [
+     "sagt",
+     0.66,
+     1.18
+    ],
+    [
+     "Du",
+     1.18,
+     1.26
+    ],
+    [
+     "verschläfst",
+     1.26,
+     1.78
+    ],
+    [
+     "dein",
+     1.78,
+     1.86
+    ],
+    [
+     "ganzes",
+     1.86,
+     2.18
+    ],
+    [
+     "Leben",
+     2.18,
+     2.783
+    ]
+   ],
+   "gap": null,
+   "text": "Mein Nachbar sagt: Du verschläfst dein ganzes Leben."
+  },
+  {
+   "name": "poster",
+   "start": 14.396,
+   "dur": 3.899,
+   "voiceAt": 14.496,
+   "words": [
+    [
+     "Doch",
+     0.1,
+     0.362
+    ],
+    [
+     "dann",
+     0.362,
+     0.625
+    ],
+    [
+     "hängt",
+     0.625,
+     0.931
+    ],
+    [
+     "überall",
+     0.931,
+     1.325
+    ],
+    [
+     "dieses",
+     1.325,
+     1.675
+    ],
+    [
+     "Plakat",
+     1.675,
+     2.068
+    ],
+    [
+     "Die",
+     2.068,
+     2.287
+    ],
+    [
+     "große",
+     2.287,
+     2.593
+    ],
+    [
+     "Schlaf-Meisterschaft",
+     2.593,
+     3.809
+    ]
+   ],
+   "gap": null,
+   "text": "Doch dann hängt überall dieses Plakat. Die große Schlaf-Meisterschaft."
+  },
+  {
+   "name": "laugh",
+   "start": 18.295,
+   "dur": 3.066,
+   "voiceAt": 18.395,
+   "words": [
+    [
+     "Alle",
+     0.1,
+     0.376
+    ],
+    [
+     "lachen",
+     0.376,
+     0.744
+    ],
+    [
+     "mich",
+     0.744,
+     1.019
+    ],
+    [
+     "aus",
+     1.019,
+     1.295
+    ],
+    [
+     "Der",
+     1.295,
+     1.571
+    ],
+    [
+     "Der",
+     1.571,
+     1.801
+    ],
+    [
+     "gewinnt",
+     1.801,
+     2.214
+    ],
+    [
+     "doch",
+     2.214,
+     2.49
+    ],
+    [
+     "nie",
+     2.49,
+     2.976
+    ]
+   ],
+   "gap": null,
+   "text": "Alle lachen mich aus. Der? Der gewinnt doch nie."
+  },
+  {
+   "name": "arena",
+   "start": 21.361,
+   "dur": 3.222,
+   "voiceAt": 21.461,
+   "words": [
+    [
+     "Der",
+     0.1,
+     0.24
+    ],
+    [
+     "große",
+     0.24,
+     0.48
+    ],
+    [
+     "Tag",
+     0.48,
+     1.1
+    ],
+    [
+     "Die",
+     1.1,
+     1.22
+    ],
+    [
+     "besten",
+     1.22,
+     1.48
+    ],
+    [
+     "Schläfer",
+     1.48,
+     1.96
+    ],
+    [
+     "der",
+     1.96,
+     2.12
+    ],
+    [
+     "ganzen",
+     2.12,
+     2.28
+    ],
+    [
+     "Region",
+     2.28,
+     3.147
+    ]
+   ],
+   "gap": null,
+   "text": "Der große Tag. Die besten Schläfer der ganzen Region."
+  },
+  {
+   "name": "champion",
+   "start": 24.583,
+   "dur": 3.791,
+   "voiceAt": 24.683,
+   "words": [
+    [
+     "Der",
+     0.1,
+     0.46
+    ],
+    [
+     "Titelverteidiger",
+     0.46,
+     1.7
+    ],
+    [
+     "Siebzehn",
+     1.7,
+     2.2
+    ],
+    [
+     "Stunden",
+     2.2,
+     2.86
+    ],
+    [
+     "Ohne",
+     2.86,
+     3.12
+    ],
+    [
+     "Wecker",
+     3.12,
+     3.731
+    ]
+   ],
+   "gap": null,
+   "text": "Der Titelverteidiger. Siebzehn Stunden. Ohne Wecker."
+  },
+  {
+   "name": "drop1",
+   "start": 28.374,
+   "dur": 3.221,
+   "voiceAt": 28.474,
+   "words": [
+    [
+     "Nach",
+     0.1,
+     0.32
+    ],
+    [
+     "einer",
+     0.32,
+     0.52
+    ],
+    [
+     "Stunde",
+     0.52,
+     0.78
+    ],
+    [
+     "klingelt",
+     0.78,
+     1.26
+    ],
+    [
+     "der",
+     1.26,
+     1.36
+    ],
+    [
+     "erste",
+     1.36,
+     1.64
+    ],
+    [
+     "Wecker",
+     1.64,
+     2.28
+    ],
+    [
+     "Raus",
+     2.28,
+     3.101
+    ]
+   ],
+   "gap": null,
+   "text": "Nach einer Stunde klingelt der erste Wecker. Raus."
+  },
+  {
+   "name": "drop2",
+   "start": 31.595,
+   "dur": 3.639,
+   "voiceAt": 31.695,
+   "words": [
+    [
+     "Dann",
+     0.1,
+     0.46
+    ],
+    [
+     "kommt",
+     0.46,
+     0.68
+    ],
+    [
+     "die",
+     0.68,
+     0.84
+    ],
+    [
+     "Baustelle",
+     0.84,
+     1.6
+    ],
+    [
+     "Sogar",
+     1.6,
+     2.0
+    ],
+    [
+     "der",
+     2.0,
+     2.12
+    ],
+    [
+     "Champion",
+     2.12,
+     2.52
+    ],
+    [
+     "wacht",
+     2.52,
+     2.84
+    ],
+    [
+     "auf",
+     2.84,
+     3.519
+    ]
+   ],
+   "gap": null,
+   "text": "Dann kommt die Baustelle. Sogar der Champion wacht auf."
+  },
+  {
+   "name": "alone",
+   "start": 35.234,
+   "dur": 1.749,
+   "voiceAt": 35.334,
+   "words": [
+    [
+     "Nur",
+     0.1,
+     0.28
+    ],
+    [
+     "einer",
+     0.28,
+     0.48
+    ],
+    [
+     "schläft",
+     0.48,
+     0.84
+    ],
+    [
+     "noch",
+     0.84,
+     1.599
+    ]
+   ],
+   "gap": null,
+   "text": "Nur einer schläft noch."
+  },
+  {
+   "name": "chaos",
+   "start": 36.983,
+   "dur": 4.071,
+   "voiceAt": 37.083,
+   "words": [
+    [
+     "Feueralarm",
+     0.1,
+     1.081
+    ],
+    [
+     "Blaskapelle",
+     1.081,
+     2.137
+    ],
+    [
+     "Ein",
+     2.137,
+     2.515
+    ],
+    [
+     "Hahn",
+     2.515,
+     3.043
+    ],
+    [
+     "Egal",
+     3.043,
+     3.921
+    ]
+   ],
+   "gap": null,
+   "text": "Feueralarm. Blaskapelle. Ein Hahn. Egal."
+  },
+  {
+   "name": "gold",
+   "start": 41.054,
+   "dur": 5.87,
+   "voiceAt": 41.154,
+   "words": [
+    [
+     "Ich",
+     0.1,
+     1.92
+    ],
+    [
+     "Der",
+     1.92,
+     1.98
+    ],
+    [
+     "ultimative",
+     1.98,
+     2.64
+    ],
+    [
+     "Schläfer",
+     2.64,
+     5.09
+    ]
+   ],
+   "gap": {
+    "at": 0.68,
+    "len": 1.1
+   },
+   "text": "Ich. Der ultimative Schläfer."
+  },
+  {
+   "name": "bow",
+   "start": 46.924,
+   "dur": 3.245,
+   "voiceAt": 47.024,
+   "words": [
+    [
+     "Und",
+     0.1,
+     0.24
+    ],
+    [
+     "alle",
+     0.24,
+     0.66
+    ],
+    [
+     "die",
+     0.66,
+     0.72
+    ],
+    [
+     "mich",
+     0.72,
+     0.86
+    ],
+    [
+     "ausgelacht",
+     0.86,
+     1.36
+    ],
+    [
+     "haben",
+     1.36,
+     2.0
+    ],
+    [
+     "Verbeugen",
+     2.0,
+     2.4
+    ],
+    [
+     "sich",
+     2.4,
+     2.58
+    ],
+    [
+     "jetzt",
+     2.58,
+     3.17
+    ]
+   ],
+   "gap": null,
+   "text": "Und alle, die mich ausgelacht haben? Verbeugen sich jetzt."
+  },
+  {
+   "name": "ending",
+   "start": 50.169,
+   "dur": 5.574,
+   "voiceAt": 50.269,
+   "words": [
+    [
+     "Morgen",
+     0.1,
+     0.42
+    ],
+    [
+     "stehen",
+     0.42,
+     0.68
+    ],
+    [
+     "sie",
+     0.68,
+     0.9
+    ],
+    [
+     "wieder",
+     0.9,
+     1.08
+    ],
+    [
+     "um",
+     1.08,
+     1.26
+    ],
+    [
+     "fünf",
+     1.26,
+     1.54
+    ],
+    [
+     "auf",
+     1.54,
+     2.02
+    ],
+    [
+     "Und",
+     2.02,
+     2.26
+    ],
+    [
+     "ich",
+     2.26,
+     2.86
+    ],
+    [
+     "Schlaf",
+     2.86,
+     3.1
+    ],
+    [
+     "einfach",
+     3.1,
+     3.4
+    ],
+    [
+     "weiter",
+     3.4,
+     5.094
+    ]
+   ],
+   "gap": null,
+   "text": "Morgen stehen sie wieder um fünf auf. Und ich? Schlaf einfach weiter."
+  }
+ ]
+}

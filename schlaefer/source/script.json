@@ -1,0 +1,18 @@
+[
+ {"scene":"city_day","text":"In meiner Stadt stehen alle um fünf Uhr morgens auf."},
+ {"scene":"jog","text":"Sie joggen. Sie arbeiten. Sie sind super produktiv."},
+ {"scene":"bed_close","text":"Nur ich nicht. Ich schlafe."},
+ {"scene":"bed_cycle","text":"Bis drei Uhr nachmittags. Jeden Tag."},
+ {"scene":"neighbor","text":"Mein Nachbar sagt: Du verschläfst dein ganzes Leben."},
+ {"scene":"poster","text":"Doch dann hängt überall dieses Plakat. Die große Schlaf-Meisterschaft."},
+ {"scene":"laugh","text":"Alle lachen mich aus. Der? Der gewinnt doch nie."},
+ {"scene":"arena","text":"Der große Tag. Die besten Schläfer der ganzen Region."},
+ {"scene":"champion","text":"Der Titelverteidiger. Siebzehn Stunden. Ohne Wecker."},
+ {"scene":"drop1","text":"Nach einer Stunde klingelt der erste Wecker. Raus."},
+ {"scene":"drop2","text":"Dann kommt die Baustelle. Sogar der Champion wacht auf."},
+ {"scene":"alone","text":"Nur einer schläft noch."},
+ {"scene":"chaos","text":"Feueralarm. Blaskapelle. Ein Hahn. Egal."},
+ {"scene":"gold","text":"Ich. Der ultimative Schläfer."},
+ {"scene":"bow","text":"Und alle, die mich ausgelacht haben? Verbeugen sich jetzt."},
+ {"scene":"ending","text":"Morgen stehen sie wieder um fünf auf. Und ich? Schlaf einfach weiter."}
+]
