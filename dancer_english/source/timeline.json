@@ -1,0 +1,758 @@
+{
+ "total": 50.652,
+ "scenes": [
+  {
+   "name": "city_day",
+   "start": 0,
+   "dur": 2.624,
+   "voiceAt": 0.4,
+   "words": [
+    [
+     "In",
+     0.4,
+     0.5
+    ],
+    [
+     "my",
+     0.5,
+     0.7
+    ],
+    [
+     "city",
+     0.7,
+     1.2
+    ],
+    [
+     "everyone",
+     1.2,
+     1.48
+    ],
+    [
+     "is",
+     1.48,
+     1.78
+    ],
+    [
+     "serious",
+     1.78,
+     2.549
+    ]
+   ],
+   "gap": null,
+   "text": "In my city, everyone is serious."
+  },
+  {
+   "name": "serious",
+   "start": 2.624,
+   "dur": 2.486,
+   "voiceAt": 2.724,
+   "words": [
+    [
+     "Suits",
+     0.1,
+     0.6
+    ],
+    [
+     "Meetings",
+     0.6,
+     1.34
+    ],
+    [
+     "Zero",
+     1.34,
+     1.64
+    ],
+    [
+     "fun",
+     1.64,
+     2.396
+    ]
+   ],
+   "gap": null,
+   "text": "Suits. Meetings. Zero fun."
+  },
+  {
+   "name": "bed_close",
+   "start": 5.11,
+   "dur": 1.794,
+   "voiceAt": 5.21,
+   "words": [
+    [
+     "Except",
+     0.1,
+     0.38
+    ],
+    [
+     "me",
+     0.38,
+     0.92
+    ],
+    [
+     "I",
+     0.92,
+     1.04
+    ],
+    [
+     "dance",
+     1.04,
+     1.719
+    ]
+   ],
+   "gap": null,
+   "text": "Except me. I dance."
+  },
+  {
+   "name": "bed_cycle",
+   "start": 6.904,
+   "dur": 1.879,
+   "voiceAt": 7.004,
+   "words": [
+    [
+     "Morning",
+     0.1,
+     0.74
+    ],
+    [
+     "Noon",
+     0.74,
+     1.02
+    ],
+    [
+     "Midnight",
+     1.02,
+     1.804
+    ]
+   ],
+   "gap": null,
+   "text": "Morning. Noon. Midnight."
+  },
+  {
+   "name": "neighbor",
+   "start": 8.783,
+   "dur": 3.148,
+   "voiceAt": 8.883,
+   "words": [
+    [
+     "My",
+     0.1,
+     0.22
+    ],
+    [
+     "neighbor",
+     0.22,
+     0.44
+    ],
+    [
+     "says",
+     0.44,
+     1.04
+    ],
+    [
+     "Stop",
+     1.04,
+     1.34
+    ],
+    [
+     "it",
+     1.34,
+     1.76
+    ],
+    [
+     "the",
+     1.76,
+     1.84
+    ],
+    [
+     "whole",
+     1.84,
+     2.0
+    ],
+    [
+     "house",
+     2.0,
+     2.3
+    ],
+    [
+     "is",
+     2.3,
+     2.46
+    ],
+    [
+     "shaking",
+     2.46,
+     3.073
+    ]
+   ],
+   "gap": null,
+   "text": "My neighbor says: Stop it, the whole house is shaking."
+  },
+  {
+   "name": "poster",
+   "start": 11.931,
+   "dur": 3.434,
+   "voiceAt": 12.031,
+   "words": [
+    [
+     "Then",
+     0.1,
+     0.36
+    ],
+    [
+     "this",
+     0.36,
+     0.62
+    ],
+    [
+     "poster",
+     0.62,
+     0.967
+    ],
+    [
+     "shows",
+     0.967,
+     1.27
+    ],
+    [
+     "up",
+     1.27,
+     1.444
+    ],
+    [
+     "everywhere",
+     1.444,
+     2.007
+    ],
+    [
+     "The",
+     2.007,
+     2.224
+    ],
+    [
+     "big",
+     2.224,
+     2.441
+    ],
+    [
+     "Dance",
+     2.441,
+     2.744
+    ],
+    [
+     "Battle",
+     2.744,
+     3.344
+    ]
+   ],
+   "gap": null,
+   "text": "Then this poster shows up everywhere. The big Dance Battle."
+  },
+  {
+   "name": "laugh",
+   "start": 15.365,
+   "dur": 3.426,
+   "voiceAt": 15.465,
+   "words": [
+    [
+     "Everyone",
+     0.1,
+     0.558
+    ],
+    [
+     "laughs",
+     0.558,
+     0.925
+    ],
+    [
+     "at",
+     0.925,
+     1.109
+    ],
+    [
+     "me",
+     1.109,
+     1.338
+    ],
+    [
+     "Him",
+     1.338,
+     1.613
+    ],
+    [
+     "He'll",
+     1.613,
+     1.934
+    ],
+    [
+     "trip",
+     1.934,
+     2.209
+    ],
+    [
+     "in",
+     2.209,
+     2.392
+    ],
+    [
+     "five",
+     2.392,
+     2.668
+    ],
+    [
+     "seconds",
+     2.668,
+     3.336
+    ]
+   ],
+   "gap": null,
+   "text": "Everyone laughs at me. Him? He'll trip in five seconds."
+  },
+  {
+   "name": "arena",
+   "start": 18.791,
+   "dur": 3.094,
+   "voiceAt": 18.891,
+   "words": [
+    [
+     "The",
+     0.1,
+     0.18
+    ],
+    [
+     "big",
+     0.18,
+     0.48
+    ],
+    [
+     "day",
+     0.48,
+     1.12
+    ],
+    [
+     "The",
+     1.12,
+     1.18
+    ],
+    [
+     "best",
+     1.18,
+     1.4
+    ],
+    [
+     "dancers",
+     1.4,
+     1.74
+    ],
+    [
+     "in",
+     1.74,
+     2.06
+    ],
+    [
+     "the",
+     2.06,
+     2.14
+    ],
+    [
+     "whole",
+     2.14,
+     2.34
+    ],
+    [
+     "region",
+     2.34,
+     3.019
+    ]
+   ],
+   "gap": null,
+   "text": "The big day. The best dancers in the whole region."
+  },
+  {
+   "name": "champion",
+   "start": 21.885,
+   "dur": 3.292,
+   "voiceAt": 21.985,
+   "words": [
+    [
+     "The",
+     0.1,
+     0.345
+    ],
+    [
+     "reigning",
+     0.345,
+     0.836
+    ],
+    [
+     "champion",
+     0.836,
+     1.375
+    ],
+    [
+     "Ninety-nine",
+     1.375,
+     2.013
+    ],
+    [
+     "moves",
+     2.013,
+     2.405
+    ],
+    [
+     "Never",
+     2.405,
+     2.749
+    ],
+    [
+     "lost",
+     2.749,
+     3.232
+    ]
+   ],
+   "gap": null,
+   "text": "The reigning champion. Ninety-nine moves. Never lost."
+  },
+  {
+   "name": "drop1",
+   "start": 25.177,
+   "dur": 3.646,
+   "voiceAt": 25.277,
+   "words": [
+    [
+     "After",
+     0.1,
+     0.32
+    ],
+    [
+     "one",
+     0.32,
+     0.6
+    ],
+    [
+     "hour",
+     0.6,
+     1.2
+    ],
+    [
+     "the",
+     1.2,
+     1.26
+    ],
+    [
+     "first",
+     1.26,
+     1.54
+    ],
+    [
+     "guy",
+     1.54,
+     1.78
+    ],
+    [
+     "twists",
+     1.78,
+     2.14
+    ],
+    [
+     "his",
+     2.14,
+     2.3
+    ],
+    [
+     "ankle",
+     2.3,
+     2.8
+    ],
+    [
+     "Out",
+     2.8,
+     3.496
+    ]
+   ],
+   "gap": null,
+   "text": "After one hour, the first guy twists his ankle. Out."
+  },
+  {
+   "name": "drop2",
+   "start": 28.823,
+   "dur": 3.518,
+   "voiceAt": 28.923,
+   "words": [
+    [
+     "Then",
+     0.1,
+     0.28
+    ],
+    [
+     "someone",
+     0.28,
+     0.62
+    ],
+    [
+     "drops",
+     0.62,
+     0.88
+    ],
+    [
+     "a",
+     0.88,
+     1.12
+    ],
+    [
+     "banana",
+     1.12,
+     1.68
+    ],
+    [
+     "Even",
+     1.68,
+     1.88
+    ],
+    [
+     "the",
+     1.88,
+     2.06
+    ],
+    [
+     "champion",
+     2.06,
+     2.38
+    ],
+    [
+     "slips",
+     2.38,
+     3.368
+    ]
+   ],
+   "gap": null,
+   "text": "Then someone drops a banana. Even the champion slips."
+  },
+  {
+   "name": "alone",
+   "start": 32.341,
+   "dur": 2.156,
+   "voiceAt": 32.441,
+   "words": [
+    [
+     "Only",
+     0.1,
+     0.32
+    ],
+    [
+     "one",
+     0.32,
+     0.6
+    ],
+    [
+     "is",
+     0.6,
+     0.82
+    ],
+    [
+     "still",
+     0.82,
+     1.06
+    ],
+    [
+     "dancing",
+     1.06,
+     2.006
+    ]
+   ],
+   "gap": null,
+   "text": "Only one is still dancing."
+  },
+  {
+   "name": "chaos",
+   "start": 34.497,
+   "dur": 3.463,
+   "voiceAt": 34.597,
+   "words": [
+    [
+     "The",
+     0.1,
+     0.376
+    ],
+    [
+     "robot",
+     0.376,
+     0.818
+    ],
+    [
+     "The",
+     0.818,
+     1.095
+    ],
+    [
+     "moonwalk",
+     1.095,
+     1.703
+    ],
+    [
+     "A",
+     1.703,
+     1.868
+    ],
+    [
+     "backflip",
+     1.868,
+     2.476
+    ],
+    [
+     "Easy",
+     2.476,
+     3.283
+    ]
+   ],
+   "gap": null,
+   "text": "The robot. The moonwalk. A backflip. Easy."
+  },
+  {
+   "name": "gold",
+   "start": 37.96,
+   "dur": 5.255,
+   "voiceAt": 38.06,
+   "words": [
+    [
+     "Me",
+     0.1,
+     1.56
+    ],
+    [
+     "The",
+     1.56,
+     1.72
+    ],
+    [
+     "ultimate",
+     1.72,
+     2.02
+    ],
+    [
+     "dancer",
+     2.02,
+     4.475
+    ]
+   ],
+   "gap": {
+    "at": 0.32,
+    "len": 1.1
+   },
+   "text": "Me. The ultimate dancer."
+  },
+  {
+   "name": "bow",
+   "start": 43.215,
+   "dur": 2.49,
+   "voiceAt": 43.315,
+   "words": [
+    [
+     "And",
+     0.1,
+     0.18
+    ],
+    [
+     "everyone",
+     0.18,
+     0.4
+    ],
+    [
+     "who",
+     0.4,
+     0.62
+    ],
+    [
+     "laughed",
+     0.62,
+     0.82
+    ],
+    [
+     "at",
+     0.82,
+     1.0
+    ],
+    [
+     "me",
+     1.0,
+     1.46
+    ],
+    [
+     "They're",
+     1.46,
+     1.58
+    ],
+    [
+     "bowing",
+     1.58,
+     1.92
+    ],
+    [
+     "now",
+     1.92,
+     2.415
+    ]
+   ],
+   "gap": null,
+   "text": "And everyone who laughed at me? They're bowing now."
+  },
+  {
+   "name": "ending",
+   "start": 45.705,
+   "dur": 4.947,
+   "voiceAt": 45.805,
+   "words": [
+    [
+     "Tomorrow",
+     0.1,
+     0.34
+    ],
+    [
+     "they're",
+     0.34,
+     0.92
+    ],
+    [
+     "serious",
+     0.92,
+     1.24
+    ],
+    [
+     "again",
+     1.24,
+     1.94
+    ],
+    [
+     "And",
+     1.94,
+     2.02
+    ],
+    [
+     "me",
+     2.02,
+     2.26
+    ],
+    [
+     "I",
+     2.26,
+     2.4
+    ],
+    [
+     "just",
+     2.4,
+     2.58
+    ],
+    [
+     "keep",
+     2.58,
+     2.74
+    ],
+    [
+     "dancing",
+     2.74,
+     4.467
+    ]
+   ],
+   "gap": null,
+   "text": "Tomorrow they're serious again. And me? I just keep dancing."
+  }
+ ]
+}

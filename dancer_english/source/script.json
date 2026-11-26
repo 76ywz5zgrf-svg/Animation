@@ -1,0 +1,18 @@
+[
+ {"scene":"city_day","text":"In my city, everyone is serious."},
+ {"scene":"serious","text":"Suits. Meetings. Zero fun."},
+ {"scene":"bed_close","text":"Except me. I dance."},
+ {"scene":"bed_cycle","text":"Morning. Noon. Midnight."},
+ {"scene":"neighbor","text":"My neighbor says: Stop it, the whole house is shaking."},
+ {"scene":"poster","text":"Then this poster shows up everywhere. The big Dance Battle."},
+ {"scene":"laugh","text":"Everyone laughs at me. Him? He'll trip in five seconds."},
+ {"scene":"arena","text":"The big day. The best dancers in the whole region."},
+ {"scene":"champion","text":"The reigning champion. Ninety-nine moves. Never lost."},
+ {"scene":"drop1","text":"After one hour, the first guy twists his ankle. Out."},
+ {"scene":"drop2","text":"Then someone drops a banana. Even the champion slips."},
+ {"scene":"alone","text":"Only one is still dancing."},
+ {"scene":"chaos","text":"The robot. The moonwalk. A backflip. Easy."},
+ {"scene":"gold","text":"Me. The ultimate dancer."},
+ {"scene":"bow","text":"And everyone who laughed at me? They're bowing now."},
+ {"scene":"ending","text":"Tomorrow they're serious again. And me? I just keep dancing."}
+]
