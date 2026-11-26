@@ -1,0 +1,18 @@
+[
+ {"scene":"city_day","text":"In meiner Stadt essen alle nur Salat."},
+ {"scene":"salad","text":"Gesund. Grün. Langweilig."},
+ {"scene":"bed_close","text":"Nur ich nicht. Ich esse Pizza."},
+ {"scene":"bed_cycle","text":"Zum Frühstück. Zum Mittag. Zum Abendessen."},
+ {"scene":"neighbor","text":"Mein Nachbar sagt: Du bestehst bald nur noch aus Käse."},
+ {"scene":"poster","text":"Doch dann hängt überall dieses Plakat. Das große Pizza-Wettessen."},
+ {"scene":"laugh","text":"Alle lachen mich aus. Der? Der schafft doch keine drei."},
+ {"scene":"arena","text":"Der große Tag. Die hungrigsten Esser der ganzen Region."},
+ {"scene":"champion","text":"Der Titelverteidiger. Achtzehn Pizzen. In einer Stunde."},
+ {"scene":"drop1","text":"Nach fünf Pizzen wird der Erste grün im Gesicht. Raus."},
+ {"scene":"drop2","text":"Dann kommt die Extra-Scharf-Pizza. Sogar der Champion gibt auf."},
+ {"scene":"alone","text":"Nur einer isst noch."},
+ {"scene":"chaos","text":"Pizza Nummer zwanzig. Dreißig. Vierzig. Lecker."},
+ {"scene":"gold","text":"Ich. Der ultimative Esser."},
+ {"scene":"bow","text":"Und alle, die mich ausgelacht haben? Verbeugen sich jetzt."},
+ {"scene":"ending","text":"Morgen essen sie wieder Salat. Und ich? Bestell einfach nochmal."}
+]
