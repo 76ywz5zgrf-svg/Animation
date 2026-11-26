@@ -1,0 +1,708 @@
+{
+ "total": 53.822,
+ "scenes": [
+  {
+   "name": "city_day",
+   "start": 0,
+   "dur": 2.38,
+   "voiceAt": 0.4,
+   "words": [
+    [
+     "In",
+     0.4,
+     0.7
+    ],
+    [
+     "meiner",
+     0.7,
+     0.88
+    ],
+    [
+     "Stadt",
+     0.88,
+     1.16
+    ],
+    [
+     "macht",
+     1.16,
+     1.4
+    ],
+    [
+     "jeder",
+     1.4,
+     1.58
+    ],
+    [
+     "Sport",
+     1.58,
+     2.305
+    ]
+   ],
+   "gap": null,
+   "text": "In meiner Stadt macht jeder Sport."
+  },
+  {
+   "name": "sport",
+   "start": 2.38,
+   "dur": 2.672,
+   "voiceAt": 2.48,
+   "words": [
+    [
+     "Joggen",
+     0.1,
+     0.74
+    ],
+    [
+     "Liegestütze",
+     0.74,
+     1.66
+    ],
+    [
+     "Fußball",
+     1.66,
+     2.582
+    ]
+   ],
+   "gap": null,
+   "text": "Joggen. Liegestütze. Fußball."
+  },
+  {
+   "name": "bed_close",
+   "start": 5.052,
+   "dur": 1.968,
+   "voiceAt": 5.152,
+   "words": [
+    [
+     "Nur",
+     0.1,
+     0.5
+    ],
+    [
+     "ich",
+     0.5,
+     0.62
+    ],
+    [
+     "nicht",
+     0.62,
+     1.18
+    ],
+    [
+     "Ich",
+     1.18,
+     1.28
+    ],
+    [
+     "zocke",
+     1.28,
+     1.893
+    ]
+   ],
+   "gap": null,
+   "text": "Nur ich nicht. Ich zocke."
+  },
+  {
+   "name": "bed_cycle",
+   "start": 7.02,
+   "dur": 2.459,
+   "voiceAt": 7.12,
+   "words": [
+    [
+     "Morgens",
+     0.1,
+     0.9
+    ],
+    [
+     "Mittags",
+     0.9,
+     1.64
+    ],
+    [
+     "Nachts",
+     1.64,
+     2.384
+    ]
+   ],
+   "gap": null,
+   "text": "Morgens. Mittags. Nachts."
+  },
+  {
+   "name": "neighbor",
+   "start": 9.479,
+   "dur": 2.788,
+   "voiceAt": 9.579,
+   "words": [
+    [
+     "Mein",
+     0.1,
+     0.28
+    ],
+    [
+     "Nachbar",
+     0.28,
+     0.72
+    ],
+    [
+     "sagt",
+     0.72,
+     1.3
+    ],
+    [
+     "Deine",
+     1.3,
+     1.46
+    ],
+    [
+     "Augen",
+     1.46,
+     1.62
+    ],
+    [
+     "werden",
+     1.62,
+     1.82
+    ],
+    [
+     "bald",
+     1.82,
+     2.06
+    ],
+    [
+     "eckig",
+     2.06,
+     2.713
+    ]
+   ],
+   "gap": null,
+   "text": "Mein Nachbar sagt: Deine Augen werden bald eckig."
+  },
+  {
+   "name": "poster",
+   "start": 12.267,
+   "dur": 3.829,
+   "voiceAt": 12.367,
+   "words": [
+    [
+     "Doch",
+     0.1,
+     0.386
+    ],
+    [
+     "dann",
+     0.386,
+     0.671
+    ],
+    [
+     "hängt",
+     0.671,
+     1.005
+    ],
+    [
+     "überall",
+     1.005,
+     1.433
+    ],
+    [
+     "dieses",
+     1.433,
+     1.814
+    ],
+    [
+     "Plakat",
+     1.814,
+     2.243
+    ],
+    [
+     "Das",
+     2.243,
+     2.481
+    ],
+    [
+     "große",
+     2.481,
+     2.815
+    ],
+    [
+     "Zock-Turnier",
+     2.815,
+     3.739
+    ]
+   ],
+   "gap": null,
+   "text": "Doch dann hängt überall dieses Plakat. Das große Zock-Turnier."
+  },
+  {
+   "name": "laugh",
+   "start": 16.096,
+   "dur": 3.542,
+   "voiceAt": 16.196,
+   "words": [
+    [
+     "Alle",
+     0.1,
+     0.404
+    ],
+    [
+     "lachen",
+     0.404,
+     0.809
+    ],
+    [
+     "mich",
+     0.809,
+     1.114
+    ],
+    [
+     "aus",
+     1.114,
+     1.418
+    ],
+    [
+     "Der",
+     1.418,
+     1.722
+    ],
+    [
+     "Der",
+     1.722,
+     1.975
+    ],
+    [
+     "verliert",
+     1.975,
+     2.482
+    ],
+    [
+     "doch",
+     2.482,
+     2.786
+    ],
+    [
+     "sofort",
+     2.786,
+     3.452
+    ]
+   ],
+   "gap": null,
+   "text": "Alle lachen mich aus. Der? Der verliert doch sofort."
+  },
+  {
+   "name": "arena",
+   "start": 19.638,
+   "dur": 3.082,
+   "voiceAt": 19.738,
+   "words": [
+    [
+     "Der",
+     0.1,
+     0.22
+    ],
+    [
+     "große",
+     0.22,
+     0.46
+    ],
+    [
+     "Tag",
+     0.46,
+     1.08
+    ],
+    [
+     "Die",
+     1.08,
+     1.2
+    ],
+    [
+     "besten",
+     1.2,
+     1.44
+    ],
+    [
+     "Zocker",
+     1.44,
+     1.82
+    ],
+    [
+     "der",
+     1.82,
+     1.94
+    ],
+    [
+     "ganzen",
+     1.94,
+     2.14
+    ],
+    [
+     "Region",
+     2.14,
+     3.007
+    ]
+   ],
+   "gap": null,
+   "text": "Der große Tag. Die besten Zocker der ganzen Region."
+  },
+  {
+   "name": "champion",
+   "start": 22.72,
+   "dur": 3.965,
+   "voiceAt": 22.82,
+   "words": [
+    [
+     "Der",
+     0.1,
+     0.42
+    ],
+    [
+     "Titelverteidiger",
+     0.42,
+     1.54
+    ],
+    [
+     "Level",
+     1.54,
+     1.8
+    ],
+    [
+     "neunundneunzig",
+     1.8,
+     3.02
+    ],
+    [
+     "Unbesiegt",
+     3.02,
+     3.905
+    ]
+   ],
+   "gap": null,
+   "text": "Der Titelverteidiger. Level neunundneunzig. Unbesiegt."
+  },
+  {
+   "name": "drop1",
+   "start": 26.685,
+   "dur": 3.197,
+   "voiceAt": 26.785,
+   "words": [
+    [
+     "Nach",
+     0.1,
+     0.32
+    ],
+    [
+     "drei",
+     0.32,
+     0.58
+    ],
+    [
+     "Stunden",
+     0.58,
+     0.88
+    ],
+    [
+     "Krampf",
+     0.88,
+     1.42
+    ],
+    [
+     "im",
+     1.42,
+     1.54
+    ],
+    [
+     "Daumen",
+     1.54,
+     2.18
+    ],
+    [
+     "Raus",
+     2.18,
+     3.077
+    ]
+   ],
+   "gap": null,
+   "text": "Nach drei Stunden: Krampf im Daumen. Raus."
+  },
+  {
+   "name": "drop2",
+   "start": 29.882,
+   "dur": 3.685,
+   "voiceAt": 29.982,
+   "words": [
+    [
+     "Dann",
+     0.1,
+     0.39
+    ],
+    [
+     "fällt",
+     0.39,
+     0.727
+    ],
+    [
+     "das",
+     0.727,
+     0.969
+    ],
+    [
+     "WLAN",
+     0.969,
+     1.258
+    ],
+    [
+     "aus",
+     1.258,
+     1.548
+    ],
+    [
+     "Sogar",
+     1.548,
+     1.886
+    ],
+    [
+     "der",
+     1.886,
+     2.127
+    ],
+    [
+     "Champion",
+     2.127,
+     2.609
+    ],
+    [
+     "rastet",
+     2.609,
+     2.995
+    ],
+    [
+     "aus",
+     2.995,
+     3.565
+    ]
+   ],
+   "gap": null,
+   "text": "Dann fällt das WLAN aus. Sogar der Champion rastet aus."
+  },
+  {
+   "name": "alone",
+   "start": 33.567,
+   "dur": 1.773,
+   "voiceAt": 33.667,
+   "words": [
+    [
+     "Nur",
+     0.1,
+     0.32
+    ],
+    [
+     "einer",
+     0.32,
+     0.54
+    ],
+    [
+     "spielt",
+     0.54,
+     0.78
+    ],
+    [
+     "noch",
+     0.78,
+     1.623
+    ]
+   ],
+   "gap": null,
+   "text": "Nur einer spielt noch."
+  },
+  {
+   "name": "chaos",
+   "start": 35.34,
+   "dur": 4.373,
+   "voiceAt": 35.44,
+   "words": [
+    [
+     "Level",
+     0.1,
+     0.36
+    ],
+    [
+     "hundert",
+     0.36,
+     1.12
+    ],
+    [
+     "Level",
+     1.12,
+     1.42
+    ],
+    [
+     "fünfhundert",
+     1.42,
+     2.34
+    ],
+    [
+     "Level",
+     2.34,
+     2.58
+    ],
+    [
+     "tausend",
+     2.58,
+     3.32
+    ],
+    [
+     "Easy",
+     3.32,
+     4.223
+    ]
+   ],
+   "gap": null,
+   "text": "Level hundert. Level fünfhundert. Level tausend. Easy."
+  },
+  {
+   "name": "gold",
+   "start": 39.713,
+   "dur": 5.627,
+   "voiceAt": 39.813,
+   "words": [
+    [
+     "Ich",
+     0.1,
+     1.84
+    ],
+    [
+     "Der",
+     1.84,
+     1.9
+    ],
+    [
+     "ultimative",
+     1.9,
+     2.48
+    ],
+    [
+     "Zocker",
+     2.48,
+     4.847
+    ]
+   ],
+   "gap": {
+    "at": 0.6,
+    "len": 1.1
+   },
+   "text": "Ich. Der ultimative Zocker."
+  },
+  {
+   "name": "bow",
+   "start": 45.34,
+   "dur": 3.372,
+   "voiceAt": 45.44,
+   "words": [
+    [
+     "Und",
+     0.1,
+     0.24
+    ],
+    [
+     "alle",
+     0.24,
+     0.78
+    ],
+    [
+     "die",
+     0.78,
+     0.9
+    ],
+    [
+     "mich",
+     0.9,
+     1.02
+    ],
+    [
+     "ausgelacht",
+     1.02,
+     1.48
+    ],
+    [
+     "haben",
+     1.48,
+     2.1
+    ],
+    [
+     "Verbeugen",
+     2.1,
+     2.52
+    ],
+    [
+     "sich",
+     2.52,
+     2.68
+    ],
+    [
+     "jetzt",
+     2.68,
+     3.297
+    ]
+   ],
+   "gap": null,
+   "text": "Und alle, die mich ausgelacht haben? Verbeugen sich jetzt."
+  },
+  {
+   "name": "ending",
+   "start": 48.712,
+   "dur": 5.11,
+   "voiceAt": 48.812,
+   "words": [
+    [
+     "Morgen",
+     0.1,
+     0.42
+    ],
+    [
+     "machen",
+     0.42,
+     0.62
+    ],
+    [
+     "sie",
+     0.62,
+     0.78
+    ],
+    [
+     "wieder",
+     0.78,
+     0.94
+    ],
+    [
+     "Sport",
+     0.94,
+     1.54
+    ],
+    [
+     "Und",
+     1.54,
+     1.74
+    ],
+    [
+     "ich",
+     1.74,
+     2.38
+    ],
+    [
+     "Spiel",
+     2.38,
+     2.56
+    ],
+    [
+     "einfach",
+     2.56,
+     2.92
+    ],
+    [
+     "weiter",
+     2.92,
+     4.63
+    ]
+   ],
+   "gap": null,
+   "text": "Morgen machen sie wieder Sport. Und ich? Spiel einfach weiter."
+  }
+ ]
+}

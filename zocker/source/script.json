@@ -1,0 +1,18 @@
+[
+ {"scene":"city_day","text":"In meiner Stadt macht jeder Sport."},
+ {"scene":"sport","text":"Joggen. Liegestütze. Fußball."},
+ {"scene":"bed_close","text":"Nur ich nicht. Ich zocke."},
+ {"scene":"bed_cycle","text":"Morgens. Mittags. Nachts."},
+ {"scene":"neighbor","text":"Mein Nachbar sagt: Deine Augen werden bald eckig."},
+ {"scene":"poster","text":"Doch dann hängt überall dieses Plakat. Das große Zock-Turnier."},
+ {"scene":"laugh","text":"Alle lachen mich aus. Der? Der verliert doch sofort."},
+ {"scene":"arena","text":"Der große Tag. Die besten Zocker der ganzen Region."},
+ {"scene":"champion","text":"Der Titelverteidiger. Level neunundneunzig. Unbesiegt."},
+ {"scene":"drop1","text":"Nach drei Stunden: Krampf im Daumen. Raus."},
+ {"scene":"drop2","text":"Dann fällt das WLAN aus. Sogar der Champion rastet aus."},
+ {"scene":"alone","text":"Nur einer spielt noch."},
+ {"scene":"chaos","text":"Level hundert. Level fünfhundert. Level tausend. Easy."},
+ {"scene":"gold","text":"Ich. Der ultimative Zocker."},
+ {"scene":"bow","text":"Und alle, die mich ausgelacht haben? Verbeugen sich jetzt."},
+ {"scene":"ending","text":"Morgen machen sie wieder Sport. Und ich? Spiel einfach weiter."}
+]
