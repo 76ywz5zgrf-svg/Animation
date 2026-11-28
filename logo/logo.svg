@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="512" height="512">
-  <!-- Zwei Blätter: Silhouette bildet ein M (zwei Spitzen, Mittelkerbe) -->
-  <path d="M100 98 C100 70 86 50 60 38 C54 64 64 90 100 98 Z" fill="#5E9C5A"/>
-  <path d="M100 98 C100 70 114 50 140 38 C146 64 136 90 100 98 Z" fill="#2F6B3B"/>
-  <!-- Stiel mit leichtem Schwung unten: ein J -->
-  <path d="M100 96 V138 C100 154 92 162 80 162" fill="none" stroke="#2F6B3B" stroke-width="7" stroke-linecap="round"/>
-</svg>
